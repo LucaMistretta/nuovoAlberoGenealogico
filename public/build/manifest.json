@@ -1,0 +1,184 @@
+{
+  "__plugin-vue_export-helper-DlAUqK2U.js": {
+    "file": "assets/_plugin-vue_export-helper-DlAUqK2U.js",
+    "name": "_plugin-vue_export-helper"
+  },
+  "_personaService-iYiy0aNM.js": {
+    "file": "assets/personaService-iYiy0aNM.js",
+    "name": "personaService",
+    "imports": [
+      "resources/js/app.js"
+    ]
+  },
+  "_persone-B7qbsWqt.js": {
+    "file": "assets/persone-B7qbsWqt.js",
+    "name": "persone",
+    "imports": [
+      "resources/js/app.js",
+      "_personaService-iYiy0aNM.js"
+    ]
+  },
+  "_tipiLegame-BqNPOfqK.js": {
+    "file": "assets/tipiLegame-BqNPOfqK.js",
+    "name": "tipiLegame",
+    "imports": [
+      "resources/js/app.js",
+      "_tipoLegameService-rEorDjCv.js"
+    ]
+  },
+  "_tipoLegameService-rEorDjCv.js": {
+    "file": "assets/tipoLegameService-rEorDjCv.js",
+    "name": "tipoLegameService",
+    "imports": [
+      "resources/js/app.js"
+    ]
+  },
+  "resources/js/app.js": {
+    "file": "assets/app-CVxkeOic.js",
+    "name": "app",
+    "src": "resources/js/app.js",
+    "isEntry": true,
+    "dynamicImports": [
+      "resources/js/views/auth/Login.vue",
+      "resources/js/components/layouts/AppLayout.vue",
+      "resources/js/views/persone/Index.vue",
+      "resources/js/views/persone/Create.vue",
+      "resources/js/views/persone/Show.vue",
+      "resources/js/views/persone/Edit.vue",
+      "resources/js/views/persone/Tree.vue",
+      "resources/js/views/persone/Tree.vue",
+      "resources/js/views/persone/FamilyChart.vue",
+      "resources/js/views/tipi-legame/Index.vue",
+      "resources/js/views/tipi-legame/Create.vue",
+      "resources/js/views/tipi-legame/Edit.vue"
+    ],
+    "css": [
+      "assets/app-n818j8pd.css"
+    ]
+  },
+  "resources/js/components/layouts/AppLayout.vue": {
+    "file": "assets/AppLayout-DBNbSJGA.js",
+    "name": "AppLayout",
+    "src": "resources/js/components/layouts/AppLayout.vue",
+    "isDynamicEntry": true,
+    "imports": [
+      "resources/js/app.js"
+    ]
+  },
+  "resources/js/views/auth/Login.vue": {
+    "file": "assets/Login-CWQkfNXd.js",
+    "name": "Login",
+    "src": "resources/js/views/auth/Login.vue",
+    "isDynamicEntry": true,
+    "imports": [
+      "resources/js/app.js"
+    ]
+  },
+  "resources/js/views/persone/Create.vue": {
+    "file": "assets/Create-BoCaFFfL.js",
+    "name": "Create",
+    "src": "resources/js/views/persone/Create.vue",
+    "isDynamicEntry": true,
+    "imports": [
+      "resources/js/app.js",
+      "_persone-B7qbsWqt.js",
+      "_personaService-iYiy0aNM.js",
+      "_tipoLegameService-rEorDjCv.js"
+    ]
+  },
+  "resources/js/views/persone/Edit.vue": {
+    "file": "assets/Edit-CKMNSRqI.js",
+    "name": "Edit",
+    "src": "resources/js/views/persone/Edit.vue",
+    "isDynamicEntry": true,
+    "imports": [
+      "resources/js/app.js",
+      "_persone-B7qbsWqt.js",
+      "_personaService-iYiy0aNM.js",
+      "_tipoLegameService-rEorDjCv.js"
+    ]
+  },
+  "resources/js/views/persone/FamilyChart.vue": {
+    "file": "assets/FamilyChart-BkDO2WiO.js",
+    "name": "FamilyChart",
+    "src": "resources/js/views/persone/FamilyChart.vue",
+    "isDynamicEntry": true,
+    "imports": [
+      "resources/js/app.js",
+      "_personaService-iYiy0aNM.js",
+      "__plugin-vue_export-helper-DlAUqK2U.js"
+    ],
+    "css": [
+      "assets/FamilyChart-CPlRwqEA.css"
+    ]
+  },
+  "resources/js/views/persone/Index.vue": {
+    "file": "assets/Index-6CNmKppl.js",
+    "name": "Index",
+    "src": "resources/js/views/persone/Index.vue",
+    "isDynamicEntry": true,
+    "imports": [
+      "resources/js/app.js",
+      "_persone-B7qbsWqt.js",
+      "_personaService-iYiy0aNM.js"
+    ]
+  },
+  "resources/js/views/persone/Show.vue": {
+    "file": "assets/Show-BjuPY8sY.js",
+    "name": "Show",
+    "src": "resources/js/views/persone/Show.vue",
+    "isDynamicEntry": true,
+    "imports": [
+      "resources/js/app.js",
+      "_persone-B7qbsWqt.js",
+      "_personaService-iYiy0aNM.js",
+      "__plugin-vue_export-helper-DlAUqK2U.js"
+    ],
+    "css": [
+      "assets/Show-BmFEfzqI.css"
+    ]
+  },
+  "resources/js/views/persone/Tree.vue": {
+    "file": "assets/Tree-DSNUxEhz.js",
+    "name": "Tree",
+    "src": "resources/js/views/persone/Tree.vue",
+    "isDynamicEntry": true,
+    "imports": [
+      "resources/js/app.js",
+      "_personaService-iYiy0aNM.js"
+    ]
+  },
+  "resources/js/views/tipi-legame/Create.vue": {
+    "file": "assets/Create-By-82Zi9.js",
+    "name": "Create",
+    "src": "resources/js/views/tipi-legame/Create.vue",
+    "isDynamicEntry": true,
+    "imports": [
+      "resources/js/app.js",
+      "_tipiLegame-BqNPOfqK.js",
+      "_tipoLegameService-rEorDjCv.js"
+    ]
+  },
+  "resources/js/views/tipi-legame/Edit.vue": {
+    "file": "assets/Edit-CQDiGXdD.js",
+    "name": "Edit",
+    "src": "resources/js/views/tipi-legame/Edit.vue",
+    "isDynamicEntry": true,
+    "imports": [
+      "resources/js/app.js",
+      "_tipiLegame-BqNPOfqK.js",
+      "_tipoLegameService-rEorDjCv.js"
+    ]
+  },
+  "resources/js/views/tipi-legame/Index.vue": {
+    "file": "assets/Index-DM0ElXN2.js",
+    "name": "Index",
+    "src": "resources/js/views/tipi-legame/Index.vue",
+    "isDynamicEntry": true,
+    "imports": [
+      "_tipiLegame-BqNPOfqK.js",
+      "resources/js/app.js",
+      "_tipoLegameService-rEorDjCv.js"
+    ]
+  }
+}
