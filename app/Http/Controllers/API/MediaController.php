@@ -56,8 +56,8 @@ class MediaController extends Controller
         $nomeFile = time() . '_' . uniqid() . '.' . $file->getClientOriginalExtension();
         $percorso = 'media/persona_' . $personaId . '/' . $nomeFile;
 
-        // Salva il file
-        $path = $file->storeAs('public/' . dirname($percorso), basename($percorso));
+        // Salva il file nel disco pubblico
+        $path = $file->storeAs('media/persona_' . $personaId, $nomeFile, 'public');
 
         // Crea record nel database
         $media = Media::create([
@@ -88,8 +88,8 @@ class MediaController extends Controller
             ->findOrFail($mediaId);
 
         // Elimina il file fisico
-        if (Storage::exists('public/' . $media->percorso)) {
-            Storage::delete('public/' . $media->percorso);
+        if (Storage::disk('public')->exists($media->percorso)) {
+            Storage::disk('public')->delete($media->percorso);
         }
 
         // Elimina il record

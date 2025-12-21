@@ -13,15 +13,20 @@ class UserSeeder extends Seeder
      */
     public function run(): void
     {
-        // Crea un utente admin di default se non esiste
-        User::firstOrCreate(
+        // Crea un utente superadmin di default se non esiste
+        $admin = User::firstOrCreate(
             ['email' => 'admin@example.com'],
             [
                 'name' => 'Administrator',
                 'password' => Hash::make('password'),
-                'role' => 'admin',
+                'role' => 'superadmin',
             ]
         );
+        
+        // Aggiorna il ruolo se l'utente esisteva già
+        if ($admin->wasRecentlyCreated === false) {
+            $admin->update(['role' => 'superadmin']);
+        }
 
         // Crea un utente normale di default se non esiste
         User::firstOrCreate(

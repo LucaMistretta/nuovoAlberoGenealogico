@@ -21,17 +21,17 @@ class CheckPermission
             return response()->json(['message' => 'Non autenticato'], 401);
         }
 
-        // Admin ha tutti i permessi
-        if ($user->role === 'admin') {
+        // Superadmin e Admin hanno tutti i permessi
+        if ($user->role === 'superadmin' || $user->role === 'admin') {
             return $next($request);
         }
 
         // Controlla permessi specifici (esempio semplificato)
         $permissions = [
-            'view_persone' => ['user', 'admin'],
-            'edit_persone' => ['admin'],
-            'delete_persone' => ['admin'],
-            'manage_users' => ['admin'],
+            'view_persone' => ['user', 'admin', 'superadmin'],
+            'edit_persone' => ['admin', 'superadmin'],
+            'delete_persone' => ['admin', 'superadmin'],
+            'manage_users' => ['admin', 'superadmin'],
         ];
 
         if (!isset($permissions[$permission]) || !in_array($user->role, $permissions[$permission])) {

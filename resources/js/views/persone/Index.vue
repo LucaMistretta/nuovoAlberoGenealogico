@@ -10,8 +10,6 @@
             </router-link>
         </div>
 
-        <AdvancedSearch @search-results="handleSearchResults" />
-
         <div class="mb-3 relative">
             <input
                 v-model="search"
@@ -359,7 +357,6 @@
 import { ref, computed, onMounted, watch } from 'vue';
 import { usePersoneStore } from '../../stores/persone';
 import { useLocaleStore } from '../../stores/locale';
-import AdvancedSearch from '../../components/search/AdvancedSearch.vue';
 
 const store = usePersoneStore();
 const localeStore = useLocaleStore();
@@ -489,14 +486,6 @@ const formatDateItalian = (dateString) => {
         return dateString;
     }
 };
-
-const handleSearchResults = (results) => {
-    if (results.success && results.data) {
-        store.persone = results.data.data || [];
-        store.pagination = results.meta || {};
-    }
-};
-
 
 onMounted(() => {
     // Carica i dati usando lo stato salvato (ricerca, pagina e ordinamento)

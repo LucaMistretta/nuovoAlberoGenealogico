@@ -52,27 +52,40 @@ const initMap = () => {
     updateMarkers();
 };
 
-const updateMarkers = () => {
+const updateMarkers = async () => {
     if (!map) return;
 
     // Rimuovi marker esistenti
     markers.forEach(marker => map.removeLayer(marker));
     markers = [];
 
-    // Aggiungi nuovi marker
-    props.luoghi.forEach(luogo => {
-        if (luogo.lat && luogo.lng) {
-            const marker = L.marker([luogo.lat, luogo.lng])
-                .addTo(map)
-                .bindPopup(luogo.nome || luogo.luogo);
-            markers.push(marker);
+    // Geocodifica i luoghi e aggiungi marker
+    const bounds = [];
+    for (const luogo of props.luoghi) {
+        if (!luogo.luogo || luogo.luogo === '0' || luogo.luogo === '') continue;
+        
+        try {
+            // Usa Nominatim per geocodificare il luogo
+            const response = await fetch(`https://nominatim.openstreetmap.org/search?q=${encodeURIComponent(luogo.luogo)}&format=json&limit=1`);
+            const data = await response.json();
+            
+            if (data && data.length > 0) {
+                const lat = parseFloat(data[0].lat);
+                const lng = parseFloat(data[0].lon);
+                const marker = L.marker([lat, lng])
+                    .addTo(map)
+                    .bindPopup(`<b>${luogo.nome || luogo.luogo}</b><br>${luogo.luogo}`);
+                markers.push(marker);
+                bounds.push([lat, lng]);
+            }
+        } catch (error) {
+            console.error(`Errore nel geocoding di ${luogo.luogo}:`, error);
         }
-    });
+    }
 
     // Aggiusta il viewport se ci sono marker
-    if (markers.length > 0) {
-        const group = new L.featureGroup(markers);
-        map.fitBounds(group.getBounds().pad(0.1));
+    if (bounds.length > 0) {
+        map.fitBounds(bounds, { padding: [50, 50] });
     }
 };
 

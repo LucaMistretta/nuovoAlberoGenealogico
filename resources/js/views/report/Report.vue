@@ -125,7 +125,7 @@
 import { ref, onMounted } from 'vue';
 import { useLocaleStore } from '../../stores/locale';
 import BarChart from '../../components/charts/BarChart.vue';
-import axios from 'axios';
+import api from '../../services/api';
 
 const localeStore = useLocaleStore();
 const t = (key) => localeStore.t(key);
@@ -139,9 +139,9 @@ const loadData = async () => {
     loading.value = true;
     try {
         const [statsRes, etaRes, luoghiRes] = await Promise.all([
-            axios.get('/api/report/statistiche'),
-            axios.get('/api/report/distribuzione-eta'),
-            axios.get('/api/report/luoghi-nascita'),
+            api.get('/report/statistiche'),
+            api.get('/report/distribuzione-eta'),
+            api.get('/report/luoghi-nascita'),
         ]);
 
         statistiche.value = statsRes.data.data || {};
@@ -149,6 +149,7 @@ const loadData = async () => {
         luoghiNascita.value = luoghiRes.data.data || [];
     } catch (error) {
         console.error('Errore nel caricamento dei report:', error);
+        console.error('Dettagli errore:', error.response?.data || error.message);
     } finally {
         loading.value = false;
     }

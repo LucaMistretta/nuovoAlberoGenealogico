@@ -1,13 +1,11 @@
-import axios from 'axios';
-
-const API_BASE_URL = '/api';
+import api from './api';
 
 export const mediaService = {
     /**
      * Ottiene tutti i media di una persona
      */
     async getByPersona(personaId) {
-        const response = await axios.get(`${API_BASE_URL}/persone/${personaId}/media`);
+        const response = await api.get(`/persone/${personaId}/media`);
         return response.data;
     },
 
@@ -22,8 +20,8 @@ export const mediaService = {
             formData.append('descrizione', descrizione);
         }
 
-        const response = await axios.post(
-            `${API_BASE_URL}/persone/${personaId}/media`,
+        const response = await api.post(
+            `/persone/${personaId}/media`,
             formData,
             {
                 headers: {
