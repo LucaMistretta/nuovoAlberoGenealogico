@@ -5,6 +5,12 @@
             <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-2">
                 <div class="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-2">
                     <div class="flex items-center gap-3">
+                        <div>
+                            <h1 class="text-xl font-bold text-gray-900 dark:text-white">{{ t('persona.detail_title') }}</h1>
+                            <p class="text-xs text-gray-500 dark:text-gray-400">{{ t('persona.detail_subtitle') }}</p>
+                        </div>
+                    </div>
+                    <div class="flex items-center gap-2">
                         <router-link
                             to="/persone"
                             class="inline-flex items-center gap-1.5 px-3 py-1.5 text-sm font-medium text-gray-700 dark:text-gray-300 bg-white dark:bg-gray-700 border border-gray-300 dark:border-gray-600 rounded-lg hover:bg-gray-50 dark:hover:bg-gray-600 transition-colors"
@@ -14,12 +20,6 @@
                             </svg>
                             <span>{{ t('persona.back_to_list') }}</span>
                         </router-link>
-                        <div>
-                            <h1 class="text-xl font-bold text-gray-900 dark:text-white">{{ t('persona.detail_title') }}</h1>
-                            <p class="text-xs text-gray-500 dark:text-gray-400">{{ t('persona.detail_subtitle') }}</p>
-                        </div>
-                    </div>
-                    <div class="flex items-center gap-2">
                         <router-link
                             :to="`/persone/${$route.params.id}/edit`"
                             class="inline-flex items-center gap-1.5 px-3 py-1.5 text-sm font-medium text-white bg-blue-600 rounded-lg hover:bg-blue-700 transition-colors shadow-sm"
