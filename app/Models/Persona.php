@@ -6,13 +6,20 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Support\Facades\Log;
 use App\Models\PersonaLegame;
 use App\Models\TipoLegame;
+use App\Models\Media;
+use App\Models\Evento;
+use App\Models\Nota;
+use App\Models\Tag;
+use App\Traits\Auditable;
 
 class Persona extends Model
 {
+    use Auditable;
     protected $table = 'persone';
 
     protected $fillable = [
@@ -242,6 +249,38 @@ class Persona extends Model
     {
         $parts = array_filter([$this->nome, $this->cognome]);
         return implode(' ', $parts) ?: '';
+    }
+
+    /**
+     * Relazione con i media (foto e documenti)
+     */
+    public function media(): HasMany
+    {
+        return $this->hasMany(Media::class);
+    }
+
+    /**
+     * Relazione con gli eventi
+     */
+    public function eventi(): HasMany
+    {
+        return $this->hasMany(Evento::class);
+    }
+
+    /**
+     * Relazione con le note
+     */
+    public function note(): HasMany
+    {
+        return $this->hasMany(Nota::class);
+    }
+
+    /**
+     * Relazione con i tag
+     */
+    public function tags(): BelongsToMany
+    {
+        return $this->belongsToMany(Tag::class, 'persona_tags');
     }
 }
 

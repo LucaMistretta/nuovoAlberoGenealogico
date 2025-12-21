@@ -49,17 +49,25 @@ class PersonaResource extends JsonResource
                 $this->madreRel(),
                 fn() => new PersonaResource($this->madreRel())
             );
+            $consorti = $this->consorti();
             $data['consorti'] = $this->when(
-                $this->consorti()->isNotEmpty(),
-                fn() => PersonaResource::collection($this->consorti())
+                $consorti->isNotEmpty(),
+                fn() => PersonaResource::collection($consorti)
             );
+            $figli = $this->figli();
             $data['figli'] = $this->when(
-                $this->figli()->isNotEmpty(),
-                fn() => PersonaResource::collection($this->figli())
+                $figli->isNotEmpty(),
+                fn() => PersonaResource::collection($figli)
             );
+            $genitori = $this->genitori();
             $data['genitori'] = $this->when(
-                $this->genitori()->isNotEmpty(),
-                fn() => PersonaResource::collection($this->genitori())
+                $genitori->isNotEmpty(),
+                fn() => PersonaResource::collection($genitori)
+            );
+            $tags = $this->tags;
+            $data['tags'] = $this->when(
+                $tags->isNotEmpty(),
+                fn() => $tags
             );
         } else {
             // Solo ID delle relazioni per evitare ricorsione e query pesanti

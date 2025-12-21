@@ -576,6 +576,18 @@
                     </div>
                 </div>
 
+                <!-- Card Media Gallery -->
+                <MediaGallery :persona-id="parseInt($route.params.id)" />
+
+                <!-- Card Timeline Eventi -->
+                <Timeline :persona-id="parseInt($route.params.id)" />
+
+                <!-- Card Note -->
+                <NoteSection :persona-id="parseInt($route.params.id)" />
+
+                <!-- Card Tags -->
+                <TagSection :persona-id="parseInt($route.params.id)" :persona-tags="store.persona?.tags || []" @tags-updated="loadPersonaTags" />
+
                 <!-- Bottoni azione -->
                 <div class="flex flex-col sm:flex-row justify-end gap-2 pt-2">
                     <router-link
@@ -614,6 +626,10 @@ import { usePersoneStore } from '../../stores/persone';
 import { useLocaleStore } from '../../stores/locale';
 import { personaService } from '../../services/personaService';
 import { tipoLegameService } from '../../services/tipoLegameService';
+import MediaGallery from '../media/MediaGallery.vue';
+import Timeline from '../eventi/Timeline.vue';
+import NoteSection from '../../components/persona/NoteSection.vue';
+import TagSection from '../../components/persona/TagSection.vue';
 
 const route = useRoute();
 const router = useRouter();
@@ -682,6 +698,10 @@ const sortPeople = (people) => {
 const sortedAvailablePeople = computed(() => {
     return sortPeople(availablePeople.value);
 });
+
+const loadPersonaTags = async () => {
+    await store.fetchPersona(route.params.id);
+};
 
 onMounted(async () => {
     await Promise.all([

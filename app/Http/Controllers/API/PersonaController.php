@@ -69,11 +69,91 @@ class PersonaController extends Controller
     }
 
     /**
+     * Ricerca avanzata con filtri multipli
+     */
+    public function advancedSearch(Request $request): JsonResponse
+    {
+        $query = Persona::query();
+
+        // Filtro per nome
+        if ($request->has('nome') && $request->nome) {
+            $query->where('nome', 'like', '%' . $request->nome . '%');
+        }
+
+        // Filtro per cognome
+        if ($request->has('cognome') && $request->cognome) {
+            $query->where('cognome', 'like', '%' . $request->cognome . '%');
+        }
+
+        // Filtro per data di nascita (da)
+        if ($request->has('nato_il_da') && $request->nato_il_da) {
+            $query->where('nato_il', '>=', $request->nato_il_da);
+        }
+
+        // Filtro per data di nascita (a)
+        if ($request->has('nato_il_a') && $request->nato_il_a) {
+            $query->where('nato_il', '<=', $request->nato_il_a);
+        }
+
+        // Filtro per luogo di nascita
+        if ($request->has('nato_a') && $request->nato_a) {
+            $query->where('nato_a', 'like', '%' . $request->nato_a . '%');
+        }
+
+        // Filtro per data di morte (da)
+        if ($request->has('deceduto_il_da') && $request->deceduto_il_da) {
+            $query->where('deceduto_il', '>=', $request->deceduto_il_da);
+        }
+
+        // Filtro per data di morte (a)
+        if ($request->has('deceduto_il_a') && $request->deceduto_il_a) {
+            $query->where('deceduto_il', '<=', $request->deceduto_il_a);
+        }
+
+        // Filtro per luogo di morte
+        if ($request->has('deceduto_a') && $request->deceduto_a) {
+            $query->where('deceduto_a', 'like', '%' . $request->deceduto_a . '%');
+        }
+
+        // Filtro per vivente/deceduto
+        if ($request->has('stato_vita')) {
+            if ($request->stato_vita === 'vivente') {
+                $query->whereNull('deceduto_il');
+            } elseif ($request->stato_vita === 'deceduto') {
+                $query->whereNotNull('deceduto_il');
+            }
+        }
+
+        // Ordinamento
+        $sortBy = $request->get('sort_by', 'cognome');
+        $sortDir = $request->get('sort_dir', 'asc');
+        $allowedSortColumns = ['id', 'nome', 'cognome', 'nato_il', 'nato_a'];
+        if (in_array($sortBy, $allowedSortColumns)) {
+            $query->orderBy($sortBy, $sortDir);
+        } else {
+            $query->orderBy('cognome')->orderBy('nome');
+        }
+
+        $persone = $query->paginate($request->get('per_page', 15));
+
+        return response()->json([
+            'success' => true,
+            'data' => PersonaResource::collection($persone),
+            'meta' => [
+                'current_page' => $persone->currentPage(),
+                'last_page' => $persone->lastPage(),
+                'per_page' => $persone->perPage(),
+                'total' => $persone->total(),
+            ],
+        ]);
+    }
+
+    /**
      * Mostra dettagli persona con relazioni
      */
     public function show(int $id): PersonaResource|JsonResponse
     {
-        $persona = Persona::find($id);
+        $persona = Persona::with('tags')->find($id);
 
         if (!$persona) {
             return response()->json(['message' => 'Persona non trovata'], 404);

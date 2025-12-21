@@ -277,6 +277,18 @@
                     </div>
                 </div>
 
+                <!-- Card Media Gallery -->
+                <MediaGallery :persona-id="parseInt($route.params.id)" />
+
+                <!-- Card Timeline Eventi -->
+                <Timeline :persona-id="parseInt($route.params.id)" />
+
+                <!-- Card Note -->
+                <NoteSection :persona-id="parseInt($route.params.id)" />
+
+                <!-- Card Tags -->
+                <TagSection :persona-id="parseInt($route.params.id)" :persona-tags="store.persona?.tags || []" @tags-updated="loadPersonaTags" />
+
                 <!-- Card Albero Genealogico Verticale -->
                 <div class="bg-white dark:bg-gray-800 rounded-lg shadow-sm border border-gray-200 dark:border-gray-700 p-4">
                     <h3 class="text-base font-semibold text-gray-900 dark:text-white mb-4 flex items-center gap-2">
@@ -411,6 +423,11 @@ import { useRoute, useRouter } from 'vue-router';
 import { usePersoneStore } from '../../stores/persone';
 import { useLocaleStore } from '../../stores/locale';
 import { personaService } from '../../services/personaService';
+import MediaGallery from '../media/MediaGallery.vue';
+import Timeline from '../eventi/Timeline.vue';
+import NoteSection from '../../components/persona/NoteSection.vue';
+import TagSection from '../../components/persona/TagSection.vue';
+import MapView from '../../components/maps/MapView.vue';
 
 const route = useRoute();
 const router = useRouter();
@@ -446,6 +463,17 @@ const hasNonni = computed(() => {
 
 const hasGenitori = computed(() => {
     return store.persona?.padre || store.persona?.madre;
+});
+
+const mapLuoghi = computed(() => {
+    const luoghi = [];
+    if (store.persona?.nato_a) {
+        luoghi.push({ nome: store.persona.nome_completo + ' - ' + t('persona.birth_place'), luogo: store.persona.nato_a });
+    }
+    if (store.persona?.deceduto_a) {
+        luoghi.push({ nome: store.persona.nome_completo + ' - ' + t('persona.death_place'), luogo: store.persona.deceduto_a });
+    }
+    return luoghi;
 });
 
 // Carica i nonni quando la persona viene caricata
@@ -498,6 +526,10 @@ const formatDateItalian = (dateString) => {
     } catch (e) {
         return dateString;
     }
+};
+
+const loadPersonaTags = async () => {
+    await store.fetchPersona(route.params.id);
 };
 
 onMounted(async () => {

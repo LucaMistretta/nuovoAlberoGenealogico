@@ -13,6 +13,8 @@ class DatabaseSeeder extends Seeder
     {
         $this->call([
             TipiDiLegameSeeder::class,
+            UserSeeder::class,
+            TipiEventoSeeder::class,
         ]);
     }
 }

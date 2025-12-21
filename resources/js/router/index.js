@@ -54,6 +54,26 @@ const routes = [
                 component: () => import('../views/persone/FamilyChart.vue'),
             },
             {
+                path: '/report',
+                name: 'report.index',
+                component: () => import('../views/report/Report.vue'),
+            },
+            {
+                path: '/data-quality',
+                name: 'data-quality.index',
+                component: () => import('../views/quality/DataQuality.vue'),
+            },
+            {
+                path: '/users',
+                name: 'users.index',
+                component: () => import('../views/users/Index.vue'),
+            },
+            {
+                path: '/audit-logs',
+                name: 'audit-logs.index',
+                component: () => import('../views/audit/AuditLogs.vue'),
+            },
+            {
                 path: '/tipi-legame',
                 name: 'tipi-legame.index',
                 component: () => import('../views/tipi-legame/Index.vue'),

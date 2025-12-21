@@ -2,13 +2,18 @@
     <div>
         <div class="flex justify-between items-center mb-4">
             <h1 class="text-2xl font-bold text-gray-900 dark:text-white">{{ t('persona.persone') }}</h1>
-            <router-link
-                to="/persone/create"
-                class="px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors"
-            >
-                {{ t('persona.create_persona') }}
-            </router-link>
+            <div class="flex gap-2">
+                <GedcomImport @imported="handleImport" />
+                <router-link
+                    to="/persone/create"
+                    class="px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors"
+                >
+                    {{ t('persona.create_persona') }}
+                </router-link>
+            </div>
         </div>
+
+        <AdvancedSearch @search-results="handleSearchResults" />
 
         <div class="mb-3 relative">
             <input
@@ -357,6 +362,8 @@
 import { ref, computed, onMounted, watch } from 'vue';
 import { usePersoneStore } from '../../stores/persone';
 import { useLocaleStore } from '../../stores/locale';
+import AdvancedSearch from '../../components/search/AdvancedSearch.vue';
+import GedcomImport from '../../components/import/GedcomImport.vue';
 
 const store = usePersoneStore();
 const localeStore = useLocaleStore();
@@ -485,6 +492,18 @@ const formatDateItalian = (dateString) => {
     } catch (e) {
         return dateString;
     }
+};
+
+const handleSearchResults = (results) => {
+    if (results.success && results.data) {
+        store.persone = results.data.data || [];
+        store.pagination = results.meta || {};
+    }
+};
+
+const handleImport = () => {
+    // Ricarica la lista dopo l'importazione
+    store.fetchPersone(search.value, store.pagination.current_page || 1, store.sortBy, store.sortDir);
 };
 
 onMounted(() => {
