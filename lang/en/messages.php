@@ -9,6 +9,7 @@ return [
         'view_tree' => 'View Tree',
         'family_chart' => 'Family Chart',
         'export' => 'Export',
+        'import' => 'Import GEDCOM',
         'logout' => 'Logout',
     ],
     'export' => [

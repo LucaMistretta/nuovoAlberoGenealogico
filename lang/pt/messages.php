@@ -9,6 +9,7 @@ return [
         'view_tree' => 'Ver Árvore',
         'family_chart' => 'Gráfico Familiar',
         'export' => 'Exportar',
+        'import' => 'Importar GEDCOM',
         'logout' => 'Sair',
     ],
     'export' => [

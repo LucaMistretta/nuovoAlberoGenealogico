@@ -9,6 +9,7 @@ return [
         'view_tree' => 'Stammbaum anzeigen',
         'family_chart' => 'Familien-Diagramm',
         'export' => 'Exportieren',
+        'import' => 'GEDCOM importieren',
         'logout' => 'Abmelden',
     ],
     'export' => [
