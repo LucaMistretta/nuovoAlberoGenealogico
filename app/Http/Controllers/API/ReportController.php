@@ -136,7 +136,6 @@ class ReportController extends Controller
                 ->select('nato_a', DB::raw('count(*) as totale'))
                 ->groupBy('nato_a')
                 ->orderBy('totale', 'desc')
-                ->limit(10)
                 ->get();
             
             return response()->json([

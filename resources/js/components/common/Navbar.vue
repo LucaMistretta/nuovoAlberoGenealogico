@@ -1,5 +1,5 @@
 <template>
-    <nav class="bg-gray-300 dark:bg-gray-800 shadow-md">
+    <nav class="bg-gray-300 dark:bg-gray-800 shadow-md flex-shrink-0" style="z-index: 1000; position: relative;">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div class="flex justify-between h-16">
                 <div class="flex items-center space-x-6">
@@ -19,14 +19,18 @@
                         {{ t('nav.family_chart') }}
                     </router-link>
                     <div class="flex gap-2">
-                        <div class="relative group">
+                        <div class="relative group" ref="exportButtonRef" style="z-index: 9999;">
                             <button class="px-4 py-2 bg-purple-600 text-white rounded-lg hover:bg-purple-700 transition-colors text-sm flex items-center gap-1">
                                 {{ t('nav.export') }}
                                 <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
                                 </svg>
                             </button>
-                            <div class="absolute left-0 mt-2 w-48 bg-white dark:bg-gray-800 rounded-lg shadow-lg border border-gray-200 dark:border-gray-700 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all z-50">
+                            <div 
+                                ref="exportMenuRef"
+                                class="fixed w-48 bg-white dark:bg-gray-800 rounded-lg shadow-lg border border-gray-200 dark:border-gray-700 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all" 
+                                style="z-index: 99999;"
+                            >
                                 <div class="py-1">
                                     <button @click="exportGedcom" class="w-full text-left px-4 py-2 text-sm text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700">
                                         {{ t('export.gedcom_all') }}
@@ -80,6 +84,41 @@
             </div>
 
             <div class="space-y-4">
+                <!-- Spiegazione GEDCOM -->
+                <div class="bg-blue-50 dark:bg-blue-900/20 border border-blue-200 dark:border-blue-800 rounded-lg p-4">
+                    <div class="flex items-start gap-3">
+                        <svg class="w-5 h-5 text-blue-600 dark:text-blue-400 flex-shrink-0 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+                        </svg>
+                        <div class="flex-1">
+                            <h4 class="text-sm font-semibold text-blue-900 dark:text-blue-200 mb-2">
+                                {{ t('import.what_is_gedcom') }}
+                            </h4>
+                            <p class="text-xs text-blue-800 dark:text-blue-300 mb-2">
+                                {{ t('import.gedcom_description') }}
+                            </p>
+                            <p class="text-xs text-blue-800 dark:text-blue-300 mb-2">
+                                <strong>{{ t('import.file_format') }}:</strong> {{ t('import.file_format_description') }}
+                            </p>
+                            <p class="text-xs text-blue-800 dark:text-blue-300 mb-2">
+                                <strong>{{ t('import.what_imports') }}:</strong> {{ t('import.what_imports_description') }}
+                            </p>
+                            <div class="mt-3 pt-2 border-t border-blue-200 dark:border-blue-700">
+                                <a 
+                                    href="/esempio_gedcom.ged" 
+                                    download
+                                    class="inline-flex items-center gap-1.5 text-xs font-medium text-blue-700 dark:text-blue-300 hover:text-blue-900 dark:hover:text-blue-200 transition-colors"
+                                >
+                                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 10v6m0 0l-3-3m3 3l3-3m2 8H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
+                                    </svg>
+                                    {{ t('import.download_example') }}
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
                 <div>
                     <label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
                         {{ t('import.select_file') }}
@@ -93,6 +132,9 @@
                     />
                     <p v-if="selectedFile" class="mt-2 text-sm text-gray-500 dark:text-gray-400">
                         {{ selectedFile.name }} ({{ formatFileSize(selectedFile.size) }})
+                    </p>
+                    <p v-else class="mt-1 text-xs text-gray-500 dark:text-gray-400">
+                        {{ t('import.file_hint') }}
                     </p>
                 </div>
 
@@ -142,7 +184,7 @@
 </template>
 
 <script setup>
-import { ref, onMounted, watch } from 'vue';
+import { ref, onMounted, watch, nextTick } from 'vue';
 import { useAuthStore } from '../../stores/auth';
 import { useLocaleStore } from '../../stores/locale';
 import { useRouter } from 'vue-router';
@@ -159,10 +201,34 @@ const t = (key) => {
     return localeStore.t(key);
 };
 
+const exportButtonRef = ref(null);
+const exportMenuRef = ref(null);
+
+// Posiziona il menu dropdown quando viene mostrato
+const updateMenuPosition = () => {
+    if (exportButtonRef.value && exportMenuRef.value) {
+        const buttonRect = exportButtonRef.value.getBoundingClientRect();
+        exportMenuRef.value.style.top = `${buttonRect.bottom + 8}px`;
+        exportMenuRef.value.style.left = `${buttonRect.left}px`;
+    }
+};
+
 // Assicurati che le traduzioni siano caricate
 onMounted(() => {
     if (Object.keys(localeStore.translations).length === 0) {
         localeStore.loadTranslations();
+    }
+    
+    // Aggiorna la posizione del menu quando il mouse entra nel gruppo
+    if (exportButtonRef.value) {
+        const groupElement = exportButtonRef.value.closest('.group');
+        if (groupElement) {
+            groupElement.addEventListener('mouseenter', () => {
+                nextTick(() => {
+                    updateMenuPosition();
+                });
+            });
+        }
     }
 });
 
@@ -175,12 +241,56 @@ const logout = async () => {
     await authStore.logout();
 };
 
-const exportGedcom = () => {
-    window.location.href = '/api/export/gedcom';
+const exportGedcom = async () => {
+    try {
+        const token = authStore.token;
+        const response = await axios.get('/api/export/gedcom', {
+            headers: {
+                'Authorization': `Bearer ${token}`,
+                'Accept': 'application/octet-stream',
+            },
+            responseType: 'blob',
+        });
+        
+        // Crea un link temporaneo per scaricare il file
+        const url = window.URL.createObjectURL(new Blob([response.data]));
+        const link = document.createElement('a');
+        link.href = url;
+        link.setAttribute('download', 'albero_genealogico.ged');
+        document.body.appendChild(link);
+        link.click();
+        link.remove();
+        window.URL.revokeObjectURL(url);
+    } catch (error) {
+        console.error('Errore durante l\'export GEDCOM:', error);
+        alert('Errore durante l\'export. Assicurati di essere autenticato.');
+    }
 };
 
-const exportCsv = () => {
-    window.location.href = '/api/export/csv';
+const exportCsv = async () => {
+    try {
+        const token = authStore.token;
+        const response = await axios.get('/api/export/csv', {
+            headers: {
+                'Authorization': `Bearer ${token}`,
+                'Accept': 'text/csv',
+            },
+            responseType: 'blob',
+        });
+        
+        // Crea un link temporaneo per scaricare il file
+        const url = window.URL.createObjectURL(new Blob([response.data]));
+        const link = document.createElement('a');
+        link.href = url;
+        link.setAttribute('download', 'albero_genealogico.csv');
+        document.body.appendChild(link);
+        link.click();
+        link.remove();
+        window.URL.revokeObjectURL(url);
+    } catch (error) {
+        console.error('Errore durante l\'export CSV:', error);
+        alert('Errore durante l\'export. Assicurati di essere autenticato.');
+    }
 };
 
 // Import GEDCOM Dialog

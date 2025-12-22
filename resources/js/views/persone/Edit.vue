@@ -1,7 +1,7 @@
 <template>
-    <div class="bg-gray-200 dark:bg-gray-900">
-        <!-- Header con azioni -->
-        <div class="bg-white dark:bg-gray-800 shadow-sm border-b border-gray-200 dark:border-gray-700 mb-3">
+    <div class="bg-gray-200 dark:bg-gray-900 h-full flex flex-col overflow-hidden">
+        <!-- Header con azioni - FISSO -->
+        <div class="bg-white dark:bg-gray-800 shadow-sm border-b border-gray-200 dark:border-gray-700 flex-shrink-0" style="z-index: 100;">
             <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-2">
                 <div class="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-2">
                     <div class="flex items-center gap-3">
@@ -12,30 +12,37 @@
                     </div>
                     <div v-if="store.persona" class="flex items-center gap-2">
                         <router-link
-                            to="/persone"
-                            class="inline-flex items-center gap-1.5 px-3 py-1.5 text-sm font-medium text-gray-700 dark:text-gray-300 bg-white dark:bg-gray-700 border border-gray-300 dark:border-gray-600 rounded-lg hover:bg-gray-50 dark:hover:bg-gray-600 transition-colors"
-                        >
-                            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18" />
-                            </svg>
-                            <span>{{ t('persona.back_to_list') }}</span>
-                        </router-link>
-                        <router-link
                             :to="`/persone/${$route.params.id}`"
-                            class="inline-flex items-center gap-1.5 px-3 py-1.5 text-sm font-medium text-gray-700 dark:text-gray-300 bg-white dark:bg-gray-700 border border-gray-300 dark:border-gray-600 rounded-lg hover:bg-gray-50 dark:hover:bg-gray-600 transition-colors"
+                            class="inline-flex items-center justify-center gap-1.5 px-4 py-2 text-sm font-medium text-gray-700 dark:text-gray-300 bg-white dark:bg-gray-700 border border-gray-300 dark:border-gray-600 rounded-lg hover:bg-gray-50 dark:hover:bg-gray-600 transition-colors"
                         >
                             <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z" />
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
                             </svg>
-                            <span>{{ t('persona.view') }}</span>
+                            <span>{{ t('common.cancel') }}</span>
                         </router-link>
+                        <button
+                            type="button"
+                            @click="handleSubmit"
+                            :disabled="loading"
+                            class="inline-flex items-center justify-center gap-1.5 px-4 py-2 text-sm font-medium text-white bg-blue-600 rounded-lg hover:bg-blue-700 disabled:opacity-50 disabled:cursor-not-allowed transition-colors shadow-sm"
+                        >
+                            <svg v-if="!loading" class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
+                            </svg>
+                            <svg v-else class="w-4 h-4 animate-spin" fill="none" viewBox="0 0 24 24">
+                                <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
+                                <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+                            </svg>
+                            <span>{{ loading ? t('persona.saving') : t('persona.save_changes') }}</span>
+                        </button>
                     </div>
                 </div>
             </div>
         </div>
 
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pb-4">
+        <!-- Contenuto scrollabile -->
+        <div class="flex-1 overflow-y-auto">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pb-4 pt-3">
             <!-- Loading State -->
             <div v-if="store.loading" class="flex items-center justify-center py-12">
                 <div class="text-center">
@@ -229,42 +236,42 @@
                                     </div>
                                 </div>
                                 <div class="space-y-1.5">
-                                    <div class="flex gap-1.5">
-                                        <select
-                                            v-model="newPadreId"
-                                            class="flex-1 px-2.5 py-1.5 text-xs border border-gray-300 dark:border-gray-600 rounded-lg bg-white dark:bg-gray-700 text-gray-900 dark:text-white"
-                                        >
-                                            <option value="">{{ t('persona.select_existing_father') }}</option>
-                                            <option
-                                                v-for="persona in sortedAvailablePeople"
-                                                :key="persona.id"
-                                                :value="persona.id"
-                                                :disabled="persona.id === parseInt(route.params.id)"
+                                    <SearchableSelect
+                                        v-model="newPadreId"
+                                        :options="sortedAvailablePeople"
+                                        option-label="nome_completo"
+                                        option-value="id"
+                                        :placeholder="t('persona.search_father') || 'Cerca padre per nome o cognome...'"
+                                        :empty-option="t('persona.select_existing_father')"
+                                        :disabled="(option) => option.id === parseInt(route.params.id)"
+                                        select-class="px-2.5 py-1.5 text-xs border border-gray-300 dark:border-gray-600 rounded-lg bg-white dark:bg-gray-700 text-gray-900 dark:text-white"
+                                    >
+                                        <template #option="{ option }">
+                                            {{ option.nome_completo }} (ID: {{ option.id }})
+                                        </template>
+                                        <template #actions>
+                                            <button
+                                                type="button"
+                                                @click="addPadre"
+                                                :disabled="!newPadreId"
+                                                class="p-1.5 bg-blue-600 text-white rounded-lg hover:bg-blue-700 disabled:opacity-50 disabled:cursor-not-allowed transition-colors"
                                             >
-                                                {{ persona.nome_completo }} (ID: {{ persona.id }})
-                                            </option>
-                                        </select>
-                                    <button
-                                        type="button"
-                                        @click="addPadre"
-                                        :disabled="!newPadreId"
-                                        class="p-1.5 bg-blue-600 text-white rounded-lg hover:bg-blue-700 disabled:opacity-50 disabled:cursor-not-allowed transition-colors"
-                                    >
-                                        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
-                                        </svg>
-                                    </button>
-                                    <button
-                                        type="button"
-                                        @click="creaNuovoPadre"
-                                        class="p-1.5 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors"
-                                        :title="t('persona.create_new_father')"
-                                    >
-                                        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4" />
-                                        </svg>
-                                    </button>
-                                    </div>
+                                                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
+                                                </svg>
+                                            </button>
+                                            <button
+                                                type="button"
+                                                @click="creaNuovoPadre"
+                                                class="p-1.5 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors"
+                                                :title="t('persona.create_new_father')"
+                                            >
+                                                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4" />
+                                                </svg>
+                                            </button>
+                                        </template>
+                                    </SearchableSelect>
                                 </div>
                             </div>
 
@@ -317,42 +324,42 @@
                                     </div>
                                 </div>
                                 <div class="space-y-1.5">
-                                    <div class="flex gap-1.5">
-                                        <select
-                                            v-model="newMadreId"
-                                            class="flex-1 px-2.5 py-1.5 text-xs border border-gray-300 dark:border-gray-600 rounded-lg bg-white dark:bg-gray-700 text-gray-900 dark:text-white"
-                                        >
-                                            <option value="">{{ t('persona.select_existing_mother') }}</option>
-                                            <option
-                                                v-for="persona in sortedAvailablePeople"
-                                                :key="persona.id"
-                                                :value="persona.id"
-                                                :disabled="persona.id === parseInt(route.params.id)"
+                                    <SearchableSelect
+                                        v-model="newMadreId"
+                                        :options="sortedAvailablePeople"
+                                        option-label="nome_completo"
+                                        option-value="id"
+                                        :placeholder="t('persona.search_mother') || 'Cerca madre per nome o cognome...'"
+                                        :empty-option="t('persona.select_existing_mother')"
+                                        :disabled="(option) => option.id === parseInt(route.params.id)"
+                                        select-class="px-2.5 py-1.5 text-xs border border-gray-300 dark:border-gray-600 rounded-lg bg-white dark:bg-gray-700 text-gray-900 dark:text-white"
+                                    >
+                                        <template #option="{ option }">
+                                            {{ option.nome_completo }} (ID: {{ option.id }})
+                                        </template>
+                                        <template #actions>
+                                            <button
+                                                type="button"
+                                                @click="addMadre"
+                                                :disabled="!newMadreId"
+                                                class="p-1.5 bg-pink-600 text-white rounded-lg hover:bg-pink-700 disabled:opacity-50 disabled:cursor-not-allowed transition-colors"
                                             >
-                                                {{ persona.nome_completo }} (ID: {{ persona.id }})
-                                            </option>
-                                        </select>
-                                        <button
-                                            type="button"
-                                            @click="addMadre"
-                                            :disabled="!newMadreId"
-                                            class="p-1.5 bg-pink-600 text-white rounded-lg hover:bg-pink-700 disabled:opacity-50 disabled:cursor-not-allowed transition-colors"
-                                        >
-                                            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
-                                            </svg>
-                                        </button>
-                                        <button
-                                            type="button"
-                                            @click="creaNuovaMadre"
-                                            class="p-1.5 bg-pink-600 text-white rounded-lg hover:bg-pink-700 transition-colors"
-                                            :title="t('persona.create_new_mother')"
-                                        >
-                                            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4" />
-                                            </svg>
-                                        </button>
-                                    </div>
+                                                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
+                                                </svg>
+                                            </button>
+                                            <button
+                                                type="button"
+                                                @click="creaNuovaMadre"
+                                                class="p-1.5 bg-pink-600 text-white rounded-lg hover:bg-pink-700 transition-colors"
+                                                :title="t('persona.create_new_mother')"
+                                            >
+                                                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4" />
+                                                </svg>
+                                            </button>
+                                        </template>
+                                    </SearchableSelect>
                                 </div>
                             </div>
                         </div>
@@ -378,43 +385,43 @@
                                 <!-- Selettore per aggiungere consorte -->
                                 <div v-if="showAddConsorte" class="mb-2 p-2 bg-purple-50 dark:bg-purple-900/20 rounded-lg border border-purple-200 dark:border-purple-800">
                                     <div class="flex flex-col gap-2">
-                                        <div class="flex gap-2">
-                                            <select
-                                                v-model="newConsorteId"
-                                                class="flex-1 px-3 py-2 border border-purple-300 dark:border-purple-700 rounded-lg bg-white dark:bg-gray-700 text-gray-900 dark:text-white text-sm"
-                                            >
-                                                <option value="">{{ t('persona.select_existing_spouse') }}</option>
-                                                <option
-                                                    v-for="persona in sortedAvailablePeople"
-                                                    :key="persona.id"
-                                                    :value="persona.id"
-                                                    :disabled="persona.id === route.params.id || selectedConsortiIds.includes(persona.id)"
+                                        <SearchableSelect
+                                            v-model="newConsorteId"
+                                            :options="sortedAvailablePeople"
+                                            option-label="nome_completo"
+                                            option-value="id"
+                                            :placeholder="t('persona.search_spouse') || 'Cerca consorte per nome o cognome...'"
+                                            :empty-option="t('persona.select_existing_spouse')"
+                                            :disabled="(option) => option.id === parseInt(route.params.id) || selectedConsortiIds.includes(option.id)"
+                                            select-class="px-3 py-2 border border-purple-300 dark:border-purple-700 rounded-lg bg-white dark:bg-gray-700 text-gray-900 dark:text-white text-sm"
+                                        >
+                                            <template #option="{ option }">
+                                                {{ option.nome_completo }} (ID: {{ option.id }})
+                                            </template>
+                                            <template #actions>
+                                                <button
+                                                    type="button"
+                                                    @click="addConsorte"
+                                                    :disabled="!newConsorteId"
+                                                    class="p-2 bg-purple-600 text-white rounded-lg hover:bg-purple-700 disabled:opacity-50 disabled:cursor-not-allowed transition-colors"
+                                                    :title="t('persona.add_spouse')"
                                                 >
-                                                    {{ persona.nome_completo }} (ID: {{ persona.id }})
-                                                </option>
-                                            </select>
-                                            <button
-                                                type="button"
-                                                @click="addConsorte"
-                                                :disabled="!newConsorteId"
-                                                class="p-2 bg-purple-600 text-white rounded-lg hover:bg-purple-700 disabled:opacity-50 disabled:cursor-not-allowed transition-colors"
-                                                :title="t('persona.add_spouse')"
-                                            >
-                                                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
-                                                </svg>
-                                            </button>
-                                            <button
-                                                type="button"
-                                                @click="showAddConsorte = false"
-                                                class="p-2 bg-gray-300 dark:bg-gray-600 text-gray-700 dark:text-gray-300 rounded-lg hover:bg-gray-400 dark:hover:bg-gray-700 transition-colors"
-                                                :title="t('common.cancel')"
-                                            >
-                                                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
-                                                </svg>
-                                            </button>
-                                        </div>
+                                                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
+                                                    </svg>
+                                                </button>
+                                                <button
+                                                    type="button"
+                                                    @click="showAddConsorte = false"
+                                                    class="p-2 bg-gray-300 dark:bg-gray-600 text-gray-700 dark:text-gray-300 rounded-lg hover:bg-gray-400 dark:hover:bg-gray-700 transition-colors"
+                                                    :title="t('common.cancel')"
+                                                >
+                                                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+                                                    </svg>
+                                                </button>
+                                            </template>
+                                        </SearchableSelect>
                                         <div class="text-center text-sm text-gray-600 dark:text-gray-400">{{ t('persona.or') }}</div>
                                         <button
                                             type="button"
@@ -481,43 +488,43 @@
                                 <!-- Selettore per aggiungere figlio -->
                                 <div v-if="showAddFiglio" class="mb-2 p-2 bg-green-50 dark:bg-green-900/20 rounded-lg border border-green-200 dark:border-green-800">
                                     <div class="flex flex-col gap-2">
-                                        <div class="flex gap-2">
-                                            <select
-                                                v-model="newFiglioId"
-                                                class="flex-1 px-3 py-2 border border-green-300 dark:border-green-700 rounded-lg bg-white dark:bg-gray-700 text-gray-900 dark:text-white text-sm"
-                                            >
-                                                <option value="">{{ t('persona.select_existing_child') }}</option>
-                                                <option
-                                                    v-for="persona in sortedAvailablePeople"
-                                                    :key="persona.id"
-                                                    :value="persona.id"
-                                                    :disabled="persona.id === route.params.id || selectedFigliIds.includes(persona.id)"
+                                        <SearchableSelect
+                                            v-model="newFiglioId"
+                                            :options="sortedAvailablePeople"
+                                            option-label="nome_completo"
+                                            option-value="id"
+                                            :placeholder="t('persona.search_child') || 'Cerca figlio per nome o cognome...'"
+                                            :empty-option="t('persona.select_existing_child')"
+                                            :disabled="(option) => option.id === parseInt(route.params.id) || selectedFigliIds.includes(option.id)"
+                                            select-class="px-3 py-2 border border-green-300 dark:border-green-700 rounded-lg bg-white dark:bg-gray-700 text-gray-900 dark:text-white text-sm"
+                                        >
+                                            <template #option="{ option }">
+                                                {{ option.nome_completo }} (ID: {{ option.id }})
+                                            </template>
+                                            <template #actions>
+                                                <button
+                                                    type="button"
+                                                    @click="addFiglio"
+                                                    :disabled="!newFiglioId"
+                                                    class="p-2 bg-green-600 text-white rounded-lg hover:bg-green-700 disabled:opacity-50 disabled:cursor-not-allowed transition-colors"
+                                                    :title="t('persona.add_child')"
                                                 >
-                                                    {{ persona.nome_completo }} (ID: {{ persona.id }})
-                                                </option>
-                                            </select>
-                                            <button
-                                                type="button"
-                                                @click="addFiglio"
-                                                :disabled="!newFiglioId"
-                                                class="p-2 bg-green-600 text-white rounded-lg hover:bg-green-700 disabled:opacity-50 disabled:cursor-not-allowed transition-colors"
-                                                :title="t('persona.add_child')"
-                                            >
-                                                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
-                                                </svg>
-                                            </button>
-                                            <button
-                                                type="button"
-                                                @click="showAddFiglio = false"
-                                                class="p-2 bg-gray-300 dark:bg-gray-600 text-gray-700 dark:text-gray-300 rounded-lg hover:bg-gray-400 dark:hover:bg-gray-700 transition-colors"
-                                                :title="t('common.cancel')"
-                                            >
-                                                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
-                                                </svg>
-                                            </button>
-                                        </div>
+                                                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
+                                                    </svg>
+                                                </button>
+                                                <button
+                                                    type="button"
+                                                    @click="showAddFiglio = false"
+                                                    class="p-2 bg-gray-300 dark:bg-gray-600 text-gray-700 dark:text-gray-300 rounded-lg hover:bg-gray-400 dark:hover:bg-gray-700 transition-colors"
+                                                    :title="t('common.cancel')"
+                                                >
+                                                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+                                                    </svg>
+                                                </button>
+                                            </template>
+                                        </SearchableSelect>
                                         <div class="text-center text-sm text-gray-600 dark:text-gray-400">{{ t('persona.or') }}</div>
                                         <button
                                             type="button"
@@ -579,42 +586,32 @@
                 <!-- Card Media Gallery -->
                 <MediaGallery :persona-id="parseInt($route.params.id)" />
 
-                <!-- Card Timeline Eventi -->
-                <Timeline :persona-id="parseInt($route.params.id)" />
-
-                <!-- Card Note -->
-                <NoteSection :persona-id="parseInt($route.params.id)" />
-
-                <!-- Card Tags -->
-                <TagSection :persona-id="parseInt($route.params.id)" :persona-tags="store.persona?.tags || []" @tags-updated="loadPersonaTags" />
-
-                <!-- Bottoni azione -->
-                <div class="flex flex-col sm:flex-row justify-end gap-2 pt-2">
-                    <router-link
-                        :to="`/persone/${$route.params.id}`"
-                        class="inline-flex items-center justify-center gap-1.5 px-4 py-2 text-sm font-medium text-gray-700 dark:text-gray-300 bg-white dark:bg-gray-700 border border-gray-300 dark:border-gray-600 rounded-lg hover:bg-gray-50 dark:hover:bg-gray-600 transition-colors"
-                    >
-                        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
-                        </svg>
-                        <span>{{ t('common.cancel') }}</span>
-                    </router-link>
-                    <button
-                        type="submit"
-                        :disabled="loading"
-                        class="inline-flex items-center justify-center gap-1.5 px-4 py-2 text-sm font-medium text-white bg-blue-600 rounded-lg hover:bg-blue-700 disabled:opacity-50 disabled:cursor-not-allowed transition-colors shadow-sm"
-                    >
-                        <svg v-if="!loading" class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
-                        </svg>
-                        <svg v-else class="w-4 h-4 animate-spin" fill="none" viewBox="0 0 24 24">
-                            <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
-                            <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
-                        </svg>
-                        <span>{{ loading ? t('persona.saving') : t('persona.save_changes') }}</span>
-                    </button>
+                <!-- Timeline e Mappa sulla stessa riga -->
+                <div class="grid grid-cols-1 lg:grid-cols-6 gap-4 items-stretch" style="min-height: 680px;">
+                    <!-- Timeline: 2/6 dello spazio -->
+                    <div class="lg:col-span-2 flex w-full">
+                        <Timeline :persona-id="parseInt($route.params.id)" :persona="store.persona" class="w-full" />
+                    </div>
+                    <!-- Mappa: 4/6 dello spazio -->
+                    <div class="lg:col-span-4 flex w-full">
+                        <MapView v-if="hasMapData" :luoghi="mapLuoghi" class="w-full" />
+                    </div>
                 </div>
+
+                <!-- Note e Tag sulla stessa riga -->
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                    <!-- Note: 50% dello spazio -->
+                    <div class="flex">
+                        <NoteSection :persona-id="parseInt($route.params.id)" class="w-full" />
+                    </div>
+                    <!-- Tags: 50% dello spazio -->
+                    <div class="flex">
+                        <TagSection :persona-id="parseInt($route.params.id)" :persona-tags="store.persona?.tags || []" @tags-updated="loadPersonaTags" class="w-full" />
+                    </div>
+                </div>
+
             </form>
+        </div>
         </div>
     </div>
 </template>
@@ -630,6 +627,9 @@ import MediaGallery from '../media/MediaGallery.vue';
 import Timeline from '../eventi/Timeline.vue';
 import NoteSection from '../../components/persona/NoteSection.vue';
 import TagSection from '../../components/persona/TagSection.vue';
+import SearchableSelect from '../../components/common/SearchableSelect.vue';
+import MapView from '../../components/maps/MapView.vue';
+import { eventoService } from '../../services/eventoService';
 
 const route = useRoute();
 const router = useRouter();
@@ -676,6 +676,9 @@ const selectedFigli = ref([]);
 const selectedPadreId = ref('');
 const selectedMadreId = ref('');
 
+// Eventi caricati per la mappa
+const eventi = ref([]);
+
 // Computed per gli ID selezionati
 const selectedConsortiIds = computed(() => selectedConsorti.value.map(c => c.id));
 const selectedFigliIds = computed(() => selectedFigli.value.map(f => f.id));
@@ -699,6 +702,101 @@ const sortedAvailablePeople = computed(() => {
     return sortPeople(availablePeople.value);
 });
 
+// Computed per verificare se ci sono dati per la mappa
+const hasMapData = computed(() => {
+    const hasNascita = store.persona?.nato_a && store.persona.nato_a !== '0' && store.persona.nato_a !== '';
+    const hasMorte = store.persona?.deceduto_a && store.persona.deceduto_a !== '0' && store.persona.deceduto_a !== '';
+    const hasEventiLuoghi = eventi.value.some(e => e.luogo && e.luogo !== '0' && e.luogo !== '');
+    return hasNascita || hasMorte || hasEventiLuoghi;
+});
+
+// Computed per i luoghi da mostrare sulla mappa
+const mapLuoghi = computed(() => {
+    const luoghi = [];
+    const nomePersona = store.persona?.nome_completo || `${store.persona?.nome} ${store.persona?.cognome}`;
+    
+    // Aggiungi luogo di nascita
+    if (store.persona?.nato_a && store.persona.nato_a !== '0' && store.persona.nato_a !== '') {
+        luoghi.push({ 
+            nome: nomePersona + ' - ' + t('persona.birth_place'), 
+            luogo: store.persona.nato_a,
+            tipo: 'nascita',
+            data: store.persona.nato_il
+        });
+    }
+    
+    // Aggiungi luogo di morte
+    if (store.persona?.deceduto_a && store.persona.deceduto_a !== '0' && store.persona.deceduto_a !== '') {
+        luoghi.push({ 
+            nome: nomePersona + ' - ' + t('persona.death_place'), 
+            luogo: store.persona.deceduto_a,
+            tipo: 'morte',
+            data: store.persona.deceduto_il
+        });
+    }
+    
+    // Aggiungi luoghi degli eventi
+    eventi.value.forEach(evento => {
+        if (evento.luogo && evento.luogo !== '0' && evento.luogo !== '') {
+            const eventTypeLabel = getEventTypeLabel(evento.tipo_evento);
+            luoghi.push({
+                nome: nomePersona + ' - ' + eventTypeLabel + ': ' + evento.titolo,
+                luogo: evento.luogo,
+                tipo: evento.tipo_evento,
+                data: evento.data_evento,
+                descrizione: evento.descrizione
+            });
+        }
+    });
+    
+    return luoghi;
+});
+
+// Funzione helper per ottenere l'etichetta del tipo di evento
+const getEventTypeLabel = (tipo) => {
+    const labels = {
+        nascita: t('eventi.birth'),
+        battesimo: t('eventi.baptism'),
+        comunione: t('eventi.communion'),
+        cresima: t('eventi.confirmation'),
+        primo_giorno_asilo: t('eventi.first_day_kindergarten'),
+        primo_giorno_scuola: t('eventi.first_day_school'),
+        licenza_elementare: t('eventi.elementary_license'),
+        licenza_media: t('eventi.middle_school_license'),
+        diploma_superiore: t('eventi.high_school_diploma'),
+        laurea: t('eventi.graduation'),
+        matrimonio: t('eventi.marriage'),
+        divorzio: t('eventi.divorce'),
+        lavoro: t('eventi.work'),
+        cambio_lavoro: t('eventi.job_change'),
+        militare: t('eventi.military'),
+        guerra: t('eventi.war'),
+        trasloco: t('eventi.move'),
+        emigrazione: t('eventi.emigration'),
+        immigrazione: t('eventi.immigration'),
+        malattia: t('eventi.illness'),
+        guarigione: t('eventi.recovery'),
+        pensione: t('eventi.retirement'),
+        morte: t('eventi.death'),
+        sepoltura: t('eventi.burial'),
+        altro: t('eventi.other'),
+    };
+    return labels[tipo] || tipo;
+};
+
+// Carica gli eventi per la mappa
+const loadEventi = async () => {
+    if (!route.params.id) return;
+    try {
+        const response = await eventoService.getByPersona(parseInt(route.params.id));
+        // La risposta può essere response.data.data o response.data a seconda della struttura
+        eventi.value = response.data?.data || response.data || [];
+    } catch (error) {
+        console.error('Errore nel caricamento degli eventi per la mappa:', error);
+        eventi.value = [];
+    }
+};
+
 const loadPersonaTags = async () => {
     await store.fetchPersona(route.params.id);
 };
@@ -707,7 +805,8 @@ onMounted(async () => {
     await Promise.all([
         store.fetchPersona(route.params.id),
         loadAvailablePeople(),
-        loadTipiLegame()
+        loadTipiLegame(),
+        loadEventi()
     ]);
 });
 
@@ -749,6 +848,9 @@ watch(() => store.persona, (persona) => {
         // Inizializza genitori selezionati
         selectedPadreId.value = persona.padre ? persona.padre.id.toString() : '';
         selectedMadreId.value = persona.madre ? persona.madre.id.toString() : '';
+        
+        // Ricarica gli eventi quando la persona cambia
+        loadEventi();
     }
 }, { immediate: true });
 

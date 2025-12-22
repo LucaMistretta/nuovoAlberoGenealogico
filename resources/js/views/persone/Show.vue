@@ -1,7 +1,7 @@
 <template>
-    <div class="bg-gray-200 dark:bg-gray-900">
-        <!-- Header con azioni -->
-        <div class="bg-white dark:bg-gray-800 shadow-sm border-b border-gray-200 dark:border-gray-700 mb-3">
+    <div class="bg-gray-200 dark:bg-gray-900 h-full flex flex-col overflow-hidden">
+        <!-- Header con azioni - FISSO -->
+        <div class="bg-white dark:bg-gray-800 shadow-sm border-b border-gray-200 dark:border-gray-700 flex-shrink-0" style="z-index: 100;">
             <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-2">
                 <div class="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-2">
                     <div class="flex items-center gap-3">
@@ -43,7 +43,9 @@
             </div>
         </div>
 
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pb-4">
+        <!-- Contenuto scrollabile -->
+        <div class="flex-1 overflow-y-auto">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pb-4 pt-3">
             <!-- Loading State -->
             <div v-if="store.loading" class="flex items-center justify-center py-12">
                 <div class="text-center">
@@ -280,26 +282,50 @@
                 <!-- Card Media Gallery -->
                 <MediaGallery :persona-id="parseInt($route.params.id)" />
 
-                <!-- Card Timeline Eventi -->
-                <Timeline :persona-id="parseInt($route.params.id)" />
+                <!-- Timeline e Mappa sulla stessa riga -->
+                <div class="grid grid-cols-1 lg:grid-cols-6 gap-4 items-stretch" style="min-height: 680px;">
+                    <!-- Timeline: 2/6 dello spazio -->
+                    <div class="lg:col-span-2 flex w-full">
+                        <Timeline :persona-id="parseInt($route.params.id)" :persona="store.persona" class="w-full" />
+                    </div>
+                    <!-- Mappa: 4/6 dello spazio -->
+                    <div class="lg:col-span-4 flex w-full">
+                        <MapView v-if="hasMapData" :luoghi="mapLuoghi" class="w-full" />
+                    </div>
+                </div>
 
-                <!-- Card Note -->
-                <NoteSection :persona-id="parseInt($route.params.id)" />
-
-                <!-- Card Tags -->
-                <TagSection :persona-id="parseInt($route.params.id)" :persona-tags="store.persona?.tags || []" @tags-updated="loadPersonaTags" />
-
-                <!-- Card Mappa -->
-                <MapView v-if="hasMapData" :luoghi="mapLuoghi" />
+                <!-- Note e Tag sulla stessa riga -->
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                    <!-- Note: 50% dello spazio -->
+                    <div class="flex">
+                        <NoteSection :persona-id="parseInt($route.params.id)" class="w-full" />
+                    </div>
+                    <!-- Tags: 50% dello spazio -->
+                    <div class="flex">
+                        <TagSection :persona-id="parseInt($route.params.id)" :persona-tags="store.persona?.tags || []" @tags-updated="loadPersonaTags" class="w-full" />
+                    </div>
+                </div>
 
                 <!-- Card Albero Genealogico Verticale -->
                 <div class="bg-white dark:bg-gray-800 rounded-lg shadow-sm border border-gray-200 dark:border-gray-700 p-4">
-                    <h3 class="text-base font-semibold text-gray-900 dark:text-white mb-4 flex items-center gap-2">
-                        <svg class="w-4 h-4 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
-                        </svg>
-                        {{ t('persona.family_tree') }}
-                    </h3>
+                    <div class="flex items-center justify-between mb-4">
+                        <h3 class="text-base font-semibold text-gray-900 dark:text-white flex items-center gap-2">
+                            <svg class="w-4 h-4 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
+                            </svg>
+                            {{ t('persona.family_tree') }}
+                        </h3>
+                        <button
+                            @click="window.print()"
+                            class="inline-flex items-center gap-1.5 px-3 py-1.5 text-sm font-medium text-gray-700 dark:text-gray-300 bg-white dark:bg-gray-700 border border-gray-300 dark:border-gray-600 rounded-lg hover:bg-gray-50 dark:hover:bg-gray-600 transition-colors"
+                            :title="t('persona.print_family_tree') || 'Stampa albero genealogico'"
+                        >
+                            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 17h2a2 2 0 002-2v-4a2 2 0 00-2-2H5a2 2 0 00-2 2v4a2 2 0 002 2h2m2 4h6a2 2 0 002-2v-4a2 2 0 00-2-2H9a2 2 0 00-2 2v4a2 2 0 002 2zm8-12V5a2 2 0 00-2-2H9a2 2 0 00-2 2v4h10z" />
+                            </svg>
+                            {{ t('persona.print') || 'Stampa' }}
+                        </button>
+                    </div>
 
                     <div class="flex flex-col items-center space-y-4 py-4">
                         <!-- Nonni -->
@@ -417,6 +443,7 @@
                 </div>
             </div>
         </div>
+        </div>
     </div>
 </template>
 
@@ -426,6 +453,7 @@ import { useRoute, useRouter } from 'vue-router';
 import { usePersoneStore } from '../../stores/persone';
 import { useLocaleStore } from '../../stores/locale';
 import { personaService } from '../../services/personaService';
+import { eventoService } from '../../services/eventoService';
 import MediaGallery from '../media/MediaGallery.vue';
 import Timeline from '../eventi/Timeline.vue';
 import NoteSection from '../../components/persona/NoteSection.vue';
@@ -460,6 +488,9 @@ const nonnaPaterna = ref(null);
 const nonnoMaterno = ref(null);
 const nonnaMaterna = ref(null);
 
+// Eventi caricati per la mappa
+const eventi = ref([]);
+
 const hasNonni = computed(() => {
     return nonnoPaterno.value || nonnaPaterna.value || nonnoMaterno.value || nonnaMaterna.value;
 });
@@ -469,26 +500,98 @@ const hasGenitori = computed(() => {
 });
 
 const hasMapData = computed(() => {
-    return (store.persona?.nato_a && store.persona.nato_a !== '0' && store.persona.nato_a !== '') || 
-           (store.persona?.deceduto_a && store.persona.deceduto_a !== '0' && store.persona.deceduto_a !== '');
+    const hasNascita = store.persona?.nato_a && store.persona.nato_a !== '0' && store.persona.nato_a !== '';
+    const hasMorte = store.persona?.deceduto_a && store.persona.deceduto_a !== '0' && store.persona.deceduto_a !== '';
+    const hasEventiLuoghi = eventi.value.some(e => e.luogo && e.luogo !== '0' && e.luogo !== '');
+    return hasNascita || hasMorte || hasEventiLuoghi;
 });
 
 const mapLuoghi = computed(() => {
     const luoghi = [];
+    const nomePersona = store.persona?.nome_completo || `${store.persona?.nome} ${store.persona?.cognome}`;
+    
+    // Aggiungi luogo di nascita
     if (store.persona?.nato_a && store.persona.nato_a !== '0' && store.persona.nato_a !== '') {
         luoghi.push({ 
-            nome: store.persona.nome_completo + ' - ' + t('persona.birth_place'), 
-            luogo: store.persona.nato_a 
+            nome: nomePersona + ' - ' + t('persona.birth_place'), 
+            luogo: store.persona.nato_a,
+            tipo: 'nascita',
+            data: store.persona.nato_il
         });
     }
+    
+    // Aggiungi luogo di morte
     if (store.persona?.deceduto_a && store.persona.deceduto_a !== '0' && store.persona.deceduto_a !== '') {
         luoghi.push({ 
-            nome: store.persona.nome_completo + ' - ' + t('persona.death_place'), 
-            luogo: store.persona.deceduto_a 
+            nome: nomePersona + ' - ' + t('persona.death_place'), 
+            luogo: store.persona.deceduto_a,
+            tipo: 'morte',
+            data: store.persona.deceduto_il
         });
     }
+    
+    // Aggiungi luoghi degli eventi
+    eventi.value.forEach(evento => {
+        if (evento.luogo && evento.luogo !== '0' && evento.luogo !== '') {
+            const eventTypeLabel = getEventTypeLabel(evento.tipo_evento);
+            luoghi.push({
+                nome: nomePersona + ' - ' + eventTypeLabel + ': ' + evento.titolo,
+                luogo: evento.luogo,
+                tipo: evento.tipo_evento,
+                data: evento.data_evento,
+                descrizione: evento.descrizione
+            });
+        }
+    });
+    
     return luoghi;
 });
+
+// Funzione helper per ottenere l'etichetta del tipo di evento
+const getEventTypeLabel = (tipo) => {
+    const labels = {
+        nascita: t('eventi.birth'),
+        battesimo: t('eventi.baptism'),
+        comunione: t('eventi.communion'),
+        cresima: t('eventi.confirmation'),
+        primo_giorno_asilo: t('eventi.first_day_kindergarten'),
+        primo_giorno_scuola: t('eventi.first_day_school'),
+        licenza_elementare: t('eventi.elementary_license'),
+        licenza_media: t('eventi.middle_school_license'),
+        diploma_superiore: t('eventi.high_school_diploma'),
+        laurea: t('eventi.graduation'),
+        matrimonio: t('eventi.marriage'),
+        divorzio: t('eventi.divorce'),
+        lavoro: t('eventi.work'),
+        cambio_lavoro: t('eventi.job_change'),
+        militare: t('eventi.military'),
+        guerra: t('eventi.war'),
+        trasloco: t('eventi.move'),
+        emigrazione: t('eventi.emigration'),
+        immigrazione: t('eventi.immigration'),
+        malattia: t('eventi.illness'),
+        guarigione: t('eventi.recovery'),
+        pensione: t('eventi.retirement'),
+        morte: t('eventi.death'),
+        sepoltura: t('eventi.burial'),
+        altro: t('eventi.other'),
+    };
+    return labels[tipo] || tipo;
+};
+
+// Carica gli eventi per la mappa
+const loadEventi = async () => {
+    if (!route.params.id) return;
+    try {
+        const response = await eventoService.getByPersona(parseInt(route.params.id));
+        // La risposta può essere response.data.data o response.data a seconda della struttura
+        eventi.value = response.data?.data || response.data || [];
+        console.log(`Caricati ${eventi.value.length} eventi per la mappa`);
+    } catch (error) {
+        console.error('Errore nel caricamento degli eventi per la mappa:', error);
+        eventi.value = [];
+    }
+};
 
 // Carica i nonni quando la persona viene caricata
 const loadNonni = async () => {
@@ -550,12 +653,24 @@ onMounted(async () => {
     await store.fetchPersona(route.params.id);
     // Carica i nonni dopo che la persona è stata caricata
     await loadNonni();
+    // Carica gli eventi per la mappa
+    await loadEventi();
+});
+
+// Watch per ricaricare quando cambia la persona
+watch(() => route.params.id, async (newId) => {
+    if (newId) {
+        await store.fetchPersona(newId);
+        await loadNonni();
+        await loadEventi();
+    }
 });
 
 const navigateToPersona = (personaId) => {
     // Usa window.location.href per navigazione diretta e affidabile
     window.location.href = `/persone/${personaId}`;
 };
+
 
 const handleDelete = async () => {
     if (confirm(t('persona.delete_confirm'))) {

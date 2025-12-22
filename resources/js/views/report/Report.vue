@@ -98,10 +98,10 @@
                         </div>
                     </div>
 
-                    <!-- Luoghi di Nascita -->
+                    <!-- Luoghi di Nascita - Lista -->
                     <div class="bg-white dark:bg-gray-800 rounded-lg shadow-sm border border-gray-200 dark:border-gray-700 p-6">
                         <h3 class="text-lg font-semibold text-gray-900 dark:text-white mb-4">{{ t('report.birth_places') }}</h3>
-                        <div class="space-y-2">
+                        <div class="space-y-2 max-h-64 overflow-y-auto">
                             <div
                                 v-for="luogo in luoghiNascita"
                                 :key="luogo.nato_a"
@@ -116,15 +116,26 @@
                         </div>
                     </div>
                 </div>
+
+                <!-- Mappa Luoghi di Nascita -->
+                <div v-if="luoghiNascita.length > 0" class="bg-white dark:bg-gray-800 rounded-lg shadow-sm border border-gray-200 dark:border-gray-700 p-6">
+                    <h3 class="text-lg font-semibold text-gray-900 dark:text-white mb-4">{{ t('report.birth_places_map') }}</h3>
+                    <div class="w-full aspect-square max-w-4xl mx-auto">
+                        <div class="h-full w-full">
+                            <MapView :luoghi="mapLuoghiNascita" :no-wrapper="true" />
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
     </div>
 </template>
 
 <script setup>
-import { ref, onMounted } from 'vue';
+import { ref, onMounted, computed } from 'vue';
 import { useLocaleStore } from '../../stores/locale';
 import BarChart from '../../components/charts/BarChart.vue';
+import MapView from '../../components/maps/MapView.vue';
 import api from '../../services/api';
 
 const localeStore = useLocaleStore();
@@ -134,6 +145,18 @@ const loading = ref(false);
 const statistiche = ref({});
 const distribuzioneEta = ref(null);
 const luoghiNascita = ref([]);
+
+// Trasforma i luoghi di nascita nel formato atteso da MapView
+const mapLuoghiNascita = computed(() => {
+    return luoghiNascita.value
+        .filter(luogo => luogo.nato_a && luogo.nato_a !== '0' && luogo.nato_a !== '')
+        .map(luogo => ({
+            luogo: luogo.nato_a,
+            nome: luogo.nato_a,
+            descrizione: `${luogo.totale} ${luogo.totale === 1 ? 'persona' : 'persone'}`,
+            tipo: 'nascita'
+        }));
+});
 
 const loadData = async () => {
     loading.value = true;

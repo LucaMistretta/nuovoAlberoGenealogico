@@ -32,6 +32,7 @@ class PersonaController extends Controller
                 $query->where(function ($q) use ($searchTerm) {
                     $q->whereRaw('LOWER(nome) LIKE ?', ['%' . strtolower($searchTerm) . '%'])
                       ->orWhereRaw('LOWER(cognome) LIKE ?', ['%' . strtolower($searchTerm) . '%'])
+                      ->orWhereRaw('LOWER(nato_a) LIKE ?', ['%' . strtolower($searchTerm) . '%'])
                       ->orWhere('id', 'LIKE', "%{$searchTerm}%");
                 });
             }

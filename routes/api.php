@@ -12,6 +12,7 @@ use App\Http\Controllers\API\ReportController;
 use App\Http\Controllers\API\DataQualityController;
 use App\Http\Controllers\API\UserController;
 use App\Http\Controllers\API\AuditLogController;
+use App\Http\Controllers\API\GeocodingController;
 use App\Http\Controllers\AuthController;
 use Illuminate\Support\Facades\Route;
 
@@ -74,6 +75,10 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::get('/report/statistiche', [ReportController::class, 'statisticheGenerali']);
     Route::get('/report/distribuzione-eta', [ReportController::class, 'distribuzioneEta']);
     Route::get('/report/luoghi-nascita', [ReportController::class, 'luoghiNascita']);
+    
+    // Route geocoding
+    Route::post('/geocoding/geocode', [GeocodingController::class, 'geocode']);
+    Route::post('/geocoding/batch', [GeocodingController::class, 'geocodeBatch']);
 
     // Route data quality
     Route::get('/data-quality/check', [DataQualityController::class, 'check']);

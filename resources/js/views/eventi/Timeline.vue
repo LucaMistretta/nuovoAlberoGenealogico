@@ -1,6 +1,6 @@
 <template>
-    <div class="bg-white dark:bg-gray-800 rounded-lg shadow-sm border border-gray-200 dark:border-gray-700 p-4">
-        <div class="flex items-center justify-between mb-4">
+    <div class="bg-white dark:bg-gray-800 rounded-lg shadow-sm border border-gray-200 dark:border-gray-700 p-4 flex flex-col h-full max-h-[680px] w-full">
+        <div class="flex items-center justify-between mb-4 flex-shrink-0">
             <h3 class="text-base font-semibold text-gray-900 dark:text-white flex items-center gap-2">
                 <svg class="w-4 h-4 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
@@ -20,7 +20,7 @@
         </div>
 
         <!-- Form Evento -->
-        <div v-if="showForm" class="mb-4 p-4 bg-gray-50 dark:bg-gray-700/50 rounded-lg border border-gray-200 dark:border-gray-600">
+        <div v-if="showForm" class="mb-4 p-4 bg-gray-50 dark:bg-gray-700/50 rounded-lg border border-gray-200 dark:border-gray-600 flex-shrink-0">
             <h4 class="text-sm font-semibold text-gray-900 dark:text-white mb-3">
                 {{ editingEvento ? t('eventi.edit_event') : t('eventi.new_event') }}
             </h4>
@@ -38,13 +38,26 @@
                         <option value="battesimo">{{ t('eventi.baptism') }}</option>
                         <option value="comunione">{{ t('eventi.communion') }}</option>
                         <option value="cresima">{{ t('eventi.confirmation') }}</option>
+                        <option value="primo_giorno_asilo">{{ t('eventi.first_day_kindergarten') }}</option>
+                        <option value="primo_giorno_scuola">{{ t('eventi.first_day_school') }}</option>
+                        <option value="licenza_elementare">{{ t('eventi.elementary_license') }}</option>
+                        <option value="licenza_media">{{ t('eventi.middle_school_license') }}</option>
+                        <option value="diploma_superiore">{{ t('eventi.high_school_diploma') }}</option>
+                        <option value="laurea">{{ t('eventi.graduation') }}</option>
                         <option value="matrimonio">{{ t('eventi.marriage') }}</option>
                         <option value="divorzio">{{ t('eventi.divorce') }}</option>
+                        <option value="lavoro">{{ t('eventi.work') }}</option>
+                        <option value="cambio_lavoro">{{ t('eventi.job_change') }}</option>
+                        <option value="militare">{{ t('eventi.military') }}</option>
+                        <option value="guerra">{{ t('eventi.war') }}</option>
+                        <option value="trasloco">{{ t('eventi.move') }}</option>
+                        <option value="emigrazione">{{ t('eventi.emigration') }}</option>
+                        <option value="immigrazione">{{ t('eventi.immigration') }}</option>
+                        <option value="malattia">{{ t('eventi.illness') }}</option>
+                        <option value="guarigione">{{ t('eventi.recovery') }}</option>
+                        <option value="pensione">{{ t('eventi.retirement') }}</option>
                         <option value="morte">{{ t('eventi.death') }}</option>
                         <option value="sepoltura">{{ t('eventi.burial') }}</option>
-                        <option value="laurea">{{ t('eventi.graduation') }}</option>
-                        <option value="lavoro">{{ t('eventi.work') }}</option>
-                        <option value="pensione">{{ t('eventi.retirement') }}</option>
                         <option value="altro">{{ t('eventi.other') }}</option>
                     </select>
                 </div>
@@ -130,7 +143,7 @@
         </div>
 
         <!-- Loading -->
-        <div v-if="loading" class="flex items-center justify-center py-8">
+        <div v-if="loading" class="flex items-center justify-center py-8 flex-1">
             <div class="text-center">
                 <div class="inline-block animate-spin rounded-full h-8 w-8 border-b-2 border-blue-600 mb-2"></div>
                 <p class="text-sm text-gray-600 dark:text-gray-400">{{ t('common.loading') }}</p>
@@ -138,18 +151,20 @@
         </div>
 
         <!-- Timeline -->
-        <div v-else-if="eventi.length === 0" class="text-center py-8">
-            <svg class="w-12 h-12 text-gray-400 mx-auto mb-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
-            </svg>
-            <p class="text-sm text-gray-500 dark:text-gray-400">{{ t('eventi.no_events') }}</p>
+        <div v-else-if="sortedEventi.length === 0" class="text-center py-8 flex-1 flex items-center justify-center">
+            <div>
+                <svg class="w-12 h-12 text-gray-400 mx-auto mb-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
+                </svg>
+                <p class="text-sm text-gray-500 dark:text-gray-400">{{ t('eventi.no_events') }}</p>
+            </div>
         </div>
 
-        <div v-else class="relative">
+        <div v-else class="relative flex-1 min-h-0 overflow-hidden">
             <!-- Linea verticale -->
             <div class="absolute left-4 top-0 bottom-0 w-0.5 bg-gray-300 dark:bg-gray-600"></div>
             
-            <div class="space-y-4">
+            <div class="space-y-4 overflow-y-auto h-full pr-2" style="max-height: 100%;">
                 <div
                     v-for="evento in sortedEventi"
                     :key="evento.id"
@@ -187,7 +202,7 @@
                                     {{ evento.note }}
                                 </p>
                             </div>
-                            <div class="flex gap-1 ml-2">
+                            <div v-if="!evento.virtuale" class="flex gap-1 ml-2">
                                 <button
                                     @click="editEvento(evento)"
                                     class="p-1 text-blue-600 dark:text-blue-400 hover:bg-blue-100 dark:hover:bg-blue-900/30 rounded transition-colors"
@@ -207,6 +222,9 @@
                                     </svg>
                                 </button>
                             </div>
+                            <div v-else class="ml-2 text-xs text-gray-400 dark:text-gray-500 italic">
+                                {{ t('persona.personal_info') }}
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -224,6 +242,10 @@ const props = defineProps({
     personaId: {
         type: Number,
         required: true,
+    },
+    persona: {
+        type: Object,
+        default: null,
     },
 });
 
@@ -248,12 +270,52 @@ const form = ref({
     note: '',
 });
 
+// Crea eventi virtuali per nascita e morte dalla persona
+const eventiPersona = computed(() => {
+    const eventiVirtuali = [];
+    
+    // Aggiungi evento nascita se presente
+    if (props.persona?.nato_il || props.persona?.nato_a) {
+        eventiVirtuali.push({
+            id: 'nascita_virtuale',
+            tipo_evento: 'nascita',
+            titolo: t('eventi.birth'),
+            descrizione: props.persona.nato_a ? `${t('persona.birth_place')}: ${props.persona.nato_a}` : '',
+            data_evento: props.persona.nato_il || null,
+            luogo: props.persona.nato_a || '',
+            note: '',
+            virtuale: true, // Flag per identificare eventi virtuali
+        });
+    }
+    
+    // Aggiungi evento morte solo se presenti sia data che luogo
+    if (props.persona?.deceduto_il && props.persona?.deceduto_a && props.persona.deceduto_a !== '0' && props.persona.deceduto_a !== '') {
+        eventiVirtuali.push({
+            id: 'morte_virtuale',
+            tipo_evento: 'morte',
+            titolo: t('eventi.death'),
+            descrizione: `${t('persona.death_place')}: ${props.persona.deceduto_a}`,
+            data_evento: props.persona.deceduto_il,
+            luogo: props.persona.deceduto_a,
+            note: '',
+            virtuale: true, // Flag per identificare eventi virtuali
+        });
+    }
+    
+    return eventiVirtuali;
+});
+
 const sortedEventi = computed(() => {
-    return [...eventi.value].sort((a, b) => {
+    // Combina eventi caricati e eventi virtuali (nascita/morte)
+    const tuttiEventi = [...eventi.value, ...eventiPersona.value];
+    
+    return tuttiEventi.sort((a, b) => {
+        // Eventi senza data vanno alla fine
         if (!a.data_evento && !b.data_evento) return 0;
         if (!a.data_evento) return 1;
         if (!b.data_evento) return -1;
-        return new Date(b.data_evento) - new Date(a.data_evento);
+        // Ordina dal più vecchio (lontano) al più recente: dall'alto in basso
+        return new Date(a.data_evento) - new Date(b.data_evento);
     });
 });
 
@@ -351,13 +413,26 @@ const getEventTypeLabel = (tipo) => {
         battesimo: t('eventi.baptism'),
         comunione: t('eventi.communion'),
         cresima: t('eventi.confirmation'),
+        primo_giorno_asilo: t('eventi.first_day_kindergarten'),
+        primo_giorno_scuola: t('eventi.first_day_school'),
+        licenza_elementare: t('eventi.elementary_license'),
+        licenza_media: t('eventi.middle_school_license'),
+        diploma_superiore: t('eventi.high_school_diploma'),
+        laurea: t('eventi.graduation'),
         matrimonio: t('eventi.marriage'),
         divorzio: t('eventi.divorce'),
+        lavoro: t('eventi.work'),
+        cambio_lavoro: t('eventi.job_change'),
+        militare: t('eventi.military'),
+        guerra: t('eventi.war'),
+        trasloco: t('eventi.move'),
+        emigrazione: t('eventi.emigration'),
+        immigrazione: t('eventi.immigration'),
+        malattia: t('eventi.illness'),
+        guarigione: t('eventi.recovery'),
+        pensione: t('eventi.retirement'),
         morte: t('eventi.death'),
         sepoltura: t('eventi.burial'),
-        laurea: t('eventi.graduation'),
-        lavoro: t('eventi.work'),
-        pensione: t('eventi.retirement'),
         altro: t('eventi.other'),
     };
     return labels[tipo] || tipo;
