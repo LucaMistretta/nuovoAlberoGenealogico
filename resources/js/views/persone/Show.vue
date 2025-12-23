@@ -230,6 +230,23 @@
                                                 <p class="text-sm font-semibold text-gray-900 dark:text-white group-hover:text-purple-600 dark:group-hover:text-purple-400 transition-colors truncate">
                                                     {{ consorte.nome_completo }}
                                                 </p>
+                                                <!-- Dettagli legame -->
+                                                <div v-if="consorte.tipo_evento_legame || consorte.data_legame || consorte.luogo_legame || consorte.data_separazione || consorte.luogo_separazione" class="mt-1 space-y-0.5">
+                                                    <p v-if="consorte.tipo_evento_legame" class="text-xs text-gray-600 dark:text-gray-400">
+                                                        {{ consorte.tipo_evento_legame.descrizione || consorte.tipo_evento_legame.nome }}
+                                                    </p>
+                                                    <p v-if="consorte.data_legame || consorte.luogo_legame" class="text-xs text-gray-500 dark:text-gray-500">
+                                                        <span v-if="consorte.data_legame">{{ formatDateItalian(consorte.data_legame) }}</span>
+                                                        <span v-if="consorte.data_legame && consorte.luogo_legame"> - </span>
+                                                        <span v-if="consorte.luogo_legame">{{ consorte.luogo_legame }}</span>
+                                                    </p>
+                                                    <p v-if="consorte.data_separazione || consorte.luogo_separazione" class="text-xs text-red-600 dark:text-red-400 italic">
+                                                        {{ t('persona.data_separazione') }}: 
+                                                        <span v-if="consorte.data_separazione">{{ formatDateItalian(consorte.data_separazione) }}</span>
+                                                        <span v-if="consorte.data_separazione && consorte.luogo_separazione"> - </span>
+                                                        <span v-if="consorte.luogo_separazione">{{ consorte.luogo_separazione }}</span>
+                                                    </p>
+                                                </div>
                                             </div>
                                             <svg class="w-4 h-4 text-gray-400 group-hover:text-purple-600 dark:group-hover:text-purple-400 transition-colors" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />

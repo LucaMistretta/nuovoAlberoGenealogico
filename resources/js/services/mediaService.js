@@ -13,6 +13,10 @@ export const mediaService = {
      * Carica un nuovo media
      */
     async upload(personaId, file, tipo, descrizione = '') {
+        if (!file) {
+            throw new Error('File non specificato');
+        }
+        
         const formData = new FormData();
         formData.append('file', file);
         formData.append('tipo', tipo);
@@ -20,15 +24,16 @@ export const mediaService = {
             formData.append('descrizione', descrizione);
         }
 
+        // Non impostare Content-Type manualmente, axios lo gestisce automaticamente per FormData
         const response = await api.post(
             `/persone/${personaId}/media`,
             formData,
             {
-                headers: {
-                    'Content-Type': 'multipart/form-data',
-                },
+                // Timeout per upload
+                timeout: 60000, // 60 secondi
             }
         );
+        
         return response.data;
     },
 
@@ -36,8 +41,8 @@ export const mediaService = {
      * Elimina un media
      */
     async delete(personaId, mediaId) {
-        const response = await axios.delete(
-            `${API_BASE_URL}/persone/${personaId}/media/${mediaId}`
+        const response = await api.delete(
+            `/persone/${personaId}/media/${mediaId}`
         );
         return response.data;
     },

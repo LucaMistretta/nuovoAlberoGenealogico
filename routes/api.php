@@ -13,6 +13,7 @@ use App\Http\Controllers\API\DataQualityController;
 use App\Http\Controllers\API\UserController;
 use App\Http\Controllers\API\AuditLogController;
 use App\Http\Controllers\API\GeocodingController;
+use App\Http\Controllers\API\TipoEventoLegameController;
 use App\Http\Controllers\AuthController;
 use Illuminate\Support\Facades\Route;
 
@@ -103,5 +104,8 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::post('/tipi-legame', [TipoLegameController::class, 'store']);
     Route::put('/tipi-legame/{id}', [TipoLegameController::class, 'update']);
     Route::delete('/tipi-legame/{id}', [TipoLegameController::class, 'destroy']);
+
+    // Route tipi_evento_legame
+    Route::get('/tipi-evento-legame', [TipoEventoLegameController::class, 'index']);
 });
 

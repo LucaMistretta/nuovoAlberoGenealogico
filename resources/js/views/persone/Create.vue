@@ -89,61 +89,61 @@
                             <!-- Padre -->
                             <div>
                                 <label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">Padre</label>
-                                <div class="flex gap-2">
-                                    <select
-                                        v-model="selectedPadreId"
-                                        class="flex-1 px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-md bg-white dark:bg-gray-700 text-gray-900 dark:text-white text-sm"
-                                    >
-                                        <option value="">Seleziona padre esistente...</option>
-                                        <option
-                                            v-for="persona in sortedAvailablePeople"
-                                            :key="persona.id"
-                                            :value="persona.id"
+                                <SearchableSelect
+                                    v-model="selectedPadreId"
+                                    :options="sortedAvailablePeople"
+                                    option-label="nome_completo"
+                                    option-value="id"
+                                    placeholder="Cerca padre per nome o cognome..."
+                                    empty-option="Seleziona padre esistente..."
+                                    select-class="px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-md bg-white dark:bg-gray-700 text-gray-900 dark:text-white text-sm"
+                                >
+                                    <template #option="{ option }">
+                                        {{ option.nome_completo }} (ID: {{ option.id }})
+                                    </template>
+                                    <template #actions>
+                                        <button
+                                            type="button"
+                                            @click="creaNuovoPadre"
+                                            class="px-3 py-2 bg-blue-600 text-white rounded-md hover:bg-blue-700 transition-colors text-sm"
+                                            title="Crea nuovo padre"
                                         >
-                                            {{ persona.nome_completo }} (ID: {{ persona.id }})
-                                        </option>
-                                    </select>
-                                    <button
-                                        type="button"
-                                        @click="creaNuovoPadre"
-                                        class="px-3 py-2 bg-blue-600 text-white rounded-md hover:bg-blue-700 transition-colors text-sm"
-                                        title="Crea nuovo padre"
-                                    >
-                                        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4" />
-                                        </svg>
-                                    </button>
-                                </div>
+                                            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4" />
+                                            </svg>
+                                        </button>
+                                    </template>
+                                </SearchableSelect>
                             </div>
                             
                             <!-- Madre -->
                             <div>
                                 <label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">Madre</label>
-                                <div class="flex gap-2">
-                                    <select
-                                        v-model="selectedMadreId"
-                                        class="flex-1 px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-md bg-white dark:bg-gray-700 text-gray-900 dark:text-white text-sm"
-                                    >
-                                        <option value="">Seleziona madre esistente...</option>
-                                        <option
-                                            v-for="persona in sortedAvailablePeople"
-                                            :key="persona.id"
-                                            :value="persona.id"
+                                <SearchableSelect
+                                    v-model="selectedMadreId"
+                                    :options="sortedAvailablePeople"
+                                    option-label="nome_completo"
+                                    option-value="id"
+                                    placeholder="Cerca madre per nome o cognome..."
+                                    empty-option="Seleziona madre esistente..."
+                                    select-class="px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-md bg-white dark:bg-gray-700 text-gray-900 dark:text-white text-sm"
+                                >
+                                    <template #option="{ option }">
+                                        {{ option.nome_completo }} (ID: {{ option.id }})
+                                    </template>
+                                    <template #actions>
+                                        <button
+                                            type="button"
+                                            @click="creaNuovaMadre"
+                                            class="px-3 py-2 bg-pink-600 text-white rounded-md hover:bg-pink-700 transition-colors text-sm"
+                                            title="Crea nuova madre"
                                         >
-                                            {{ persona.nome_completo }} (ID: {{ persona.id }})
-                                        </option>
-                                    </select>
-                                    <button
-                                        type="button"
-                                        @click="creaNuovaMadre"
-                                        class="px-3 py-2 bg-pink-600 text-white rounded-md hover:bg-pink-700 transition-colors text-sm"
-                                        title="Crea nuova madre"
-                                    >
-                                        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4" />
-                                        </svg>
-                                    </button>
-                                </div>
+                                            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4" />
+                                            </svg>
+                                        </button>
+                                    </template>
+                                </SearchableSelect>
                             </div>
                         </div>
                     </div>
@@ -155,55 +155,109 @@
                         </div>
                         
                         <div class="space-y-2">
-                            <div v-for="(consorte, index) in selectedConsorti" :key="index" class="flex items-center gap-2 p-2 bg-purple-50 dark:bg-purple-900/20 rounded-md">
-                                <span class="flex-1 text-sm text-gray-900 dark:text-white">{{ consorte.nome_completo }}</span>
-                                <button
-                                    type="button"
-                                    @click="removeConsorte(index)"
-                                    class="p-1 text-red-600 dark:text-red-400 hover:bg-red-100 dark:hover:bg-red-900/30 rounded"
-                                >
-                                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
-                                    </svg>
-                                </button>
-                            </div>
+                            <div v-for="(consorte, index) in selectedConsorti" :key="index" class="p-3 bg-purple-50 dark:bg-purple-900/20 rounded-md space-y-2">
+                                <div class="flex items-center gap-2">
+                                    <span class="flex-1 text-sm font-semibold text-gray-900 dark:text-white">{{ consorte.nome_completo || consorte.persona?.nome_completo }}</span>
+                                    <button
+                                        type="button"
+                                        @click="removeConsorte(index)"
+                                        class="p-1 text-red-600 dark:text-red-400 hover:bg-red-100 dark:hover:bg-red-900/30 rounded"
+                                    >
+                                        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+                                        </svg>
+                                    </button>
+                                </div>
+                                <!-- Campi dettagli legame -->
+                                <div class="grid grid-cols-1 md:grid-cols-3 gap-2 mt-2">
+                                    <div>
+                                        <label class="block text-xs font-medium text-gray-700 dark:text-gray-300 mb-1">{{ t('persona.tipo_evento_legame') }}</label>
+                                        <select
+                                            v-model="consorte.tipo_evento_legame_id"
+                                            class="w-full px-2 py-1 text-xs border border-gray-300 dark:border-gray-600 rounded-md bg-white dark:bg-gray-700 text-gray-900 dark:text-white"
+                                        >
+                                            <option value="">{{ t('persona.select') }}</option>
+                                            <option v-for="tipo in tipiEventoLegame" :key="tipo.id" :value="tipo.id">
+                                                {{ tipo.descrizione || tipo.nome }}
+                                            </option>
+                                        </select>
+                                    </div>
+                                    <div>
+                                        <label class="block text-xs font-medium text-gray-700 dark:text-gray-300 mb-1">{{ t('persona.data_legame') }}</label>
+                                        <input
+                                            v-model="consorte.data_legame"
+                                            type="date"
+                                            class="w-full px-2 py-1 text-xs border border-gray-300 dark:border-gray-600 rounded-md bg-white dark:bg-gray-700 text-gray-900 dark:text-white"
+                                        />
+                                    </div>
+                                            <div>
+                                                <label class="block text-xs font-medium text-gray-700 dark:text-gray-300 mb-1">{{ t('persona.luogo_legame') }}</label>
+                                                <input
+                                                    v-model="consorte.luogo_legame"
+                                                    type="text"
+                                                    class="w-full px-2 py-1 text-xs border border-gray-300 dark:border-gray-600 rounded-md bg-white dark:bg-gray-700 text-gray-900 dark:text-white"
+                                                    :placeholder="t('persona.birth_place_example')"
+                                                />
+                                            </div>
+                                        </div>
+                                        <!-- Campi separazione -->
+                                        <div class="grid grid-cols-1 md:grid-cols-2 gap-2 mt-2 pt-2 border-t border-purple-200 dark:border-purple-800">
+                                            <div>
+                                                <label class="block text-xs font-medium text-gray-700 dark:text-gray-300 mb-1">{{ t('persona.data_separazione') }}</label>
+                                                <input
+                                                    v-model="consorte.data_separazione"
+                                                    type="date"
+                                                    class="w-full px-2 py-1 text-xs border border-gray-300 dark:border-gray-600 rounded-md bg-white dark:bg-gray-700 text-gray-900 dark:text-white"
+                                                />
+                                            </div>
+                                            <div>
+                                                <label class="block text-xs font-medium text-gray-700 dark:text-gray-300 mb-1">{{ t('persona.luogo_separazione') }}</label>
+                                                <input
+                                                    v-model="consorte.luogo_separazione"
+                                                    type="text"
+                                                    class="w-full px-2 py-1 text-xs border border-gray-300 dark:border-gray-600 rounded-md bg-white dark:bg-gray-700 text-gray-900 dark:text-white"
+                                                    :placeholder="t('persona.birth_place_example')"
+                                                />
+                                            </div>
+                                        </div>
+                                    </div>
                             
-                            <div class="flex gap-2">
-                                <select
-                                    v-model="newConsorteId"
-                                    class="flex-1 px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-md bg-white dark:bg-gray-700 text-gray-900 dark:text-white text-sm"
-                                >
-                                    <option value="">Seleziona consorte esistente...</option>
-                                                <option
-                                                    v-for="persona in sortedAvailablePeople"
-                                                    :key="persona.id"
-                                                    :value="persona.id"
-                                                    :disabled="selectedConsortiIds.includes(persona.id)"
-                                                >
-                                                    {{ persona.nome_completo }} (ID: {{ persona.id }})
-                                                </option>
-                                </select>
-                                <button
-                                    type="button"
-                                    @click="addConsorte"
-                                    :disabled="!newConsorteId"
-                                    class="px-3 py-2 bg-purple-600 text-white rounded-md hover:bg-purple-700 disabled:opacity-50 disabled:cursor-not-allowed transition-colors text-sm"
-                                >
-                                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
-                                    </svg>
-                                </button>
-                                <button
-                                    type="button"
-                                    @click="creaNuovoConsorte"
-                                    class="px-3 py-2 bg-purple-600 text-white rounded-md hover:bg-purple-700 transition-colors text-sm"
-                                    title="Crea nuovo consorte"
-                                >
-                                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4" />
-                                    </svg>
-                                </button>
-                            </div>
+                            <SearchableSelect
+                                v-model="newConsorteId"
+                                :options="sortedAvailablePeople"
+                                option-label="nome_completo"
+                                option-value="id"
+                                placeholder="Cerca consorte per nome o cognome..."
+                                empty-option="Seleziona consorte esistente..."
+                                :disabled="selectedConsortiIds"
+                                select-class="px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-md bg-white dark:bg-gray-700 text-gray-900 dark:text-white text-sm"
+                            >
+                                <template #option="{ option }">
+                                    {{ option.nome_completo }} (ID: {{ option.id }})
+                                </template>
+                                <template #actions>
+                                    <button
+                                        type="button"
+                                        @click="addConsorte"
+                                        :disabled="!newConsorteId"
+                                        class="px-3 py-2 bg-purple-600 text-white rounded-md hover:bg-purple-700 disabled:opacity-50 disabled:cursor-not-allowed transition-colors text-sm"
+                                    >
+                                        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
+                                        </svg>
+                                    </button>
+                                    <button
+                                        type="button"
+                                        @click="creaNuovoConsorte"
+                                        class="px-3 py-2 bg-purple-600 text-white rounded-md hover:bg-purple-700 transition-colors text-sm"
+                                        title="Crea nuovo consorte"
+                                    >
+                                        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4" />
+                                        </svg>
+                                    </button>
+                                </template>
+                            </SearchableSelect>
                         </div>
                     </div>
 
@@ -227,42 +281,42 @@
                                 </button>
                             </div>
                             
-                            <div class="flex gap-2">
-                                <select
-                                    v-model="newFiglioId"
-                                    class="flex-1 px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-md bg-white dark:bg-gray-700 text-gray-900 dark:text-white text-sm"
-                                >
-                                    <option value="">Seleziona figlio esistente...</option>
-                                                <option
-                                                    v-for="persona in sortedAvailablePeople"
-                                                    :key="persona.id"
-                                                    :value="persona.id"
-                                                    :disabled="selectedFigliIds.includes(persona.id)"
-                                                >
-                                                    {{ persona.nome_completo }} (ID: {{ persona.id }})
-                                                </option>
-                                </select>
-                                <button
-                                    type="button"
-                                    @click="addFiglio"
-                                    :disabled="!newFiglioId"
-                                    class="px-3 py-2 bg-green-600 text-white rounded-md hover:bg-green-700 disabled:opacity-50 disabled:cursor-not-allowed transition-colors text-sm"
-                                >
-                                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
-                                    </svg>
-                                </button>
-                                <button
-                                    type="button"
-                                    @click="creaNuovoFiglio"
-                                    class="px-3 py-2 bg-green-600 text-white rounded-md hover:bg-green-700 transition-colors text-sm"
-                                    title="Crea nuovo figlio"
-                                >
-                                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4" />
-                                    </svg>
-                                </button>
-                            </div>
+                            <SearchableSelect
+                                v-model="newFiglioId"
+                                :options="sortedAvailablePeople"
+                                option-label="nome_completo"
+                                option-value="id"
+                                placeholder="Cerca figlio per nome o cognome..."
+                                empty-option="Seleziona figlio esistente..."
+                                :disabled="selectedFigliIds"
+                                select-class="px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-md bg-white dark:bg-gray-700 text-gray-900 dark:text-white text-sm"
+                            >
+                                <template #option="{ option }">
+                                    {{ option.nome_completo }} (ID: {{ option.id }})
+                                </template>
+                                <template #actions>
+                                    <button
+                                        type="button"
+                                        @click="addFiglio"
+                                        :disabled="!newFiglioId"
+                                        class="px-3 py-2 bg-green-600 text-white rounded-md hover:bg-green-700 disabled:opacity-50 disabled:cursor-not-allowed transition-colors text-sm"
+                                    >
+                                        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
+                                        </svg>
+                                    </button>
+                                    <button
+                                        type="button"
+                                        @click="creaNuovoFiglio"
+                                        class="px-3 py-2 bg-green-600 text-white rounded-md hover:bg-green-700 transition-colors text-sm"
+                                        title="Crea nuovo figlio"
+                                    >
+                                        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4" />
+                                        </svg>
+                                    </button>
+                                </template>
+                            </SearchableSelect>
                         </div>
                     </div>
                 </div>
@@ -291,12 +345,28 @@
 import { ref, onMounted, computed } from 'vue';
 import { useRoute, useRouter } from 'vue-router';
 import { usePersoneStore } from '../../stores/persone';
+import { useLocaleStore } from '../../stores/locale';
 import { personaService } from '../../services/personaService';
 import { tipoLegameService } from '../../services/tipoLegameService';
+import { tipoEventoLegameService } from '../../services/tipoEventoLegameService';
+import SearchableSelect from '../../components/common/SearchableSelect.vue';
 
 const route = useRoute();
 const router = useRouter();
 const store = usePersoneStore();
+const localeStore = useLocaleStore();
+
+// Helper per le traduzioni
+const t = (key) => {
+    return localeStore.t(key);
+};
+
+// Assicurati che le traduzioni siano caricate
+onMounted(() => {
+    if (Object.keys(localeStore.translations).length === 0) {
+        localeStore.loadTranslations();
+    }
+});
 
 const form = ref({
     nome: '',
@@ -309,6 +379,7 @@ const form = ref({
 
 const loading = ref(false);
 const tipiLegame = ref([]);
+const tipiEventoLegame = ref([]);
 const availablePeople = ref([]);
 
 // Relazioni selezionate
@@ -320,7 +391,7 @@ const newConsorteId = ref('');
 const newFiglioId = ref('');
 
 // Computed per gli ID selezionati
-const selectedConsortiIds = computed(() => selectedConsorti.value.map(c => c.id));
+const selectedConsortiIds = computed(() => selectedConsorti.value.map(c => c.id || c.persona?.id));
 const selectedFigliIds = computed(() => selectedFigli.value.map(f => f.id));
 
 // Computed per ordinare le persone per cognome e poi nome
@@ -343,20 +414,30 @@ const relazioneTipo = route.query.relazione_tipo; // 'coniuge' o 'figlio'
 const returnTo = route.query.return_to || '/persone';
 
 onMounted(async () => {
-    // Carica i tipi di legame e le persone disponibili
+    // Carica i tipi di legame, tipi evento legame e le persone disponibili
     try {
-        const [tipiResponse, personeResponse] = await Promise.all([
+        const [tipiResponse, tipiEventoResponse, personeResponse] = await Promise.all([
             tipoLegameService.getAll(),
+            tipoEventoLegameService.getAll(),
             personaService.getAllPeople()
         ]);
         
         tipiLegame.value = tipiResponse.data.data || tipiResponse.data || [];
+        tipiEventoLegame.value = tipiEventoResponse.data || [];
         availablePeople.value = personeResponse.data.data || personeResponse.data || [];
         
         // Se si sta creando una relazione automatica, imposta i valori
         if (relazionePersonaId && relazioneTipo) {
             if (relazioneTipo === 'coniuge') {
-                selectedConsorti.value = [{ id: relazionePersonaId, nome_completo: 'Persona originale' }];
+                selectedConsorti.value = [{
+                    id: relazionePersonaId,
+                    nome_completo: 'Persona originale',
+                    data_legame: '',
+                    luogo_legame: '',
+                    tipo_evento_legame_id: '',
+                    data_separazione: '',
+                    luogo_separazione: ''
+                }];
             } else if (relazioneTipo === 'figlio') {
                 selectedFigli.value = [{ id: relazionePersonaId, nome_completo: 'Persona originale' }];
             }
@@ -386,10 +467,30 @@ const handleSubmit = async () => {
         const coniugeTipo = tipiLegame.value.find(t => t.nome === 'coniuge');
         if (coniugeTipo) {
             selectedConsorti.value.forEach(consorte => {
-                relazioni.push({
-                    persona_collegata_id: consorte.id,
+                const relazione = {
+                    persona_collegata_id: consorte.id || consorte.persona?.id,
                     tipo_legame_id: coniugeTipo.id,
-                });
+                };
+                
+                // Aggiungi dettagli del legame se presenti
+                if (consorte.data_legame) {
+                    relazione.data_legame = consorte.data_legame;
+                }
+                if (consorte.luogo_legame) {
+                    relazione.luogo_legame = consorte.luogo_legame;
+                }
+                if (consorte.tipo_evento_legame_id) {
+                    relazione.tipo_evento_legame_id = parseInt(consorte.tipo_evento_legame_id);
+                }
+                // Aggiungi dettagli della separazione se presenti
+                if (consorte.data_separazione) {
+                    relazione.data_separazione = consorte.data_separazione;
+                }
+                if (consorte.luogo_separazione) {
+                    relazione.luogo_separazione = consorte.luogo_separazione;
+                }
+                
+                relazioni.push(relazione);
             });
         }
         
@@ -447,7 +548,16 @@ const addConsorte = () => {
     
     const persona = sortedAvailablePeople.value.find(p => p.id === parseInt(newConsorteId.value));
     if (persona && !selectedConsortiIds.value.includes(persona.id)) {
-        selectedConsorti.value.push(persona);
+        selectedConsorti.value.push({
+            id: persona.id,
+            nome_completo: persona.nome_completo,
+            persona: persona,
+            data_legame: '',
+            luogo_legame: '',
+            tipo_evento_legame_id: '',
+            data_separazione: '',
+            luogo_separazione: ''
+        });
         newConsorteId.value = '';
     }
 };

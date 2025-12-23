@@ -440,7 +440,7 @@
                                     <div
                                         v-for="consorte in selectedConsorti"
                                         :key="consorte.id"
-                                        class="group p-2 bg-purple-50 dark:bg-purple-900/20 rounded-lg border border-purple-200 dark:border-purple-800 hover:border-purple-300 dark:hover:border-purple-700 transition-colors"
+                                        class="group p-3 bg-purple-50 dark:bg-purple-900/20 rounded-lg border border-purple-200 dark:border-purple-800 hover:border-purple-300 dark:hover:border-purple-700 transition-colors space-y-2"
                                     >
                                         <div class="flex items-center gap-2">
                                             <div class="flex-shrink-0 w-7 h-7 bg-purple-100 dark:bg-purple-900/40 rounded-lg flex items-center justify-center">
@@ -463,6 +463,58 @@
                                                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
                                                 </svg>
                                             </button>
+                                        </div>
+                                        <!-- Campi dettagli legame -->
+                                        <div class="grid grid-cols-1 md:grid-cols-3 gap-2 mt-2">
+                                            <div>
+                                                <label class="block text-xs font-medium text-gray-700 dark:text-gray-300 mb-1">{{ t('persona.tipo_evento_legame') }}</label>
+                                                <select
+                                                    v-model="consorte.tipo_evento_legame_id"
+                                                    class="w-full px-2 py-1 text-xs border border-gray-300 dark:border-gray-600 rounded-md bg-white dark:bg-gray-700 text-gray-900 dark:text-white"
+                                                >
+                                                    <option value="">{{ t('persona.select') }}</option>
+                                                    <option v-for="tipo in tipiEventoLegame" :key="tipo.id" :value="tipo.id">
+                                                        {{ tipo.descrizione || tipo.nome }}
+                                                    </option>
+                                                </select>
+                                            </div>
+                                            <div>
+                                                <label class="block text-xs font-medium text-gray-700 dark:text-gray-300 mb-1">{{ t('persona.data_legame') }}</label>
+                                                <input
+                                                    v-model="consorte.data_legame"
+                                                    type="date"
+                                                    class="w-full px-2 py-1 text-xs border border-gray-300 dark:border-gray-600 rounded-md bg-white dark:bg-gray-700 text-gray-900 dark:text-white"
+                                                />
+                                            </div>
+                                            <div>
+                                                <label class="block text-xs font-medium text-gray-700 dark:text-gray-300 mb-1">{{ t('persona.luogo_legame') }}</label>
+                                                <input
+                                                    v-model="consorte.luogo_legame"
+                                                    type="text"
+                                                    class="w-full px-2 py-1 text-xs border border-gray-300 dark:border-gray-600 rounded-md bg-white dark:bg-gray-700 text-gray-900 dark:text-white"
+                                                    :placeholder="t('persona.birth_place_example')"
+                                                />
+                                            </div>
+                                        </div>
+                                        <!-- Campi separazione -->
+                                        <div class="grid grid-cols-1 md:grid-cols-2 gap-2 mt-2 pt-2 border-t border-purple-200 dark:border-purple-800">
+                                            <div>
+                                                <label class="block text-xs font-medium text-gray-700 dark:text-gray-300 mb-1">{{ t('persona.data_separazione') }}</label>
+                                                <input
+                                                    v-model="consorte.data_separazione"
+                                                    type="date"
+                                                    class="w-full px-2 py-1 text-xs border border-gray-300 dark:border-gray-600 rounded-md bg-white dark:bg-gray-700 text-gray-900 dark:text-white"
+                                                />
+                                            </div>
+                                            <div>
+                                                <label class="block text-xs font-medium text-gray-700 dark:text-gray-300 mb-1">{{ t('persona.luogo_separazione') }}</label>
+                                                <input
+                                                    v-model="consorte.luogo_separazione"
+                                                    type="text"
+                                                    class="w-full px-2 py-1 text-xs border border-gray-300 dark:border-gray-600 rounded-md bg-white dark:bg-gray-700 text-gray-900 dark:text-white"
+                                                    :placeholder="t('persona.birth_place_example')"
+                                                />
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
@@ -623,6 +675,7 @@ import { usePersoneStore } from '../../stores/persone';
 import { useLocaleStore } from '../../stores/locale';
 import { personaService } from '../../services/personaService';
 import { tipoLegameService } from '../../services/tipoLegameService';
+import { tipoEventoLegameService } from '../../services/tipoEventoLegameService';
 import MediaGallery from '../media/MediaGallery.vue';
 import Timeline from '../eventi/Timeline.vue';
 import NoteSection from '../../components/persona/NoteSection.vue';
@@ -665,6 +718,7 @@ const form = ref({
 const loading = ref(false);
 const availablePeople = ref([]);
 const tipiLegame = ref([]);
+const tipiEventoLegame = ref([]);
 const showAddConsorte = ref(false);
 const showAddFiglio = ref(false);
 const newConsorteId = ref('');
@@ -806,6 +860,7 @@ onMounted(async () => {
         store.fetchPersona(route.params.id),
         loadAvailablePeople(),
         loadTipiLegame(),
+        loadTipiEventoLegame(),
         loadEventi()
     ]);
 });
@@ -830,6 +885,16 @@ const loadTipiLegame = async () => {
     }
 };
 
+// Carica i tipi evento legame
+const loadTipiEventoLegame = async () => {
+    try {
+        const response = await tipoEventoLegameService.getAll();
+        tipiEventoLegame.value = response.data || [];
+    } catch (error) {
+        console.error('Errore nel caricamento dei tipi evento legame:', error);
+    }
+};
+
 watch(() => store.persona, (persona) => {
     if (persona) {
         form.value = {
@@ -841,8 +906,20 @@ watch(() => store.persona, (persona) => {
             deceduto_il: persona.deceduto_il || '',
         };
         
-        // Inizializza consorti e figli selezionati
-        selectedConsorti.value = persona.consorti ? [...persona.consorti] : [];
+        // Inizializza consorti con dettagli del legame
+        if (persona.consorti && Array.isArray(persona.consorti)) {
+            selectedConsorti.value = persona.consorti.map(consorte => ({
+                id: consorte.id,
+                nome_completo: consorte.nome_completo,
+                data_legame: consorte.data_legame || '',
+                luogo_legame: consorte.luogo_legame || '',
+                tipo_evento_legame_id: consorte.tipo_evento_legame?.id || '',
+                data_separazione: consorte.data_separazione || '',
+                luogo_separazione: consorte.luogo_separazione || ''
+            }));
+        } else {
+            selectedConsorti.value = [];
+        }
         selectedFigli.value = persona.figli ? [...persona.figli] : [];
         
         // Inizializza genitori selezionati
@@ -864,7 +941,15 @@ const addConsorte = () => {
     
     const persona = sortedAvailablePeople.value.find(p => p.id === parseInt(newConsorteId.value));
     if (persona && !selectedConsortiIds.value.includes(persona.id)) {
-        selectedConsorti.value.push(persona);
+        selectedConsorti.value.push({
+            id: persona.id,
+            nome_completo: persona.nome_completo,
+            data_legame: '',
+            luogo_legame: '',
+            tipo_evento_legame_id: '',
+            data_separazione: '',
+            luogo_separazione: ''
+        });
         newConsorteId.value = '';
         showAddConsorte.value = false;
     }
@@ -987,10 +1072,19 @@ const handleSubmit = async () => {
         const coniugeId = getTipoLegameId('coniuge');
         if (coniugeId) {
             selectedConsorti.value.forEach(consorte => {
-                relazioni.push({
+                const relazione = {
                     persona_collegata_id: consorte.id,
                     tipo_legame_id: coniugeId,
-                });
+                    // Invia sempre i dettagli del legame (anche se vuoti/null per permettere la cancellazione)
+                    data_legame: consorte.data_legame && String(consorte.data_legame).trim() !== '' ? consorte.data_legame : null,
+                    luogo_legame: consorte.luogo_legame && String(consorte.luogo_legame).trim() !== '' ? consorte.luogo_legame : null,
+                    tipo_evento_legame_id: consorte.tipo_evento_legame_id && consorte.tipo_evento_legame_id !== '' && consorte.tipo_evento_legame_id !== null ? parseInt(consorte.tipo_evento_legame_id) : null,
+                    // Invia sempre i dettagli della separazione (anche se vuoti/null per permettere la cancellazione)
+                    data_separazione: consorte.data_separazione && String(consorte.data_separazione).trim() !== '' ? consorte.data_separazione : null,
+                    luogo_separazione: consorte.luogo_separazione && String(consorte.luogo_separazione).trim() !== '' ? consorte.luogo_separazione : null,
+                };
+                
+                relazioni.push(relazione);
             });
         }
         
@@ -1014,9 +1108,8 @@ const handleSubmit = async () => {
             dataToSend.genitori = genitori;
         }
         
-        if (relazioni.length > 0) {
-            dataToSend.relazioni = relazioni;
-        }
+        // Invia sempre le relazioni (anche se vuote) per permettere la modifica dei dettagli del legame
+        dataToSend.relazioni = relazioni;
         
         const result = await store.updatePersona(route.params.id, dataToSend);
         

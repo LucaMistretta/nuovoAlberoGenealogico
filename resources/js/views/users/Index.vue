@@ -124,7 +124,7 @@
 <script setup>
 import { ref, onMounted } from 'vue';
 import { useLocaleStore } from '../../stores/locale';
-import axios from 'axios';
+import api from '../../services/api';
 
 const localeStore = useLocaleStore();
 const t = (key) => localeStore.t(key);
@@ -143,7 +143,7 @@ const form = ref({
 
 const loadUsers = async () => {
     try {
-        const response = await axios.get('/api/users');
+        const response = await api.get('/users');
         users.value = response.data.data || [];
     } catch (error) {
         console.error('Errore nel caricamento degli utenti:', error);
@@ -159,9 +159,9 @@ const handleSave = async () => {
         }
 
         if (editingUser.value) {
-            await axios.put(`/api/users/${editingUser.value.id}`, data);
+            await api.put(`/users/${editingUser.value.id}`, data);
         } else {
-            await axios.post('/api/users', data);
+            await api.post('/users', data);
         }
 
         await loadUsers();
@@ -190,7 +190,7 @@ const deleteUser = async (user) => {
     if (!confirm(confirmMessage)) return;
 
     try {
-        await axios.delete(`/api/users/${user.id}`);
+        await api.delete(`/users/${user.id}`);
         await loadUsers();
     } catch (error) {
         console.error('Errore nell\'eliminazione dell\'utente:', error);

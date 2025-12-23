@@ -1,13 +1,11 @@
-import axios from 'axios';
-
-const API_BASE_URL = '/api';
+import api from './api';
 
 export const eventoService = {
     /**
      * Ottiene tutti gli eventi di una persona
      */
     async getByPersona(personaId) {
-        const response = await axios.get(`${API_BASE_URL}/persone/${personaId}/eventi`);
+        const response = await api.get(`/persone/${personaId}/eventi`);
         return response.data;
     },
 
@@ -15,8 +13,8 @@ export const eventoService = {
      * Crea un nuovo evento
      */
     async create(personaId, eventoData) {
-        const response = await axios.post(
-            `${API_BASE_URL}/persone/${personaId}/eventi`,
+        const response = await api.post(
+            `/persone/${personaId}/eventi`,
             eventoData
         );
         return response.data;
@@ -26,8 +24,8 @@ export const eventoService = {
      * Aggiorna un evento
      */
     async update(personaId, eventoId, eventoData) {
-        const response = await axios.put(
-            `${API_BASE_URL}/persone/${personaId}/eventi/${eventoId}`,
+        const response = await api.put(
+            `/persone/${personaId}/eventi/${eventoId}`,
             eventoData
         );
         return response.data;
@@ -37,10 +35,11 @@ export const eventoService = {
      * Elimina un evento
      */
     async delete(personaId, eventoId) {
-        const response = await axios.delete(
-            `${API_BASE_URL}/persone/${personaId}/eventi/${eventoId}`
+        const response = await api.delete(
+            `/persone/${personaId}/eventi/${eventoId}`
         );
         return response.data;
     },
 };
+
 

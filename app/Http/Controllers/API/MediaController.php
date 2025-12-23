@@ -7,6 +7,7 @@ namespace App\Http\Controllers\API;
 use App\Http\Controllers\Controller;
 use App\Models\Media;
 use App\Models\Persona;
+use App\Services\ImageCompressionService;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
@@ -35,16 +36,36 @@ class MediaController extends Controller
     {
         $persona = Persona::findOrFail($personaId);
 
+        // Debug: log dei dati ricevuti
+        \Log::info('Media upload request', [
+            'persona_id' => $personaId,
+            'has_file' => $request->hasFile('file'),
+            'file_size' => $request->hasFile('file') ? $request->file('file')->getSize() : null,
+            'tipo' => $request->input('tipo'),
+            'all_data' => $request->all(),
+        ]);
+
         $validator = Validator::make($request->all(), [
-            'file' => 'required|file|max:10240', // Max 10MB
+            'file' => 'required|file|max:20480', // Max 20MB (in KB)
             'tipo' => 'required|in:foto,documento',
             'descrizione' => 'nullable|string|max:1000',
         ]);
 
         if ($validator->fails()) {
+            \Log::error('Media upload validation failed', [
+                'errors' => $validator->errors()->toArray(),
+                'request_data' => $request->all(),
+            ]);
+            
             return response()->json([
                 'success' => false,
                 'errors' => $validator->errors(),
+                'debug' => [
+                    'has_file' => $request->hasFile('file'),
+                    'file_size' => $request->hasFile('file') ? $request->file('file')->getSize() : null,
+                    'post_max_size' => ini_get('post_max_size'),
+                    'upload_max_filesize' => ini_get('upload_max_filesize'),
+                ],
             ], 422);
         }
 
@@ -52,12 +73,44 @@ class MediaController extends Controller
         $tipo = $request->input('tipo');
         $descrizione = $request->input('descrizione');
 
+        // Comprimi l'immagine se è una foto per risparmiare spazio disco
+        $fileToSave = $file;
+        if ($tipo === 'foto' && str_starts_with($file->getMimeType(), 'image/')) {
+            $compressionService = new ImageCompressionService();
+            $compressedPath = $compressionService->compressImage(
+                $file,
+                maxSizeBytes: 1024 * 1024, // Target 1MB per risparmiare spazio
+                maxWidth: 1920,
+                maxHeight: 1920,
+                alwaysCompress: true // Comprimi sempre per risparmiare spazio
+            );
+            
+            if ($compressedPath && $compressedPath !== $file->getRealPath()) {
+                // Crea un nuovo UploadedFile dal file compresso
+                $fileToSave = new \Illuminate\Http\UploadedFile(
+                    $compressedPath,
+                    $file->getClientOriginalName(),
+                    $file->getMimeType(),
+                    null,
+                    true // test mode
+                );
+            }
+        }
+
         // Genera nome file univoco
-        $nomeFile = time() . '_' . uniqid() . '.' . $file->getClientOriginalExtension();
+        $nomeFile = time() . '_' . uniqid() . '.' . $fileToSave->getClientOriginalExtension();
         $percorso = 'media/persona_' . $personaId . '/' . $nomeFile;
 
-        // Salva il file nel disco pubblico
-        $path = $file->storeAs('media/persona_' . $personaId, $nomeFile, 'public');
+        // Salva il file (compresso se applicabile) nel disco pubblico
+        $path = $fileToSave->storeAs('media/persona_' . $personaId, $nomeFile, 'public');
+        
+        // Pulisci file temporaneo compresso se esiste
+        if (isset($compressedPath) && $compressedPath !== $file->getRealPath() && file_exists($compressedPath)) {
+            @unlink($compressedPath);
+        }
+
+        // Ottieni la dimensione finale del file salvato
+        $finalSize = Storage::disk('public')->size($percorso);
 
         // Crea record nel database
         $media = Media::create([
@@ -65,16 +118,18 @@ class MediaController extends Controller
             'tipo' => $tipo,
             'nome_file' => $file->getClientOriginalName(),
             'percorso' => $percorso,
-            'dimensione' => $file->getSize(),
+            'dimensione' => $finalSize,
             'mime_type' => $file->getMimeType(),
             'descrizione' => $descrizione,
             'data_caricamento' => now(),
         ]);
 
+        $message = 'Media caricato con successo';
+
         return response()->json([
             'success' => true,
             'data' => $media,
-            'message' => 'Media caricato con successo',
+            'message' => $message,
         ], 201);
     }
 

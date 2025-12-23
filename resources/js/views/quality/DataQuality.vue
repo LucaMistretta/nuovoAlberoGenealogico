@@ -147,7 +147,7 @@
 <script setup>
 import { ref, onMounted } from 'vue';
 import { useLocaleStore } from '../../stores/locale';
-import axios from 'axios';
+import api from '../../services/api';
 
 const localeStore = useLocaleStore();
 const t = (key) => localeStore.t(key);
@@ -163,7 +163,7 @@ const problemi = ref({
 const runChecks = async () => {
     loading.value = true;
     try {
-        const response = await axios.get('/api/data-quality/check');
+        const response = await api.get('/data-quality/check');
         problemi.value = {
             totale_problemi: response.data.data.totale_problemi || 0,
             problemi_date: response.data.data.problemi_date || [],
@@ -193,4 +193,5 @@ onMounted(() => {
     }
 });
 </script>
+
 

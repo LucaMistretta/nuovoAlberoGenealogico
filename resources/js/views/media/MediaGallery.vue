@@ -231,21 +231,70 @@ const handleFileSelect = (event) => {
 };
 
 const handleUpload = async () => {
-    if (!selectedFile.value) return;
+    if (!selectedFile.value) {
+        alert(t('media.select_file_error') || 'Seleziona un file da caricare');
+        return;
+    }
+    
+    // Verifica dimensione file (max 20MB)
+    const maxSize = 20 * 1024 * 1024; // 20MB in bytes
+    if (selectedFile.value.size > maxSize) {
+        alert(t('media.file_too_large') || 'Il file è troppo grande. Dimensione massima: 20MB');
+        return;
+    }
+    
+    // Verifica che il tipo sia selezionato
+    if (!uploadType.value || (uploadType.value !== 'foto' && uploadType.value !== 'documento')) {
+        alert(t('media.select_type_error') || 'Seleziona un tipo di media (foto o documento)');
+        return;
+    }
 
     uploading.value = true;
     try {
+        // Debug: verifica che il file sia presente
+        console.log('Upload file info:', {
+            name: selectedFile.value.name,
+            size: selectedFile.value.size,
+            type: selectedFile.value.type,
+            uploadType: uploadType.value,
+            personaId: props.personaId
+        });
+        
+        // Upload diretto del file (PHP ora supporta fino a 20MB)
         await mediaService.upload(
             props.personaId,
             selectedFile.value,
             uploadType.value,
-            uploadDescription.value
+            uploadDescription.value || ''
         );
         await loadMedia();
         cancelUpload();
     } catch (error) {
         console.error('Errore nel caricamento del file:', error);
-        const errorMessage = t('media.upload_error') || 'Errore nel caricamento del file';
+        console.error('Error response:', error.response?.data);
+        
+        // Mostra errori di validazione dettagliati
+        let errorMessage = t('media.upload_error') || 'Errore nel caricamento del file';
+        if (error.response?.data?.errors) {
+            const errors = error.response.data.errors;
+            const errorList = Object.keys(errors).map(key => {
+                const fieldErrors = Array.isArray(errors[key]) ? errors[key] : [errors[key]];
+                return `${key}: ${fieldErrors.join(', ')}`;
+            }).join('\n');
+            errorMessage = errorMessage + '\n\n' + errorList;
+            
+            // Aggiungi informazioni di debug se disponibili
+            if (error.response.data.debug) {
+                errorMessage += '\n\nDebug:\n';
+                errorMessage += `- File ricevuto: ${error.response.data.debug.has_file ? 'Sì' : 'No'}\n`;
+                errorMessage += `- Dimensione file: ${error.response.data.debug.file_size ? (error.response.data.debug.file_size / 1024 / 1024).toFixed(2) + ' MB' : 'N/A'}\n`;
+                errorMessage += `- post_max_size PHP: ${error.response.data.debug.post_max_size}\n`;
+                errorMessage += `- upload_max_filesize PHP: ${error.response.data.debug.upload_max_filesize}`;
+            }
+        } else if (error.response?.data?.message) {
+            errorMessage = error.response.data.message;
+        }
+        
         alert(errorMessage);
     } finally {
         uploading.value = false;

@@ -224,7 +224,7 @@ class PersonaController extends Controller
                 $this->syncGenitori($persona, $genitori);
             }
             
-            // Gestisci relazioni se presenti
+            // Gestisci relazioni se presenti (anche se array vuoto, per permettere la cancellazione)
             if ($relazioni !== null) {
                 $this->syncRelazioni($persona, $relazioni);
             }
@@ -462,28 +462,73 @@ class PersonaController extends Controller
                 continue;
             }
             
-            // Crea il legame diretto
-            PersonaLegame::create([
+            // Prepara i dati del legame
+            $legameData = [
                 'persona_id' => $persona->id,
                 'persona_collegata_id' => $relazione['persona_collegata_id'],
                 'tipo_legame_id' => $relazione['tipo_legame_id'],
-            ]);
-            
-            // Per i consorti, crea anche la relazione inversa
+            ];
+
+            // Se è un legame di tipo coniuge, aggiungi i dettagli del legame
             if ($tipoLegame->nome === 'coniuge') {
-                // Verifica che non esista già la relazione inversa
-                $exists = PersonaLegame::where('persona_id', $relazione['persona_collegata_id'])
+                // Gestisci data_legame (può essere stringa vuota, null o data valida)
+                if (array_key_exists('data_legame', $relazione)) {
+                    $legameData['data_legame'] = !empty($relazione['data_legame']) ? $relazione['data_legame'] : null;
+                }
+                // Gestisci luogo_legame (può essere stringa vuota, null o stringa valida)
+                if (array_key_exists('luogo_legame', $relazione)) {
+                    $legameData['luogo_legame'] = !empty($relazione['luogo_legame']) ? $relazione['luogo_legame'] : null;
+                }
+                // Gestisci tipo_evento_legame_id (può essere null, 0 o ID valido)
+                if (array_key_exists('tipo_evento_legame_id', $relazione)) {
+                    $legameData['tipo_evento_legame_id'] = !empty($relazione['tipo_evento_legame_id']) ? $relazione['tipo_evento_legame_id'] : null;
+                }
+                // Gestisci data_separazione (può essere stringa vuota, null o data valida)
+                if (array_key_exists('data_separazione', $relazione)) {
+                    $legameData['data_separazione'] = !empty($relazione['data_separazione']) ? $relazione['data_separazione'] : null;
+                }
+                // Gestisci luogo_separazione (può essere stringa vuota, null o stringa valida)
+                if (array_key_exists('luogo_separazione', $relazione)) {
+                    $legameData['luogo_separazione'] = !empty($relazione['luogo_separazione']) ? $relazione['luogo_separazione'] : null;
+                }
+            }
+
+            // Crea il legame diretto
+            PersonaLegame::create($legameData);
+            
+            // Per i consorti, crea anche la relazione inversa con gli stessi dettagli
+            if ($tipoLegame->nome === 'coniuge') {
+                // Elimina la relazione inversa esistente se presente (per ricrearla con i nuovi dati)
+                PersonaLegame::where('persona_id', $relazione['persona_collegata_id'])
                     ->where('persona_collegata_id', $persona->id)
                     ->where('tipo_legame_id', $relazione['tipo_legame_id'])
-                    ->exists();
+                    ->delete();
                 
-                if (!$exists) {
-                    PersonaLegame::create([
-                        'persona_id' => $relazione['persona_collegata_id'],
-                        'persona_collegata_id' => $persona->id,
-                        'tipo_legame_id' => $relazione['tipo_legame_id'],
-                    ]);
+                // Prepara i dati per la relazione inversa (stessi dettagli)
+                $legameInversoData = [
+                    'persona_id' => $relazione['persona_collegata_id'],
+                    'persona_collegata_id' => $persona->id,
+                    'tipo_legame_id' => $relazione['tipo_legame_id'],
+                ];
+
+                // Copia gli stessi dettagli del legame (anche se null)
+                if (array_key_exists('data_legame', $legameData)) {
+                    $legameInversoData['data_legame'] = $legameData['data_legame'];
                 }
+                if (array_key_exists('luogo_legame', $legameData)) {
+                    $legameInversoData['luogo_legame'] = $legameData['luogo_legame'];
+                }
+                if (array_key_exists('tipo_evento_legame_id', $legameData)) {
+                    $legameInversoData['tipo_evento_legame_id'] = $legameData['tipo_evento_legame_id'];
+                }
+                if (array_key_exists('data_separazione', $legameData)) {
+                    $legameInversoData['data_separazione'] = $legameData['data_separazione'];
+                }
+                if (array_key_exists('luogo_separazione', $legameData)) {
+                    $legameInversoData['luogo_separazione'] = $legameData['luogo_separazione'];
+                }
+
+                PersonaLegame::create($legameInversoData);
             }
         }
     }

@@ -28,3 +28,4 @@ class Nota extends Model
     }
 }
 
+

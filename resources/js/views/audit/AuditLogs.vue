@@ -88,7 +88,7 @@
 <script setup>
 import { ref, onMounted } from 'vue';
 import { useLocaleStore } from '../../stores/locale';
-import axios from 'axios';
+import api from '../../services/api';
 
 const localeStore = useLocaleStore();
 const t = (key) => localeStore.t(key);
@@ -107,7 +107,7 @@ const loadLogs = async () => {
         if (filters.value.model_type) params.append('model_type', filters.value.model_type);
         if (filters.value.action) params.append('action', filters.value.action);
 
-        const response = await axios.get(`/api/audit-logs?${params.toString()}`);
+        const response = await api.get(`/audit-logs?${params.toString()}`);
         logs.value = response.data.data?.data || [];
     } catch (error) {
         console.error('Errore nel caricamento dei log:', error);
@@ -151,4 +151,5 @@ onMounted(() => {
     }
 });
 </script>
+
 

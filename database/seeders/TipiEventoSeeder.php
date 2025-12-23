@@ -17,13 +17,26 @@ class TipiEventoSeeder extends Seeder
             ['nome' => 'battesimo', 'descrizione' => 'Battesimo'],
             ['nome' => 'comunione', 'descrizione' => 'Prima Comunione'],
             ['nome' => 'cresima', 'descrizione' => 'Cresima'],
+            ['nome' => 'primo_giorno_asilo', 'descrizione' => 'Primo Giorno di Asilo'],
+            ['nome' => 'primo_giorno_scuola', 'descrizione' => 'Primo Giorno di Scuola'],
+            ['nome' => 'licenza_elementare', 'descrizione' => 'Licenza Elementare'],
+            ['nome' => 'licenza_media', 'descrizione' => 'Licenza Media'],
+            ['nome' => 'diploma_superiore', 'descrizione' => 'Diploma Superiore'],
+            ['nome' => 'laurea', 'descrizione' => 'Laurea'],
             ['nome' => 'matrimonio', 'descrizione' => 'Matrimonio'],
             ['nome' => 'divorzio', 'descrizione' => 'Divorzio'],
+            ['nome' => 'lavoro', 'descrizione' => 'Inizio Lavoro'],
+            ['nome' => 'cambio_lavoro', 'descrizione' => 'Cambio Lavoro'],
+            ['nome' => 'militare', 'descrizione' => 'Servizio Militare'],
+            ['nome' => 'guerra', 'descrizione' => 'Guerra'],
+            ['nome' => 'trasloco', 'descrizione' => 'Trasloco'],
+            ['nome' => 'emigrazione', 'descrizione' => 'Emigrazione'],
+            ['nome' => 'immigrazione', 'descrizione' => 'Immigrazione'],
+            ['nome' => 'malattia', 'descrizione' => 'Malattia Importante'],
+            ['nome' => 'guarigione', 'descrizione' => 'Guarigione'],
+            ['nome' => 'pensione', 'descrizione' => 'Pensione'],
             ['nome' => 'morte', 'descrizione' => 'Morte'],
             ['nome' => 'sepoltura', 'descrizione' => 'Sepoltura'],
-            ['nome' => 'laurea', 'descrizione' => 'Laurea'],
-            ['nome' => 'lavoro', 'descrizione' => 'Inizio Lavoro'],
-            ['nome' => 'pensione', 'descrizione' => 'Pensione'],
             ['nome' => 'altro', 'descrizione' => 'Altro'],
         ];
 
@@ -37,4 +50,5 @@ class TipiEventoSeeder extends Seeder
         }
     }
 }
+
 

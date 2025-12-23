@@ -1,0 +1,55 @@
+0 HEAD
+1 SOUR Esempio GEDCOM
+1 GEDC
+2 VERS 5.5.1
+2 FORM LINEAGE-LINKED
+1 CHAR UTF-8
+1 DATE 17 JAN 2025
+2 TIME 12:00:00
+0 @I1@ INDI
+1 NAME Mario /Rossi/
+2 GIVN Mario
+2 SURN Rossi
+1 SEX M
+1 BIRT
+2 DATE 15 MAR 1980
+2 PLAC Roma, Italia
+1 OCCU Ingegnere
+1 RESI
+2 ADDR Via Roma 123
+2 CITY Roma
+2 POST 00100
+2 CTRY Italia
+1 NOTE Questo è un esempio di file GEDCOM per l'importazione.
+1 NOTE Puoi aggiungere più note per ogni persona.
+0 @I2@ INDI
+1 NAME Maria /Bianchi/
+2 GIVN Maria
+2 SURN Bianchi
+1 SEX F
+1 BIRT
+2 DATE 20 APR 1985
+2 PLAC Milano, Italia
+1 OCCU Medico
+1 RESI
+2 ADDR Via Milano 456
+2 CITY Milano
+2 POST 20100
+2 CTRY Italia
+0 @F1@ FAM
+1 HUSB @I1@
+1 WIFE @I2@
+1 MARR
+2 DATE 10 GIU 2010
+2 PLAC Firenze, Italia
+0 @I3@ INDI
+1 NAME Luca /Rossi/
+2 GIVN Luca
+2 SURN Rossi
+1 SEX M
+1 BIRT
+2 DATE 05 LUG 2012
+2 PLAC Firenze, Italia
+1 FAMC @F1@
+0 TRLR
+

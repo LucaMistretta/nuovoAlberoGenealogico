@@ -1,5 +1,5 @@
 <template>
-    <aside class="w-16 md:w-64 bg-gray-300 dark:bg-gray-800 min-h-screen p-2 md:p-4 transition-all duration-300">
+    <aside class="w-16 md:w-64 bg-gray-300 dark:bg-gray-800 h-full p-2 md:p-4 transition-all duration-300 flex-shrink-0 overflow-y-auto">
         <nav class="space-y-2 bg-gray-300 dark:bg-gray-800">
             <router-link
                 to="/persone"

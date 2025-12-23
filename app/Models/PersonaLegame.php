@@ -15,6 +15,16 @@ class PersonaLegame extends Model
         'persona_id',
         'persona_collegata_id',
         'tipo_legame_id',
+        'data_legame',
+        'luogo_legame',
+        'tipo_evento_legame_id',
+        'data_separazione',
+        'luogo_separazione',
+    ];
+
+    protected $casts = [
+        'data_legame' => 'date',
+        'data_separazione' => 'date',
     ];
 
     public function persona(): BelongsTo
@@ -30,6 +40,11 @@ class PersonaLegame extends Model
     public function tipoLegame(): BelongsTo
     {
         return $this->belongsTo(TipoLegame::class, 'tipo_legame_id');
+    }
+
+    public function tipoEventoLegame(): BelongsTo
+    {
+        return $this->belongsTo(TipoEventoLegame::class, 'tipo_evento_legame_id');
     }
 }
 

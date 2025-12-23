@@ -14,7 +14,9 @@ class GedcomExportService
      */
     public function exportAll(): string
     {
-        $persone = Persona::with(['padreRel', 'madreRel', 'consorti', 'figli'])->get();
+        // Carica tutte le persone senza eager loading delle relazioni custom
+        // perché padreRel, madreRel, consorti e figli non sono relazioni Eloquent standard
+        $persone = Persona::all();
         
         $gedcom = "0 HEAD\n";
         $gedcom .= "1 SOUR Nuovo Albero Genealogico\n";
@@ -38,7 +40,8 @@ class GedcomExportService
      */
     public function exportFromPersona(int $personaId): string
     {
-        $persona = Persona::with(['padreRel', 'madreRel', 'consorti', 'figli'])->findOrFail($personaId);
+        // Carica la persona senza eager loading delle relazioni custom
+        $persona = Persona::findOrFail($personaId);
         
         $gedcom = "0 HEAD\n";
         $gedcom .= "1 SOUR Nuovo Albero Genealogico\n";
@@ -61,7 +64,11 @@ class GedcomExportService
     private function exportPersona(Persona $persona): string
     {
         $gedcom = "0 @I{$persona->id}@ INDI\n";
-        $gedcom .= "1 NAME {$persona->nome} /{$persona->cognome}/\n";
+        
+        // Gestisci nomi vuoti o null
+        $nome = $persona->nome ?? '';
+        $cognome = $persona->cognome ?? '';
+        $gedcom .= "1 NAME {$nome} /{$cognome}/\n";
         
         if ($persona->nato_il || $persona->nato_a) {
             $gedcom .= "1 BIRT\n";
@@ -84,15 +91,20 @@ class GedcomExportService
         }
         
         // Famiglia come figlio
-        if ($persona->padreRel() || $persona->madreRel()) {
+        $padre = $persona->padreRel();
+        $madre = $persona->madreRel();
+        if ($padre || $madre) {
             $famId = "F{$persona->id}";
             $gedcom .= "1 FAMC @{$famId}@\n";
         }
         
         // Famiglie come coniuge/genitore
-        foreach ($persona->consorti() as $index => $consorte) {
-            $famId = "F{$persona->id}_{$index}";
-            $gedcom .= "1 FAMS @{$famId}@\n";
+        $consorti = $persona->consorti();
+        foreach ($consorti as $index => $consorte) {
+            if ($consorte) {
+                $famId = "F{$persona->id}_{$index}";
+                $gedcom .= "1 FAMS @{$famId}@\n";
+            }
         }
         
         return $gedcom;
@@ -131,4 +143,5 @@ class GedcomExportService
         return $gedcom;
     }
 }
+
 

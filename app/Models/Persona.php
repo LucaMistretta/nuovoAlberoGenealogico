@@ -131,6 +131,66 @@ class Persona extends Model
     }
 
     /**
+     * Ottiene i consorti con i dettagli del legame (data, luogo, tipo evento)
+     */
+    public function consortiConDettagli(): array
+    {
+        $legami = $this->personaLegami()
+            ->whereHas('tipoLegame', function ($query) {
+                $query->where('nome', 'coniuge');
+            })
+            ->with(['personaCollegata', 'tipoEventoLegame'])
+            ->get();
+
+        $consortiConDettagli = [];
+        foreach ($legami as $legame) {
+            if ($legame->personaCollegata) {
+                $consortiConDettagli[] = [
+                    'persona' => $legame->personaCollegata,
+                    'data_legame' => $legame->data_legame?->format('Y-m-d'),
+                    'luogo_legame' => $legame->luogo_legame,
+                    'tipo_evento_legame' => $legame->tipoEventoLegame,
+                    'data_separazione' => $legame->data_separazione?->format('Y-m-d'),
+                    'luogo_separazione' => $legame->luogo_separazione,
+                ];
+            }
+        }
+
+        // Cerca anche dove questa persona è collegata come coniuge
+        $legamiInversi = $this->personaLegamiCollegati()
+            ->whereHas('tipoLegame', function ($query) {
+                $query->where('nome', 'coniuge');
+            })
+            ->with(['persona', 'tipoEventoLegame'])
+            ->get();
+
+        foreach ($legamiInversi as $legame) {
+            if ($legame->persona) {
+                // Evita duplicati
+                $exists = false;
+                foreach ($consortiConDettagli as $consorte) {
+                    if ($consorte['persona']->id === $legame->persona->id) {
+                        $exists = true;
+                        break;
+                    }
+                }
+                if (!$exists) {
+                    $consortiConDettagli[] = [
+                        'persona' => $legame->persona,
+                        'data_legame' => $legame->data_legame?->format('Y-m-d'),
+                        'luogo_legame' => $legame->luogo_legame,
+                        'tipo_evento_legame' => $legame->tipoEventoLegame,
+                        'data_separazione' => $legame->data_separazione?->format('Y-m-d'),
+                        'luogo_separazione' => $legame->luogo_separazione,
+                    ];
+                }
+            }
+        }
+
+        return $consortiConDettagli;
+    }
+
+    /**
      * Ottiene i figli (dove questa persona è padre o madre, oppure tipo_legame = figlio)
      */
     public function figli(): Collection

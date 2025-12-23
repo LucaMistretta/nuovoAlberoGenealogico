@@ -270,7 +270,7 @@ const form = ref({
     note: '',
 });
 
-// Crea eventi virtuali per nascita e morte dalla persona
+// Crea eventi virtuali per nascita, morte e matrimonio/convivenza dalla persona
 const eventiPersona = computed(() => {
     const eventiVirtuali = [];
     
@@ -285,6 +285,45 @@ const eventiPersona = computed(() => {
             luogo: props.persona.nato_a || '',
             note: '',
             virtuale: true, // Flag per identificare eventi virtuali
+        });
+    }
+    
+    // Aggiungi eventi di matrimonio/convivenza dai consorti
+    if (props.persona?.consorti && Array.isArray(props.persona.consorti)) {
+        props.persona.consorti.forEach((consorte, index) => {
+            if (consorte.data_legame) {
+                // Determina il tipo di evento in base al tipo_evento_legame
+                let tipoEvento = 'matrimonio'; // default
+                let titoloEvento = t('eventi.marriage');
+                
+                if (consorte.tipo_evento_legame) {
+                    const tipoNome = consorte.tipo_evento_legame.nome?.toLowerCase() || '';
+                    if (tipoNome === 'unione civile') {
+                        tipoEvento = 'matrimonio'; // Usa matrimonio come tipo per la timeline
+                        titoloEvento = t('messages.unione_civile') || 'Unione Civile';
+                    } else if (tipoNome === 'convivenza di fatto') {
+                        tipoEvento = 'matrimonio'; // Usa matrimonio come tipo per la timeline
+                        titoloEvento = t('messages.convivenza_di_fatto') || 'Convivenza di Fatto';
+                    } else if (tipoNome === 'altro') {
+                        tipoEvento = 'matrimonio';
+                        titoloEvento = t('messages.altro') || 'Altro';
+                    }
+                }
+                
+                const nomeConsorte = consorte.nome_completo || `${consorte.nome || ''} ${consorte.cognome || ''}`.trim();
+                const descrizione = nomeConsorte ? `${t('persona.consorte')}: ${nomeConsorte}` : '';
+                
+                eventiVirtuali.push({
+                    id: `matrimonio_virtuale_${index}`,
+                    tipo_evento: tipoEvento,
+                    titolo: titoloEvento,
+                    descrizione: descrizione,
+                    data_evento: consorte.data_legame,
+                    luogo: consorte.luogo_legame || '',
+                    note: '',
+                    virtuale: true, // Flag per identificare eventi virtuali
+                });
+            }
         });
     }
     

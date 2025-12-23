@@ -49,10 +49,33 @@ class PersonaResource extends JsonResource
                 $this->madreRel(),
                 fn() => new PersonaResource($this->madreRel())
             );
-            $consorti = $this->consorti();
+            // Carica consorti con dettagli del legame
+            $consortiConDettagli = $this->consortiConDettagli();
             $data['consorti'] = $this->when(
-                $consorti->isNotEmpty(),
-                fn() => PersonaResource::collection($consorti)
+                !empty($consortiConDettagli),
+                function () use ($consortiConDettagli) {
+                    return collect($consortiConDettagli)->map(function ($item) {
+                        return [
+                            'id' => $item['persona']->id,
+                            'nome' => $item['persona']->nome,
+                            'cognome' => $item['persona']->cognome,
+                            'nome_completo' => $item['persona']->nome_completo,
+                            'nato_a' => $item['persona']->nato_a,
+                            'nato_il' => $item['persona']->nato_il?->format('Y-m-d'),
+                            'deceduto_a' => $item['persona']->deceduto_a,
+                            'deceduto_il' => $item['persona']->deceduto_il?->format('Y-m-d'),
+                            'data_legame' => $item['data_legame'],
+                            'luogo_legame' => $item['luogo_legame'],
+                            'tipo_evento_legame' => $item['tipo_evento_legame'] ? [
+                                'id' => $item['tipo_evento_legame']->id,
+                                'nome' => $item['tipo_evento_legame']->nome,
+                                'descrizione' => $item['tipo_evento_legame']->descrizione,
+                            ] : null,
+                            'data_separazione' => $item['data_separazione'],
+                            'luogo_separazione' => $item['luogo_separazione'],
+                        ];
+                    })->values();
+                }
             );
             $figli = $this->figli();
             $data['figli'] = $this->when(
