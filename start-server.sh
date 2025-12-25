@@ -20,6 +20,8 @@ npm run build
 
 echo "✅ Asset ricompilati!"
 
-echo "🚀 Avvio server su agene.localhost.local:8000..."
-php artisan serve --host=agene.localhost.local --port=8000
+echo "🚀 Avvio server su 0.0.0.0:8000 (accessibile dalla rete locale)..."
+echo "   Accessibile su: http://localhost:8000"
+echo "   Accessibile su: http://192.168.1.6:8000 (dalla rete locale)"
+php artisan serve --host=0.0.0.0 --port=8000
 

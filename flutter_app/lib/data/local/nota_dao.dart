@@ -74,5 +74,11 @@ class NotaDao {
       whereArgs: [id],
     );
   }
+
+  /// Ottiene tutte le note
+  Future<List<Map<String, dynamic>>> getAllNote() async {
+    final db = await _dbHelper.database;
+    return await db.query(_tableName, orderBy: 'created_at DESC');
+  }
 }
 

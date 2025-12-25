@@ -43,5 +43,11 @@ class MediaDao {
     );
     return results.isNotEmpty ? results.first : null;
   }
+
+  /// Ottiene tutti i media
+  Future<List<Map<String, dynamic>>> getAllMedia() async {
+    final db = await _dbHelper.database;
+    return await db.query(_tableName, orderBy: 'data_caricamento DESC');
+  }
 }
 

@@ -49,5 +49,11 @@ class PersonaLegameDao {
       whereArgs: [personaId, personaId, tipoLegameId],
     );
   }
+
+  /// Ottiene tutti i legami
+  Future<List<Map<String, dynamic>>> getAllLegami() async {
+    final db = await _dbHelper.database;
+    return await db.query(_tableName);
+  }
 }
 

@@ -54,3 +54,483 @@
 #14 /media/luca/DISCO/APPLICAZIONI/PHP/nuovoAlberoGenealogoco/artisan(12): Illuminate\\Foundation\\Console\\Kernel->handle()
 #15 {main}
 "} 
+[2025-12-24 17:08:06] local.ERROR: The "intl" PHP extension is required to use the [format] method. {"exception":"[object] (RuntimeException(code: 0): The \"intl\" PHP extension is required to use the [format] method. at /media/luca/DISCO/APPLICAZIONI/PHP/nuovoAlberoGenealogoco/vendor/laravel/framework/src/Illuminate/Support/Number.php:439)
+[stacktrace]
+#0 /media/luca/DISCO/APPLICAZIONI/PHP/nuovoAlberoGenealogoco/vendor/laravel/framework/src/Illuminate/Support/Number.php(38): Illuminate\\Support\\Number::ensureIntlExtensionIsInstalled()
+#1 /media/luca/DISCO/APPLICAZIONI/PHP/nuovoAlberoGenealogoco/vendor/laravel/framework/src/Illuminate/Support/Number.php(216): Illuminate\\Support\\Number::format()
+#2 /media/luca/DISCO/APPLICAZIONI/PHP/nuovoAlberoGenealogoco/vendor/laravel/framework/src/Illuminate/Database/Console/ShowCommand.php(176): Illuminate\\Support\\Number::fileSize()
+#3 /media/luca/DISCO/APPLICAZIONI/PHP/nuovoAlberoGenealogoco/vendor/laravel/framework/src/Illuminate/Database/Console/ShowCommand.php(136): Illuminate\\Database\\Console\\ShowCommand->displayForCli()
+#4 /media/luca/DISCO/APPLICAZIONI/PHP/nuovoAlberoGenealogoco/vendor/laravel/framework/src/Illuminate/Database/Console/ShowCommand.php(65): Illuminate\\Database\\Console\\ShowCommand->display()
+#5 /media/luca/DISCO/APPLICAZIONI/PHP/nuovoAlberoGenealogoco/vendor/laravel/framework/src/Illuminate/Container/BoundMethod.php(36): Illuminate\\Database\\Console\\ShowCommand->handle()
+#6 /media/luca/DISCO/APPLICAZIONI/PHP/nuovoAlberoGenealogoco/vendor/laravel/framework/src/Illuminate/Container/Util.php(43): Illuminate\\Container\\BoundMethod::Illuminate\\Container\\{closure}()
+#7 /media/luca/DISCO/APPLICAZIONI/PHP/nuovoAlberoGenealogoco/vendor/laravel/framework/src/Illuminate/Container/BoundMethod.php(96): Illuminate\\Container\\Util::unwrapIfClosure()
+#8 /media/luca/DISCO/APPLICAZIONI/PHP/nuovoAlberoGenealogoco/vendor/laravel/framework/src/Illuminate/Container/BoundMethod.php(35): Illuminate\\Container\\BoundMethod::callBoundMethod()
+#9 /media/luca/DISCO/APPLICAZIONI/PHP/nuovoAlberoGenealogoco/vendor/laravel/framework/src/Illuminate/Container/Container.php(799): Illuminate\\Container\\BoundMethod::call()
+#10 /media/luca/DISCO/APPLICAZIONI/PHP/nuovoAlberoGenealogoco/vendor/laravel/framework/src/Illuminate/Console/Command.php(211): Illuminate\\Container\\Container->call()
+#11 /media/luca/DISCO/APPLICAZIONI/PHP/nuovoAlberoGenealogoco/vendor/symfony/console/Command/Command.php(341): Illuminate\\Console\\Command->execute()
+#12 /media/luca/DISCO/APPLICAZIONI/PHP/nuovoAlberoGenealogoco/vendor/laravel/framework/src/Illuminate/Console/Command.php(180): Symfony\\Component\\Console\\Command\\Command->run()
+#13 /media/luca/DISCO/APPLICAZIONI/PHP/nuovoAlberoGenealogoco/vendor/symfony/console/Application.php(1102): Illuminate\\Console\\Command->run()
+#14 /media/luca/DISCO/APPLICAZIONI/PHP/nuovoAlberoGenealogoco/vendor/symfony/console/Application.php(356): Symfony\\Component\\Console\\Application->doRunCommand()
+#15 /media/luca/DISCO/APPLICAZIONI/PHP/nuovoAlberoGenealogoco/vendor/symfony/console/Application.php(195): Symfony\\Component\\Console\\Application->doRun()
+#16 /media/luca/DISCO/APPLICAZIONI/PHP/nuovoAlberoGenealogoco/vendor/laravel/framework/src/Illuminate/Foundation/Console/Kernel.php(197): Symfony\\Component\\Console\\Application->run()
+#17 /media/luca/DISCO/APPLICAZIONI/PHP/nuovoAlberoGenealogoco/artisan(12): Illuminate\\Foundation\\Console\\Kernel->handle()
+#18 {main}
+"} 
+[2025-12-24 17:08:46] local.ERROR: Command "make:service" is not defined.
+
+Did you mean one of these?
+    make:cache-table
+    make:cast
+    make:channel
+    make:class
+    make:command
+    make:component
+    make:config
+    make:controller
+    make:enum
+    make:event
+    make:exception
+    make:factory
+    make:interface
+    make:job
+    make:job-middleware
+    make:listener
+    make:mail
+    make:middleware
+    make:migration
+    make:model
+    make:notification
+    make:notifications-table
+    make:observer
+    make:policy
+    make:provider
+    make:queue-batches-table
+    make:queue-failed-table
+    make:queue-table
+    make:request
+    make:resource
+    make:rule
+    make:scope
+    make:seeder
+    make:session-table
+    make:test
+    make:trait
+    make:view {"exception":"[object] (Symfony\\Component\\Console\\Exception\\CommandNotFoundException(code: 0): Command \"make:service\" is not defined.
+
+Did you mean one of these?
+    make:cache-table
+    make:cast
+    make:channel
+    make:class
+    make:command
+    make:component
+    make:config
+    make:controller
+    make:enum
+    make:event
+    make:exception
+    make:factory
+    make:interface
+    make:job
+    make:job-middleware
+    make:listener
+    make:mail
+    make:middleware
+    make:migration
+    make:model
+    make:notification
+    make:notifications-table
+    make:observer
+    make:policy
+    make:provider
+    make:queue-batches-table
+    make:queue-failed-table
+    make:queue-table
+    make:request
+    make:resource
+    make:rule
+    make:scope
+    make:seeder
+    make:session-table
+    make:test
+    make:trait
+    make:view at /media/luca/DISCO/APPLICAZIONI/PHP/nuovoAlberoGenealogoco/vendor/symfony/console/Application.php:759)
+[stacktrace]
+#0 /media/luca/DISCO/APPLICAZIONI/PHP/nuovoAlberoGenealogoco/vendor/symfony/console/Application.php(298): Symfony\\Component\\Console\\Application->find()
+#1 /media/luca/DISCO/APPLICAZIONI/PHP/nuovoAlberoGenealogoco/vendor/symfony/console/Application.php(195): Symfony\\Component\\Console\\Application->doRun()
+#2 /media/luca/DISCO/APPLICAZIONI/PHP/nuovoAlberoGenealogoco/vendor/laravel/framework/src/Illuminate/Foundation/Console/Kernel.php(197): Symfony\\Component\\Console\\Application->run()
+#3 /media/luca/DISCO/APPLICAZIONI/PHP/nuovoAlberoGenealogoco/artisan(12): Illuminate\\Foundation\\Console\\Kernel->handle()
+#4 {main}
+"} 
+[2025-12-24 17:08:48] local.ERROR: Command "make:service" is not defined.
+
+Did you mean one of these?
+    make:cache-table
+    make:cast
+    make:channel
+    make:class
+    make:command
+    make:component
+    make:config
+    make:controller
+    make:enum
+    make:event
+    make:exception
+    make:factory
+    make:interface
+    make:job
+    make:job-middleware
+    make:listener
+    make:mail
+    make:middleware
+    make:migration
+    make:model
+    make:notification
+    make:notifications-table
+    make:observer
+    make:policy
+    make:provider
+    make:queue-batches-table
+    make:queue-failed-table
+    make:queue-table
+    make:request
+    make:resource
+    make:rule
+    make:scope
+    make:seeder
+    make:session-table
+    make:test
+    make:trait
+    make:view {"exception":"[object] (Symfony\\Component\\Console\\Exception\\CommandNotFoundException(code: 0): Command \"make:service\" is not defined.
+
+Did you mean one of these?
+    make:cache-table
+    make:cast
+    make:channel
+    make:class
+    make:command
+    make:component
+    make:config
+    make:controller
+    make:enum
+    make:event
+    make:exception
+    make:factory
+    make:interface
+    make:job
+    make:job-middleware
+    make:listener
+    make:mail
+    make:middleware
+    make:migration
+    make:model
+    make:notification
+    make:notifications-table
+    make:observer
+    make:policy
+    make:provider
+    make:queue-batches-table
+    make:queue-failed-table
+    make:queue-table
+    make:request
+    make:resource
+    make:rule
+    make:scope
+    make:seeder
+    make:session-table
+    make:test
+    make:trait
+    make:view at /media/luca/DISCO/APPLICAZIONI/PHP/nuovoAlberoGenealogoco/vendor/symfony/console/Application.php:759)
+[stacktrace]
+#0 /media/luca/DISCO/APPLICAZIONI/PHP/nuovoAlberoGenealogoco/vendor/symfony/console/Application.php(298): Symfony\\Component\\Console\\Application->find()
+#1 /media/luca/DISCO/APPLICAZIONI/PHP/nuovoAlberoGenealogoco/vendor/symfony/console/Application.php(195): Symfony\\Component\\Console\\Application->doRun()
+#2 /media/luca/DISCO/APPLICAZIONI/PHP/nuovoAlberoGenealogoco/vendor/laravel/framework/src/Illuminate/Foundation/Console/Kernel.php(197): Symfony\\Component\\Console\\Application->run()
+#3 /media/luca/DISCO/APPLICAZIONI/PHP/nuovoAlberoGenealogoco/artisan(12): Illuminate\\Foundation\\Console\\Kernel->handle()
+#4 {main}
+"} 
+[2025-12-24 18:14:14] local.ERROR: strtotime(): Argument #1 ($datetime) must be of type string, Illuminate\Support\Carbon given {"exception":"[object] (TypeError(code: 0): strtotime(): Argument #1 ($datetime) must be of type string, Illuminate\\Support\\Carbon given at /media/luca/DISCO/APPLICAZIONI/PHP/nuovoAlberoGenealogoco/app/Services/SyncService.php:293)
+[stacktrace]
+#0 /media/luca/DISCO/APPLICAZIONI/PHP/nuovoAlberoGenealogoco/app/Services/SyncService.php(293): strtotime()
+#1 /media/luca/DISCO/APPLICAZIONI/PHP/nuovoAlberoGenealogoco/app/Services/SyncService.php(198): App\\Services\\SyncService->syncTable()
+#2 /media/luca/DISCO/APPLICAZIONI/PHP/nuovoAlberoGenealogoco/vendor/laravel/framework/src/Illuminate/Database/Concerns/ManagesTransactions.php(35): App\\Services\\SyncService->App\\Services\\{closure}()
+#3 /media/luca/DISCO/APPLICAZIONI/PHP/nuovoAlberoGenealogoco/vendor/laravel/framework/src/Illuminate/Database/DatabaseManager.php(491): Illuminate\\Database\\Connection->transaction()
+#4 /media/luca/DISCO/APPLICAZIONI/PHP/nuovoAlberoGenealogoco/vendor/laravel/framework/src/Illuminate/Support/Facades/Facade.php(363): Illuminate\\Database\\DatabaseManager->__call()
+#5 /media/luca/DISCO/APPLICAZIONI/PHP/nuovoAlberoGenealogoco/app/Services/SyncService.php(177): Illuminate\\Support\\Facades\\Facade::__callStatic()
+#6 /media/luca/DISCO/APPLICAZIONI/PHP/nuovoAlberoGenealogoco/app/Http/Controllers/API/SyncController.php(158): App\\Services\\SyncService->merge()
+#7 /media/luca/DISCO/APPLICAZIONI/PHP/nuovoAlberoGenealogoco/vendor/laravel/framework/src/Illuminate/Routing/Controller.php(54): App\\Http\\Controllers\\API\\SyncController->merge()
+#8 /media/luca/DISCO/APPLICAZIONI/PHP/nuovoAlberoGenealogoco/vendor/laravel/framework/src/Illuminate/Routing/ControllerDispatcher.php(43): Illuminate\\Routing\\Controller->callAction()
+#9 /media/luca/DISCO/APPLICAZIONI/PHP/nuovoAlberoGenealogoco/vendor/laravel/framework/src/Illuminate/Routing/Route.php(265): Illuminate\\Routing\\ControllerDispatcher->dispatch()
+#10 /media/luca/DISCO/APPLICAZIONI/PHP/nuovoAlberoGenealogoco/vendor/laravel/framework/src/Illuminate/Routing/Route.php(211): Illuminate\\Routing\\Route->runController()
+#11 /media/luca/DISCO/APPLICAZIONI/PHP/nuovoAlberoGenealogoco/vendor/laravel/framework/src/Illuminate/Routing/Router.php(822): Illuminate\\Routing\\Route->run()
+#12 /media/luca/DISCO/APPLICAZIONI/PHP/nuovoAlberoGenealogoco/vendor/laravel/framework/src/Illuminate/Pipeline/Pipeline.php(180): Illuminate\\Routing\\Router->Illuminate\\Routing\\{closure}()
+#13 /media/luca/DISCO/APPLICAZIONI/PHP/nuovoAlberoGenealogoco/vendor/laravel/framework/src/Illuminate/Routing/Middleware/SubstituteBindings.php(50): Illuminate\\Pipeline\\Pipeline->Illuminate\\Pipeline\\{closure}()
+#14 /media/luca/DISCO/APPLICAZIONI/PHP/nuovoAlberoGenealogoco/vendor/laravel/framework/src/Illuminate/Pipeline/Pipeline.php(219): Illuminate\\Routing\\Middleware\\SubstituteBindings->handle()
+#15 /media/luca/DISCO/APPLICAZIONI/PHP/nuovoAlberoGenealogoco/vendor/laravel/sanctum/src/Http/Middleware/EnsureFrontendRequestsAreStateful.php(26): Illuminate\\Pipeline\\Pipeline->Illuminate\\Pipeline\\{closure}()
+#16 /media/luca/DISCO/APPLICAZIONI/PHP/nuovoAlberoGenealogoco/vendor/laravel/framework/src/Illuminate/Pipeline/Pipeline.php(180): Laravel\\Sanctum\\Http\\Middleware\\EnsureFrontendRequestsAreStateful->Laravel\\Sanctum\\Http\\Middleware\\{closure}()
+#17 /media/luca/DISCO/APPLICAZIONI/PHP/nuovoAlberoGenealogoco/vendor/laravel/framework/src/Illuminate/Pipeline/Pipeline.php(137): Illuminate\\Pipeline\\Pipeline->Illuminate\\Pipeline\\{closure}()
+#18 /media/luca/DISCO/APPLICAZIONI/PHP/nuovoAlberoGenealogoco/vendor/laravel/sanctum/src/Http/Middleware/EnsureFrontendRequestsAreStateful.php(25): Illuminate\\Pipeline\\Pipeline->then()
+#19 /media/luca/DISCO/APPLICAZIONI/PHP/nuovoAlberoGenealogoco/vendor/laravel/framework/src/Illuminate/Pipeline/Pipeline.php(219): Laravel\\Sanctum\\Http\\Middleware\\EnsureFrontendRequestsAreStateful->handle()
+#20 /media/luca/DISCO/APPLICAZIONI/PHP/nuovoAlberoGenealogoco/vendor/laravel/framework/src/Illuminate/Pipeline/Pipeline.php(137): Illuminate\\Pipeline\\Pipeline->Illuminate\\Pipeline\\{closure}()
+#21 /media/luca/DISCO/APPLICAZIONI/PHP/nuovoAlberoGenealogoco/vendor/laravel/framework/src/Illuminate/Routing/Router.php(821): Illuminate\\Pipeline\\Pipeline->then()
+#22 /media/luca/DISCO/APPLICAZIONI/PHP/nuovoAlberoGenealogoco/vendor/laravel/framework/src/Illuminate/Routing/Router.php(800): Illuminate\\Routing\\Router->runRouteWithinStack()
+#23 /media/luca/DISCO/APPLICAZIONI/PHP/nuovoAlberoGenealogoco/vendor/laravel/framework/src/Illuminate/Routing/Router.php(764): Illuminate\\Routing\\Router->runRoute()
+#24 /media/luca/DISCO/APPLICAZIONI/PHP/nuovoAlberoGenealogoco/vendor/laravel/framework/src/Illuminate/Routing/Router.php(753): Illuminate\\Routing\\Router->dispatchToRoute()
+#25 /media/luca/DISCO/APPLICAZIONI/PHP/nuovoAlberoGenealogoco/vendor/laravel/framework/src/Illuminate/Foundation/Http/Kernel.php(200): Illuminate\\Routing\\Router->dispatch()
+#26 /media/luca/DISCO/APPLICAZIONI/PHP/nuovoAlberoGenealogoco/vendor/laravel/framework/src/Illuminate/Pipeline/Pipeline.php(180): Illuminate\\Foundation\\Http\\Kernel->Illuminate\\Foundation\\Http\\{closure}()
+#27 /media/luca/DISCO/APPLICAZIONI/PHP/nuovoAlberoGenealogoco/vendor/laravel/framework/src/Illuminate/Foundation/Http/Middleware/TransformsRequest.php(21): Illuminate\\Pipeline\\Pipeline->Illuminate\\Pipeline\\{closure}()
+#28 /media/luca/DISCO/APPLICAZIONI/PHP/nuovoAlberoGenealogoco/vendor/laravel/framework/src/Illuminate/Foundation/Http/Middleware/ConvertEmptyStringsToNull.php(31): Illuminate\\Foundation\\Http\\Middleware\\TransformsRequest->handle()
+#29 /media/luca/DISCO/APPLICAZIONI/PHP/nuovoAlberoGenealogoco/vendor/laravel/framework/src/Illuminate/Pipeline/Pipeline.php(219): Illuminate\\Foundation\\Http\\Middleware\\ConvertEmptyStringsToNull->handle()
+#30 /media/luca/DISCO/APPLICAZIONI/PHP/nuovoAlberoGenealogoco/vendor/laravel/framework/src/Illuminate/Foundation/Http/Middleware/TransformsRequest.php(21): Illuminate\\Pipeline\\Pipeline->Illuminate\\Pipeline\\{closure}()
+#31 /media/luca/DISCO/APPLICAZIONI/PHP/nuovoAlberoGenealogoco/vendor/laravel/framework/src/Illuminate/Foundation/Http/Middleware/TrimStrings.php(51): Illuminate\\Foundation\\Http\\Middleware\\TransformsRequest->handle()
+#32 /media/luca/DISCO/APPLICAZIONI/PHP/nuovoAlberoGenealogoco/vendor/laravel/framework/src/Illuminate/Pipeline/Pipeline.php(219): Illuminate\\Foundation\\Http\\Middleware\\TrimStrings->handle()
+#33 /media/luca/DISCO/APPLICAZIONI/PHP/nuovoAlberoGenealogoco/vendor/laravel/framework/src/Illuminate/Http/Middleware/ValidatePostSize.php(27): Illuminate\\Pipeline\\Pipeline->Illuminate\\Pipeline\\{closure}()
+#34 /media/luca/DISCO/APPLICAZIONI/PHP/nuovoAlberoGenealogoco/vendor/laravel/framework/src/Illuminate/Pipeline/Pipeline.php(219): Illuminate\\Http\\Middleware\\ValidatePostSize->handle()
+#35 /media/luca/DISCO/APPLICAZIONI/PHP/nuovoAlberoGenealogoco/vendor/laravel/framework/src/Illuminate/Foundation/Http/Middleware/PreventRequestsDuringMaintenance.php(109): Illuminate\\Pipeline\\Pipeline->Illuminate\\Pipeline\\{closure}()
+#36 /media/luca/DISCO/APPLICAZIONI/PHP/nuovoAlberoGenealogoco/vendor/laravel/framework/src/Illuminate/Pipeline/Pipeline.php(219): Illuminate\\Foundation\\Http\\Middleware\\PreventRequestsDuringMaintenance->handle()
+#37 /media/luca/DISCO/APPLICAZIONI/PHP/nuovoAlberoGenealogoco/vendor/laravel/framework/src/Illuminate/Http/Middleware/HandleCors.php(61): Illuminate\\Pipeline\\Pipeline->Illuminate\\Pipeline\\{closure}()
+#38 /media/luca/DISCO/APPLICAZIONI/PHP/nuovoAlberoGenealogoco/vendor/laravel/framework/src/Illuminate/Pipeline/Pipeline.php(219): Illuminate\\Http\\Middleware\\HandleCors->handle()
+#39 /media/luca/DISCO/APPLICAZIONI/PHP/nuovoAlberoGenealogoco/vendor/laravel/framework/src/Illuminate/Http/Middleware/TrustProxies.php(58): Illuminate\\Pipeline\\Pipeline->Illuminate\\Pipeline\\{closure}()
+#40 /media/luca/DISCO/APPLICAZIONI/PHP/nuovoAlberoGenealogoco/vendor/laravel/framework/src/Illuminate/Pipeline/Pipeline.php(219): Illuminate\\Http\\Middleware\\TrustProxies->handle()
+#41 /media/luca/DISCO/APPLICAZIONI/PHP/nuovoAlberoGenealogoco/vendor/laravel/framework/src/Illuminate/Foundation/Http/Middleware/InvokeDeferredCallbacks.php(22): Illuminate\\Pipeline\\Pipeline->Illuminate\\Pipeline\\{closure}()
+#42 /media/luca/DISCO/APPLICAZIONI/PHP/nuovoAlberoGenealogoco/vendor/laravel/framework/src/Illuminate/Pipeline/Pipeline.php(219): Illuminate\\Foundation\\Http\\Middleware\\InvokeDeferredCallbacks->handle()
+#43 /media/luca/DISCO/APPLICAZIONI/PHP/nuovoAlberoGenealogoco/vendor/laravel/framework/src/Illuminate/Http/Middleware/ValidatePathEncoding.php(26): Illuminate\\Pipeline\\Pipeline->Illuminate\\Pipeline\\{closure}()
+#44 /media/luca/DISCO/APPLICAZIONI/PHP/nuovoAlberoGenealogoco/vendor/laravel/framework/src/Illuminate/Pipeline/Pipeline.php(219): Illuminate\\Http\\Middleware\\ValidatePathEncoding->handle()
+#45 /media/luca/DISCO/APPLICAZIONI/PHP/nuovoAlberoGenealogoco/vendor/laravel/framework/src/Illuminate/Pipeline/Pipeline.php(137): Illuminate\\Pipeline\\Pipeline->Illuminate\\Pipeline\\{closure}()
+#46 /media/luca/DISCO/APPLICAZIONI/PHP/nuovoAlberoGenealogoco/vendor/laravel/framework/src/Illuminate/Foundation/Http/Kernel.php(175): Illuminate\\Pipeline\\Pipeline->then()
+#47 /media/luca/DISCO/APPLICAZIONI/PHP/nuovoAlberoGenealogoco/vendor/laravel/framework/src/Illuminate/Foundation/Http/Kernel.php(144): Illuminate\\Foundation\\Http\\Kernel->sendRequestThroughRouter()
+#48 /media/luca/DISCO/APPLICAZIONI/PHP/nuovoAlberoGenealogoco/public/index.php(17): Illuminate\\Foundation\\Http\\Kernel->handle()
+#49 /media/luca/DISCO/APPLICAZIONI/PHP/nuovoAlberoGenealogoco/vendor/laravel/framework/src/Illuminate/Foundation/resources/server.php(23): require_once('...')
+#50 {main}
+"} 
+[2025-12-24 18:15:39] local.ERROR: strtotime(): Argument #1 ($datetime) must be of type string, Illuminate\Support\Carbon given {"exception":"[object] (TypeError(code: 0): strtotime(): Argument #1 ($datetime) must be of type string, Illuminate\\Support\\Carbon given at /media/luca/DISCO/APPLICAZIONI/PHP/nuovoAlberoGenealogoco/app/Services/SyncService.php:293)
+[stacktrace]
+#0 /media/luca/DISCO/APPLICAZIONI/PHP/nuovoAlberoGenealogoco/app/Services/SyncService.php(293): strtotime()
+#1 /media/luca/DISCO/APPLICAZIONI/PHP/nuovoAlberoGenealogoco/app/Services/SyncService.php(198): App\\Services\\SyncService->syncTable()
+#2 /media/luca/DISCO/APPLICAZIONI/PHP/nuovoAlberoGenealogoco/vendor/laravel/framework/src/Illuminate/Database/Concerns/ManagesTransactions.php(35): App\\Services\\SyncService->App\\Services\\{closure}()
+#3 /media/luca/DISCO/APPLICAZIONI/PHP/nuovoAlberoGenealogoco/vendor/laravel/framework/src/Illuminate/Database/DatabaseManager.php(491): Illuminate\\Database\\Connection->transaction()
+#4 /media/luca/DISCO/APPLICAZIONI/PHP/nuovoAlberoGenealogoco/vendor/laravel/framework/src/Illuminate/Support/Facades/Facade.php(363): Illuminate\\Database\\DatabaseManager->__call()
+#5 /media/luca/DISCO/APPLICAZIONI/PHP/nuovoAlberoGenealogoco/app/Services/SyncService.php(177): Illuminate\\Support\\Facades\\Facade::__callStatic()
+#6 /media/luca/DISCO/APPLICAZIONI/PHP/nuovoAlberoGenealogoco/app/Http/Controllers/API/SyncController.php(158): App\\Services\\SyncService->merge()
+#7 /media/luca/DISCO/APPLICAZIONI/PHP/nuovoAlberoGenealogoco/vendor/laravel/framework/src/Illuminate/Routing/Controller.php(54): App\\Http\\Controllers\\API\\SyncController->merge()
+#8 /media/luca/DISCO/APPLICAZIONI/PHP/nuovoAlberoGenealogoco/vendor/laravel/framework/src/Illuminate/Routing/ControllerDispatcher.php(43): Illuminate\\Routing\\Controller->callAction()
+#9 /media/luca/DISCO/APPLICAZIONI/PHP/nuovoAlberoGenealogoco/vendor/laravel/framework/src/Illuminate/Routing/Route.php(265): Illuminate\\Routing\\ControllerDispatcher->dispatch()
+#10 /media/luca/DISCO/APPLICAZIONI/PHP/nuovoAlberoGenealogoco/vendor/laravel/framework/src/Illuminate/Routing/Route.php(211): Illuminate\\Routing\\Route->runController()
+#11 /media/luca/DISCO/APPLICAZIONI/PHP/nuovoAlberoGenealogoco/vendor/laravel/framework/src/Illuminate/Routing/Router.php(822): Illuminate\\Routing\\Route->run()
+#12 /media/luca/DISCO/APPLICAZIONI/PHP/nuovoAlberoGenealogoco/vendor/laravel/framework/src/Illuminate/Pipeline/Pipeline.php(180): Illuminate\\Routing\\Router->Illuminate\\Routing\\{closure}()
+#13 /media/luca/DISCO/APPLICAZIONI/PHP/nuovoAlberoGenealogoco/vendor/laravel/framework/src/Illuminate/Routing/Middleware/SubstituteBindings.php(50): Illuminate\\Pipeline\\Pipeline->Illuminate\\Pipeline\\{closure}()
+#14 /media/luca/DISCO/APPLICAZIONI/PHP/nuovoAlberoGenealogoco/vendor/laravel/framework/src/Illuminate/Pipeline/Pipeline.php(219): Illuminate\\Routing\\Middleware\\SubstituteBindings->handle()
+#15 /media/luca/DISCO/APPLICAZIONI/PHP/nuovoAlberoGenealogoco/vendor/laravel/sanctum/src/Http/Middleware/EnsureFrontendRequestsAreStateful.php(26): Illuminate\\Pipeline\\Pipeline->Illuminate\\Pipeline\\{closure}()
+#16 /media/luca/DISCO/APPLICAZIONI/PHP/nuovoAlberoGenealogoco/vendor/laravel/framework/src/Illuminate/Pipeline/Pipeline.php(180): Laravel\\Sanctum\\Http\\Middleware\\EnsureFrontendRequestsAreStateful->Laravel\\Sanctum\\Http\\Middleware\\{closure}()
+#17 /media/luca/DISCO/APPLICAZIONI/PHP/nuovoAlberoGenealogoco/vendor/laravel/framework/src/Illuminate/Pipeline/Pipeline.php(137): Illuminate\\Pipeline\\Pipeline->Illuminate\\Pipeline\\{closure}()
+#18 /media/luca/DISCO/APPLICAZIONI/PHP/nuovoAlberoGenealogoco/vendor/laravel/sanctum/src/Http/Middleware/EnsureFrontendRequestsAreStateful.php(25): Illuminate\\Pipeline\\Pipeline->then()
+#19 /media/luca/DISCO/APPLICAZIONI/PHP/nuovoAlberoGenealogoco/vendor/laravel/framework/src/Illuminate/Pipeline/Pipeline.php(219): Laravel\\Sanctum\\Http\\Middleware\\EnsureFrontendRequestsAreStateful->handle()
+#20 /media/luca/DISCO/APPLICAZIONI/PHP/nuovoAlberoGenealogoco/vendor/laravel/framework/src/Illuminate/Pipeline/Pipeline.php(137): Illuminate\\Pipeline\\Pipeline->Illuminate\\Pipeline\\{closure}()
+#21 /media/luca/DISCO/APPLICAZIONI/PHP/nuovoAlberoGenealogoco/vendor/laravel/framework/src/Illuminate/Routing/Router.php(821): Illuminate\\Pipeline\\Pipeline->then()
+#22 /media/luca/DISCO/APPLICAZIONI/PHP/nuovoAlberoGenealogoco/vendor/laravel/framework/src/Illuminate/Routing/Router.php(800): Illuminate\\Routing\\Router->runRouteWithinStack()
+#23 /media/luca/DISCO/APPLICAZIONI/PHP/nuovoAlberoGenealogoco/vendor/laravel/framework/src/Illuminate/Routing/Router.php(764): Illuminate\\Routing\\Router->runRoute()
+#24 /media/luca/DISCO/APPLICAZIONI/PHP/nuovoAlberoGenealogoco/vendor/laravel/framework/src/Illuminate/Routing/Router.php(753): Illuminate\\Routing\\Router->dispatchToRoute()
+#25 /media/luca/DISCO/APPLICAZIONI/PHP/nuovoAlberoGenealogoco/vendor/laravel/framework/src/Illuminate/Foundation/Http/Kernel.php(200): Illuminate\\Routing\\Router->dispatch()
+#26 /media/luca/DISCO/APPLICAZIONI/PHP/nuovoAlberoGenealogoco/vendor/laravel/framework/src/Illuminate/Pipeline/Pipeline.php(180): Illuminate\\Foundation\\Http\\Kernel->Illuminate\\Foundation\\Http\\{closure}()
+#27 /media/luca/DISCO/APPLICAZIONI/PHP/nuovoAlberoGenealogoco/vendor/laravel/framework/src/Illuminate/Foundation/Http/Middleware/TransformsRequest.php(21): Illuminate\\Pipeline\\Pipeline->Illuminate\\Pipeline\\{closure}()
+#28 /media/luca/DISCO/APPLICAZIONI/PHP/nuovoAlberoGenealogoco/vendor/laravel/framework/src/Illuminate/Foundation/Http/Middleware/ConvertEmptyStringsToNull.php(31): Illuminate\\Foundation\\Http\\Middleware\\TransformsRequest->handle()
+#29 /media/luca/DISCO/APPLICAZIONI/PHP/nuovoAlberoGenealogoco/vendor/laravel/framework/src/Illuminate/Pipeline/Pipeline.php(219): Illuminate\\Foundation\\Http\\Middleware\\ConvertEmptyStringsToNull->handle()
+#30 /media/luca/DISCO/APPLICAZIONI/PHP/nuovoAlberoGenealogoco/vendor/laravel/framework/src/Illuminate/Foundation/Http/Middleware/TransformsRequest.php(21): Illuminate\\Pipeline\\Pipeline->Illuminate\\Pipeline\\{closure}()
+#31 /media/luca/DISCO/APPLICAZIONI/PHP/nuovoAlberoGenealogoco/vendor/laravel/framework/src/Illuminate/Foundation/Http/Middleware/TrimStrings.php(51): Illuminate\\Foundation\\Http\\Middleware\\TransformsRequest->handle()
+#32 /media/luca/DISCO/APPLICAZIONI/PHP/nuovoAlberoGenealogoco/vendor/laravel/framework/src/Illuminate/Pipeline/Pipeline.php(219): Illuminate\\Foundation\\Http\\Middleware\\TrimStrings->handle()
+#33 /media/luca/DISCO/APPLICAZIONI/PHP/nuovoAlberoGenealogoco/vendor/laravel/framework/src/Illuminate/Http/Middleware/ValidatePostSize.php(27): Illuminate\\Pipeline\\Pipeline->Illuminate\\Pipeline\\{closure}()
+#34 /media/luca/DISCO/APPLICAZIONI/PHP/nuovoAlberoGenealogoco/vendor/laravel/framework/src/Illuminate/Pipeline/Pipeline.php(219): Illuminate\\Http\\Middleware\\ValidatePostSize->handle()
+#35 /media/luca/DISCO/APPLICAZIONI/PHP/nuovoAlberoGenealogoco/vendor/laravel/framework/src/Illuminate/Foundation/Http/Middleware/PreventRequestsDuringMaintenance.php(109): Illuminate\\Pipeline\\Pipeline->Illuminate\\Pipeline\\{closure}()
+#36 /media/luca/DISCO/APPLICAZIONI/PHP/nuovoAlberoGenealogoco/vendor/laravel/framework/src/Illuminate/Pipeline/Pipeline.php(219): Illuminate\\Foundation\\Http\\Middleware\\PreventRequestsDuringMaintenance->handle()
+#37 /media/luca/DISCO/APPLICAZIONI/PHP/nuovoAlberoGenealogoco/vendor/laravel/framework/src/Illuminate/Http/Middleware/HandleCors.php(61): Illuminate\\Pipeline\\Pipeline->Illuminate\\Pipeline\\{closure}()
+#38 /media/luca/DISCO/APPLICAZIONI/PHP/nuovoAlberoGenealogoco/vendor/laravel/framework/src/Illuminate/Pipeline/Pipeline.php(219): Illuminate\\Http\\Middleware\\HandleCors->handle()
+#39 /media/luca/DISCO/APPLICAZIONI/PHP/nuovoAlberoGenealogoco/vendor/laravel/framework/src/Illuminate/Http/Middleware/TrustProxies.php(58): Illuminate\\Pipeline\\Pipeline->Illuminate\\Pipeline\\{closure}()
+#40 /media/luca/DISCO/APPLICAZIONI/PHP/nuovoAlberoGenealogoco/vendor/laravel/framework/src/Illuminate/Pipeline/Pipeline.php(219): Illuminate\\Http\\Middleware\\TrustProxies->handle()
+#41 /media/luca/DISCO/APPLICAZIONI/PHP/nuovoAlberoGenealogoco/vendor/laravel/framework/src/Illuminate/Foundation/Http/Middleware/InvokeDeferredCallbacks.php(22): Illuminate\\Pipeline\\Pipeline->Illuminate\\Pipeline\\{closure}()
+#42 /media/luca/DISCO/APPLICAZIONI/PHP/nuovoAlberoGenealogoco/vendor/laravel/framework/src/Illuminate/Pipeline/Pipeline.php(219): Illuminate\\Foundation\\Http\\Middleware\\InvokeDeferredCallbacks->handle()
+#43 /media/luca/DISCO/APPLICAZIONI/PHP/nuovoAlberoGenealogoco/vendor/laravel/framework/src/Illuminate/Http/Middleware/ValidatePathEncoding.php(26): Illuminate\\Pipeline\\Pipeline->Illuminate\\Pipeline\\{closure}()
+#44 /media/luca/DISCO/APPLICAZIONI/PHP/nuovoAlberoGenealogoco/vendor/laravel/framework/src/Illuminate/Pipeline/Pipeline.php(219): Illuminate\\Http\\Middleware\\ValidatePathEncoding->handle()
+#45 /media/luca/DISCO/APPLICAZIONI/PHP/nuovoAlberoGenealogoco/vendor/laravel/framework/src/Illuminate/Pipeline/Pipeline.php(137): Illuminate\\Pipeline\\Pipeline->Illuminate\\Pipeline\\{closure}()
+#46 /media/luca/DISCO/APPLICAZIONI/PHP/nuovoAlberoGenealogoco/vendor/laravel/framework/src/Illuminate/Foundation/Http/Kernel.php(175): Illuminate\\Pipeline\\Pipeline->then()
+#47 /media/luca/DISCO/APPLICAZIONI/PHP/nuovoAlberoGenealogoco/vendor/laravel/framework/src/Illuminate/Foundation/Http/Kernel.php(144): Illuminate\\Foundation\\Http\\Kernel->sendRequestThroughRouter()
+#48 /media/luca/DISCO/APPLICAZIONI/PHP/nuovoAlberoGenealogoco/public/index.php(17): Illuminate\\Foundation\\Http\\Kernel->handle()
+#49 /media/luca/DISCO/APPLICAZIONI/PHP/nuovoAlberoGenealogoco/vendor/laravel/framework/src/Illuminate/Foundation/resources/server.php(23): require_once('...')
+#50 {main}
+"} 
+[2025-12-24 18:18:41] local.ERROR: strtotime(): Argument #1 ($datetime) must be of type string, Illuminate\Support\Carbon given {"exception":"[object] (TypeError(code: 0): strtotime(): Argument #1 ($datetime) must be of type string, Illuminate\\Support\\Carbon given at /media/luca/DISCO/APPLICAZIONI/PHP/nuovoAlberoGenealogoco/app/Services/SyncService.php:307)
+[stacktrace]
+#0 /media/luca/DISCO/APPLICAZIONI/PHP/nuovoAlberoGenealogoco/app/Services/SyncService.php(307): strtotime()
+#1 /media/luca/DISCO/APPLICAZIONI/PHP/nuovoAlberoGenealogoco/app/Services/SyncService.php(198): App\\Services\\SyncService->syncTable()
+#2 /media/luca/DISCO/APPLICAZIONI/PHP/nuovoAlberoGenealogoco/vendor/laravel/framework/src/Illuminate/Database/Concerns/ManagesTransactions.php(35): App\\Services\\SyncService->App\\Services\\{closure}()
+#3 /media/luca/DISCO/APPLICAZIONI/PHP/nuovoAlberoGenealogoco/vendor/laravel/framework/src/Illuminate/Database/DatabaseManager.php(491): Illuminate\\Database\\Connection->transaction()
+#4 /media/luca/DISCO/APPLICAZIONI/PHP/nuovoAlberoGenealogoco/vendor/laravel/framework/src/Illuminate/Support/Facades/Facade.php(363): Illuminate\\Database\\DatabaseManager->__call()
+#5 /media/luca/DISCO/APPLICAZIONI/PHP/nuovoAlberoGenealogoco/app/Services/SyncService.php(177): Illuminate\\Support\\Facades\\Facade::__callStatic()
+#6 /media/luca/DISCO/APPLICAZIONI/PHP/nuovoAlberoGenealogoco/app/Http/Controllers/API/SyncController.php(158): App\\Services\\SyncService->merge()
+#7 /media/luca/DISCO/APPLICAZIONI/PHP/nuovoAlberoGenealogoco/vendor/laravel/framework/src/Illuminate/Routing/Controller.php(54): App\\Http\\Controllers\\API\\SyncController->merge()
+#8 /media/luca/DISCO/APPLICAZIONI/PHP/nuovoAlberoGenealogoco/vendor/laravel/framework/src/Illuminate/Routing/ControllerDispatcher.php(43): Illuminate\\Routing\\Controller->callAction()
+#9 /media/luca/DISCO/APPLICAZIONI/PHP/nuovoAlberoGenealogoco/vendor/laravel/framework/src/Illuminate/Routing/Route.php(265): Illuminate\\Routing\\ControllerDispatcher->dispatch()
+#10 /media/luca/DISCO/APPLICAZIONI/PHP/nuovoAlberoGenealogoco/vendor/laravel/framework/src/Illuminate/Routing/Route.php(211): Illuminate\\Routing\\Route->runController()
+#11 /media/luca/DISCO/APPLICAZIONI/PHP/nuovoAlberoGenealogoco/vendor/laravel/framework/src/Illuminate/Routing/Router.php(822): Illuminate\\Routing\\Route->run()
+#12 /media/luca/DISCO/APPLICAZIONI/PHP/nuovoAlberoGenealogoco/vendor/laravel/framework/src/Illuminate/Pipeline/Pipeline.php(180): Illuminate\\Routing\\Router->Illuminate\\Routing\\{closure}()
+#13 /media/luca/DISCO/APPLICAZIONI/PHP/nuovoAlberoGenealogoco/vendor/laravel/framework/src/Illuminate/Routing/Middleware/SubstituteBindings.php(50): Illuminate\\Pipeline\\Pipeline->Illuminate\\Pipeline\\{closure}()
+#14 /media/luca/DISCO/APPLICAZIONI/PHP/nuovoAlberoGenealogoco/vendor/laravel/framework/src/Illuminate/Pipeline/Pipeline.php(219): Illuminate\\Routing\\Middleware\\SubstituteBindings->handle()
+#15 /media/luca/DISCO/APPLICAZIONI/PHP/nuovoAlberoGenealogoco/vendor/laravel/sanctum/src/Http/Middleware/EnsureFrontendRequestsAreStateful.php(26): Illuminate\\Pipeline\\Pipeline->Illuminate\\Pipeline\\{closure}()
+#16 /media/luca/DISCO/APPLICAZIONI/PHP/nuovoAlberoGenealogoco/vendor/laravel/framework/src/Illuminate/Pipeline/Pipeline.php(180): Laravel\\Sanctum\\Http\\Middleware\\EnsureFrontendRequestsAreStateful->Laravel\\Sanctum\\Http\\Middleware\\{closure}()
+#17 /media/luca/DISCO/APPLICAZIONI/PHP/nuovoAlberoGenealogoco/vendor/laravel/framework/src/Illuminate/Pipeline/Pipeline.php(137): Illuminate\\Pipeline\\Pipeline->Illuminate\\Pipeline\\{closure}()
+#18 /media/luca/DISCO/APPLICAZIONI/PHP/nuovoAlberoGenealogoco/vendor/laravel/sanctum/src/Http/Middleware/EnsureFrontendRequestsAreStateful.php(25): Illuminate\\Pipeline\\Pipeline->then()
+#19 /media/luca/DISCO/APPLICAZIONI/PHP/nuovoAlberoGenealogoco/vendor/laravel/framework/src/Illuminate/Pipeline/Pipeline.php(219): Laravel\\Sanctum\\Http\\Middleware\\EnsureFrontendRequestsAreStateful->handle()
+#20 /media/luca/DISCO/APPLICAZIONI/PHP/nuovoAlberoGenealogoco/vendor/laravel/framework/src/Illuminate/Pipeline/Pipeline.php(137): Illuminate\\Pipeline\\Pipeline->Illuminate\\Pipeline\\{closure}()
+#21 /media/luca/DISCO/APPLICAZIONI/PHP/nuovoAlberoGenealogoco/vendor/laravel/framework/src/Illuminate/Routing/Router.php(821): Illuminate\\Pipeline\\Pipeline->then()
+#22 /media/luca/DISCO/APPLICAZIONI/PHP/nuovoAlberoGenealogoco/vendor/laravel/framework/src/Illuminate/Routing/Router.php(800): Illuminate\\Routing\\Router->runRouteWithinStack()
+#23 /media/luca/DISCO/APPLICAZIONI/PHP/nuovoAlberoGenealogoco/vendor/laravel/framework/src/Illuminate/Routing/Router.php(764): Illuminate\\Routing\\Router->runRoute()
+#24 /media/luca/DISCO/APPLICAZIONI/PHP/nuovoAlberoGenealogoco/vendor/laravel/framework/src/Illuminate/Routing/Router.php(753): Illuminate\\Routing\\Router->dispatchToRoute()
+#25 /media/luca/DISCO/APPLICAZIONI/PHP/nuovoAlberoGenealogoco/vendor/laravel/framework/src/Illuminate/Foundation/Http/Kernel.php(200): Illuminate\\Routing\\Router->dispatch()
+#26 /media/luca/DISCO/APPLICAZIONI/PHP/nuovoAlberoGenealogoco/vendor/laravel/framework/src/Illuminate/Pipeline/Pipeline.php(180): Illuminate\\Foundation\\Http\\Kernel->Illuminate\\Foundation\\Http\\{closure}()
+#27 /media/luca/DISCO/APPLICAZIONI/PHP/nuovoAlberoGenealogoco/vendor/laravel/framework/src/Illuminate/Foundation/Http/Middleware/TransformsRequest.php(21): Illuminate\\Pipeline\\Pipeline->Illuminate\\Pipeline\\{closure}()
+#28 /media/luca/DISCO/APPLICAZIONI/PHP/nuovoAlberoGenealogoco/vendor/laravel/framework/src/Illuminate/Foundation/Http/Middleware/ConvertEmptyStringsToNull.php(31): Illuminate\\Foundation\\Http\\Middleware\\TransformsRequest->handle()
+#29 /media/luca/DISCO/APPLICAZIONI/PHP/nuovoAlberoGenealogoco/vendor/laravel/framework/src/Illuminate/Pipeline/Pipeline.php(219): Illuminate\\Foundation\\Http\\Middleware\\ConvertEmptyStringsToNull->handle()
+#30 /media/luca/DISCO/APPLICAZIONI/PHP/nuovoAlberoGenealogoco/vendor/laravel/framework/src/Illuminate/Foundation/Http/Middleware/TransformsRequest.php(21): Illuminate\\Pipeline\\Pipeline->Illuminate\\Pipeline\\{closure}()
+#31 /media/luca/DISCO/APPLICAZIONI/PHP/nuovoAlberoGenealogoco/vendor/laravel/framework/src/Illuminate/Foundation/Http/Middleware/TrimStrings.php(51): Illuminate\\Foundation\\Http\\Middleware\\TransformsRequest->handle()
+#32 /media/luca/DISCO/APPLICAZIONI/PHP/nuovoAlberoGenealogoco/vendor/laravel/framework/src/Illuminate/Pipeline/Pipeline.php(219): Illuminate\\Foundation\\Http\\Middleware\\TrimStrings->handle()
+#33 /media/luca/DISCO/APPLICAZIONI/PHP/nuovoAlberoGenealogoco/vendor/laravel/framework/src/Illuminate/Http/Middleware/ValidatePostSize.php(27): Illuminate\\Pipeline\\Pipeline->Illuminate\\Pipeline\\{closure}()
+#34 /media/luca/DISCO/APPLICAZIONI/PHP/nuovoAlberoGenealogoco/vendor/laravel/framework/src/Illuminate/Pipeline/Pipeline.php(219): Illuminate\\Http\\Middleware\\ValidatePostSize->handle()
+#35 /media/luca/DISCO/APPLICAZIONI/PHP/nuovoAlberoGenealogoco/vendor/laravel/framework/src/Illuminate/Foundation/Http/Middleware/PreventRequestsDuringMaintenance.php(109): Illuminate\\Pipeline\\Pipeline->Illuminate\\Pipeline\\{closure}()
+#36 /media/luca/DISCO/APPLICAZIONI/PHP/nuovoAlberoGenealogoco/vendor/laravel/framework/src/Illuminate/Pipeline/Pipeline.php(219): Illuminate\\Foundation\\Http\\Middleware\\PreventRequestsDuringMaintenance->handle()
+#37 /media/luca/DISCO/APPLICAZIONI/PHP/nuovoAlberoGenealogoco/vendor/laravel/framework/src/Illuminate/Http/Middleware/HandleCors.php(61): Illuminate\\Pipeline\\Pipeline->Illuminate\\Pipeline\\{closure}()
+#38 /media/luca/DISCO/APPLICAZIONI/PHP/nuovoAlberoGenealogoco/vendor/laravel/framework/src/Illuminate/Pipeline/Pipeline.php(219): Illuminate\\Http\\Middleware\\HandleCors->handle()
+#39 /media/luca/DISCO/APPLICAZIONI/PHP/nuovoAlberoGenealogoco/vendor/laravel/framework/src/Illuminate/Http/Middleware/TrustProxies.php(58): Illuminate\\Pipeline\\Pipeline->Illuminate\\Pipeline\\{closure}()
+#40 /media/luca/DISCO/APPLICAZIONI/PHP/nuovoAlberoGenealogoco/vendor/laravel/framework/src/Illuminate/Pipeline/Pipeline.php(219): Illuminate\\Http\\Middleware\\TrustProxies->handle()
+#41 /media/luca/DISCO/APPLICAZIONI/PHP/nuovoAlberoGenealogoco/vendor/laravel/framework/src/Illuminate/Foundation/Http/Middleware/InvokeDeferredCallbacks.php(22): Illuminate\\Pipeline\\Pipeline->Illuminate\\Pipeline\\{closure}()
+#42 /media/luca/DISCO/APPLICAZIONI/PHP/nuovoAlberoGenealogoco/vendor/laravel/framework/src/Illuminate/Pipeline/Pipeline.php(219): Illuminate\\Foundation\\Http\\Middleware\\InvokeDeferredCallbacks->handle()
+#43 /media/luca/DISCO/APPLICAZIONI/PHP/nuovoAlberoGenealogoco/vendor/laravel/framework/src/Illuminate/Http/Middleware/ValidatePathEncoding.php(26): Illuminate\\Pipeline\\Pipeline->Illuminate\\Pipeline\\{closure}()
+#44 /media/luca/DISCO/APPLICAZIONI/PHP/nuovoAlberoGenealogoco/vendor/laravel/framework/src/Illuminate/Pipeline/Pipeline.php(219): Illuminate\\Http\\Middleware\\ValidatePathEncoding->handle()
+#45 /media/luca/DISCO/APPLICAZIONI/PHP/nuovoAlberoGenealogoco/vendor/laravel/framework/src/Illuminate/Pipeline/Pipeline.php(137): Illuminate\\Pipeline\\Pipeline->Illuminate\\Pipeline\\{closure}()
+#46 /media/luca/DISCO/APPLICAZIONI/PHP/nuovoAlberoGenealogoco/vendor/laravel/framework/src/Illuminate/Foundation/Http/Kernel.php(175): Illuminate\\Pipeline\\Pipeline->then()
+#47 /media/luca/DISCO/APPLICAZIONI/PHP/nuovoAlberoGenealogoco/vendor/laravel/framework/src/Illuminate/Foundation/Http/Kernel.php(144): Illuminate\\Foundation\\Http\\Kernel->sendRequestThroughRouter()
+#48 /media/luca/DISCO/APPLICAZIONI/PHP/nuovoAlberoGenealogoco/public/index.php(17): Illuminate\\Foundation\\Http\\Kernel->handle()
+#49 /media/luca/DISCO/APPLICAZIONI/PHP/nuovoAlberoGenealogoco/vendor/laravel/framework/src/Illuminate/Foundation/resources/server.php(23): require_once('...')
+#50 {main}
+"} 
+[2025-12-24 18:19:23] local.ERROR: Command "tinker" is not defined. {"exception":"[object] (Symfony\\Component\\Console\\Exception\\CommandNotFoundException(code: 0): Command \"tinker\" is not defined. at /media/luca/DISCO/APPLICAZIONI/PHP/nuovoAlberoGenealogoco/vendor/symfony/console/Application.php:759)
+[stacktrace]
+#0 /media/luca/DISCO/APPLICAZIONI/PHP/nuovoAlberoGenealogoco/vendor/symfony/console/Application.php(298): Symfony\\Component\\Console\\Application->find()
+#1 /media/luca/DISCO/APPLICAZIONI/PHP/nuovoAlberoGenealogoco/vendor/symfony/console/Application.php(195): Symfony\\Component\\Console\\Application->doRun()
+#2 /media/luca/DISCO/APPLICAZIONI/PHP/nuovoAlberoGenealogoco/vendor/laravel/framework/src/Illuminate/Foundation/Console/Kernel.php(197): Symfony\\Component\\Console\\Application->run()
+#3 /media/luca/DISCO/APPLICAZIONI/PHP/nuovoAlberoGenealogoco/artisan(12): Illuminate\\Foundation\\Console\\Kernel->handle()
+#4 {main}
+"} 
+[2025-12-24 18:19:52] local.ERROR: Sync merge failed {"error":"Undefined variable $conflictsCount","trace":"#0 /media/luca/DISCO/APPLICAZIONI/PHP/nuovoAlberoGenealogoco/vendor/laravel/framework/src/Illuminate/Foundation/Bootstrap/HandleExceptions.php(258): Illuminate\\Foundation\\Bootstrap\\HandleExceptions->handleError()
+#1 /media/luca/DISCO/APPLICAZIONI/PHP/nuovoAlberoGenealogoco/app/Services/SyncService.php(251): Illuminate\\Foundation\\Bootstrap\\HandleExceptions->Illuminate\\Foundation\\Bootstrap\\{closure}()
+#2 /media/luca/DISCO/APPLICAZIONI/PHP/nuovoAlberoGenealogoco/app/Http/Controllers/API/SyncController.php(158): App\\Services\\SyncService->merge()
+#3 /media/luca/DISCO/APPLICAZIONI/PHP/nuovoAlberoGenealogoco/vendor/laravel/framework/src/Illuminate/Routing/Controller.php(54): App\\Http\\Controllers\\API\\SyncController->merge()
+#4 /media/luca/DISCO/APPLICAZIONI/PHP/nuovoAlberoGenealogoco/vendor/laravel/framework/src/Illuminate/Routing/ControllerDispatcher.php(43): Illuminate\\Routing\\Controller->callAction()
+#5 /media/luca/DISCO/APPLICAZIONI/PHP/nuovoAlberoGenealogoco/vendor/laravel/framework/src/Illuminate/Routing/Route.php(265): Illuminate\\Routing\\ControllerDispatcher->dispatch()
+#6 /media/luca/DISCO/APPLICAZIONI/PHP/nuovoAlberoGenealogoco/vendor/laravel/framework/src/Illuminate/Routing/Route.php(211): Illuminate\\Routing\\Route->runController()
+#7 /media/luca/DISCO/APPLICAZIONI/PHP/nuovoAlberoGenealogoco/vendor/laravel/framework/src/Illuminate/Routing/Router.php(822): Illuminate\\Routing\\Route->run()
+#8 /media/luca/DISCO/APPLICAZIONI/PHP/nuovoAlberoGenealogoco/vendor/laravel/framework/src/Illuminate/Pipeline/Pipeline.php(180): Illuminate\\Routing\\Router->Illuminate\\Routing\\{closure}()
+#9 /media/luca/DISCO/APPLICAZIONI/PHP/nuovoAlberoGenealogoco/vendor/laravel/framework/src/Illuminate/Routing/Middleware/SubstituteBindings.php(50): Illuminate\\Pipeline\\Pipeline->Illuminate\\Pipeline\\{closure}()
+#10 /media/luca/DISCO/APPLICAZIONI/PHP/nuovoAlberoGenealogoco/vendor/laravel/framework/src/Illuminate/Pipeline/Pipeline.php(219): Illuminate\\Routing\\Middleware\\SubstituteBindings->handle()
+#11 /media/luca/DISCO/APPLICAZIONI/PHP/nuovoAlberoGenealogoco/vendor/laravel/sanctum/src/Http/Middleware/EnsureFrontendRequestsAreStateful.php(26): Illuminate\\Pipeline\\Pipeline->Illuminate\\Pipeline\\{closure}()
+#12 /media/luca/DISCO/APPLICAZIONI/PHP/nuovoAlberoGenealogoco/vendor/laravel/framework/src/Illuminate/Pipeline/Pipeline.php(180): Laravel\\Sanctum\\Http\\Middleware\\EnsureFrontendRequestsAreStateful->Laravel\\Sanctum\\Http\\Middleware\\{closure}()
+#13 /media/luca/DISCO/APPLICAZIONI/PHP/nuovoAlberoGenealogoco/vendor/laravel/framework/src/Illuminate/Pipeline/Pipeline.php(137): Illuminate\\Pipeline\\Pipeline->Illuminate\\Pipeline\\{closure}()
+#14 /media/luca/DISCO/APPLICAZIONI/PHP/nuovoAlberoGenealogoco/vendor/laravel/sanctum/src/Http/Middleware/EnsureFrontendRequestsAreStateful.php(25): Illuminate\\Pipeline\\Pipeline->then()
+#15 /media/luca/DISCO/APPLICAZIONI/PHP/nuovoAlberoGenealogoco/vendor/laravel/framework/src/Illuminate/Pipeline/Pipeline.php(219): Laravel\\Sanctum\\Http\\Middleware\\EnsureFrontendRequestsAreStateful->handle()
+#16 /media/luca/DISCO/APPLICAZIONI/PHP/nuovoAlberoGenealogoco/vendor/laravel/framework/src/Illuminate/Pipeline/Pipeline.php(137): Illuminate\\Pipeline\\Pipeline->Illuminate\\Pipeline\\{closure}()
+#17 /media/luca/DISCO/APPLICAZIONI/PHP/nuovoAlberoGenealogoco/vendor/laravel/framework/src/Illuminate/Routing/Router.php(821): Illuminate\\Pipeline\\Pipeline->then()
+#18 /media/luca/DISCO/APPLICAZIONI/PHP/nuovoAlberoGenealogoco/vendor/laravel/framework/src/Illuminate/Routing/Router.php(800): Illuminate\\Routing\\Router->runRouteWithinStack()
+#19 /media/luca/DISCO/APPLICAZIONI/PHP/nuovoAlberoGenealogoco/vendor/laravel/framework/src/Illuminate/Routing/Router.php(764): Illuminate\\Routing\\Router->runRoute()
+#20 /media/luca/DISCO/APPLICAZIONI/PHP/nuovoAlberoGenealogoco/vendor/laravel/framework/src/Illuminate/Routing/Router.php(753): Illuminate\\Routing\\Router->dispatchToRoute()
+#21 /media/luca/DISCO/APPLICAZIONI/PHP/nuovoAlberoGenealogoco/vendor/laravel/framework/src/Illuminate/Foundation/Http/Kernel.php(200): Illuminate\\Routing\\Router->dispatch()
+#22 /media/luca/DISCO/APPLICAZIONI/PHP/nuovoAlberoGenealogoco/vendor/laravel/framework/src/Illuminate/Pipeline/Pipeline.php(180): Illuminate\\Foundation\\Http\\Kernel->Illuminate\\Foundation\\Http\\{closure}()
+#23 /media/luca/DISCO/APPLICAZIONI/PHP/nuovoAlberoGenealogoco/vendor/laravel/framework/src/Illuminate/Foundation/Http/Middleware/TransformsRequest.php(21): Illuminate\\Pipeline\\Pipeline->Illuminate\\Pipeline\\{closure}()
+#24 /media/luca/DISCO/APPLICAZIONI/PHP/nuovoAlberoGenealogoco/vendor/laravel/framework/src/Illuminate/Foundation/Http/Middleware/ConvertEmptyStringsToNull.php(31): Illuminate\\Foundation\\Http\\Middleware\\TransformsRequest->handle()
+#25 /media/luca/DISCO/APPLICAZIONI/PHP/nuovoAlberoGenealogoco/vendor/laravel/framework/src/Illuminate/Pipeline/Pipeline.php(219): Illuminate\\Foundation\\Http\\Middleware\\ConvertEmptyStringsToNull->handle()
+#26 /media/luca/DISCO/APPLICAZIONI/PHP/nuovoAlberoGenealogoco/vendor/laravel/framework/src/Illuminate/Foundation/Http/Middleware/TransformsRequest.php(21): Illuminate\\Pipeline\\Pipeline->Illuminate\\Pipeline\\{closure}()
+#27 /media/luca/DISCO/APPLICAZIONI/PHP/nuovoAlberoGenealogoco/vendor/laravel/framework/src/Illuminate/Foundation/Http/Middleware/TrimStrings.php(51): Illuminate\\Foundation\\Http\\Middleware\\TransformsRequest->handle()
+#28 /media/luca/DISCO/APPLICAZIONI/PHP/nuovoAlberoGenealogoco/vendor/laravel/framework/src/Illuminate/Pipeline/Pipeline.php(219): Illuminate\\Foundation\\Http\\Middleware\\TrimStrings->handle()
+#29 /media/luca/DISCO/APPLICAZIONI/PHP/nuovoAlberoGenealogoco/vendor/laravel/framework/src/Illuminate/Http/Middleware/ValidatePostSize.php(27): Illuminate\\Pipeline\\Pipeline->Illuminate\\Pipeline\\{closure}()
+#30 /media/luca/DISCO/APPLICAZIONI/PHP/nuovoAlberoGenealogoco/vendor/laravel/framework/src/Illuminate/Pipeline/Pipeline.php(219): Illuminate\\Http\\Middleware\\ValidatePostSize->handle()
+#31 /media/luca/DISCO/APPLICAZIONI/PHP/nuovoAlberoGenealogoco/vendor/laravel/framework/src/Illuminate/Foundation/Http/Middleware/PreventRequestsDuringMaintenance.php(109): Illuminate\\Pipeline\\Pipeline->Illuminate\\Pipeline\\{closure}()
+#32 /media/luca/DISCO/APPLICAZIONI/PHP/nuovoAlberoGenealogoco/vendor/laravel/framework/src/Illuminate/Pipeline/Pipeline.php(219): Illuminate\\Foundation\\Http\\Middleware\\PreventRequestsDuringMaintenance->handle()
+#33 /media/luca/DISCO/APPLICAZIONI/PHP/nuovoAlberoGenealogoco/vendor/laravel/framework/src/Illuminate/Http/Middleware/HandleCors.php(61): Illuminate\\Pipeline\\Pipeline->Illuminate\\Pipeline\\{closure}()
+#34 /media/luca/DISCO/APPLICAZIONI/PHP/nuovoAlberoGenealogoco/vendor/laravel/framework/src/Illuminate/Pipeline/Pipeline.php(219): Illuminate\\Http\\Middleware\\HandleCors->handle()
+#35 /media/luca/DISCO/APPLICAZIONI/PHP/nuovoAlberoGenealogoco/vendor/laravel/framework/src/Illuminate/Http/Middleware/TrustProxies.php(58): Illuminate\\Pipeline\\Pipeline->Illuminate\\Pipeline\\{closure}()
+#36 /media/luca/DISCO/APPLICAZIONI/PHP/nuovoAlberoGenealogoco/vendor/laravel/framework/src/Illuminate/Pipeline/Pipeline.php(219): Illuminate\\Http\\Middleware\\TrustProxies->handle()
+#37 /media/luca/DISCO/APPLICAZIONI/PHP/nuovoAlberoGenealogoco/vendor/laravel/framework/src/Illuminate/Foundation/Http/Middleware/InvokeDeferredCallbacks.php(22): Illuminate\\Pipeline\\Pipeline->Illuminate\\Pipeline\\{closure}()
+#38 /media/luca/DISCO/APPLICAZIONI/PHP/nuovoAlberoGenealogoco/vendor/laravel/framework/src/Illuminate/Pipeline/Pipeline.php(219): Illuminate\\Foundation\\Http\\Middleware\\InvokeDeferredCallbacks->handle()
+#39 /media/luca/DISCO/APPLICAZIONI/PHP/nuovoAlberoGenealogoco/vendor/laravel/framework/src/Illuminate/Http/Middleware/ValidatePathEncoding.php(26): Illuminate\\Pipeline\\Pipeline->Illuminate\\Pipeline\\{closure}()
+#40 /media/luca/DISCO/APPLICAZIONI/PHP/nuovoAlberoGenealogoco/vendor/laravel/framework/src/Illuminate/Pipeline/Pipeline.php(219): Illuminate\\Http\\Middleware\\ValidatePathEncoding->handle()
+#41 /media/luca/DISCO/APPLICAZIONI/PHP/nuovoAlberoGenealogoco/vendor/laravel/framework/src/Illuminate/Pipeline/Pipeline.php(137): Illuminate\\Pipeline\\Pipeline->Illuminate\\Pipeline\\{closure}()
+#42 /media/luca/DISCO/APPLICAZIONI/PHP/nuovoAlberoGenealogoco/vendor/laravel/framework/src/Illuminate/Foundation/Http/Kernel.php(175): Illuminate\\Pipeline\\Pipeline->then()
+#43 /media/luca/DISCO/APPLICAZIONI/PHP/nuovoAlberoGenealogoco/vendor/laravel/framework/src/Illuminate/Foundation/Http/Kernel.php(144): Illuminate\\Foundation\\Http\\Kernel->sendRequestThroughRouter()
+#44 /media/luca/DISCO/APPLICAZIONI/PHP/nuovoAlberoGenealogoco/public/index.php(17): Illuminate\\Foundation\\Http\\Kernel->handle()
+#45 /media/luca/DISCO/APPLICAZIONI/PHP/nuovoAlberoGenealogoco/vendor/laravel/framework/src/Illuminate/Foundation/resources/server.php(23): require_once('...')
+#46 {main}","file":"/media/luca/DISCO/APPLICAZIONI/PHP/nuovoAlberoGenealogoco/app/Services/SyncService.php","line":251} 
+[2025-12-24 18:24:23] local.WARNING: Media file missing during sync {"media_id":25,"percorso":"media/persona_22/img_1766595533571.jpg","persona_id":22,"message":"Il file immagine non esiste nel filesystem. Deve essere caricato separatamente tramite endpoint API."} 
+[2025-12-24 18:28:10] local.WARNING: Media file missing during sync {"media_id":26,"percorso":"media/persona_22/img_1766595533571.jpg","persona_id":22,"message":"Il file immagine non esiste nel filesystem. Deve essere caricato separatamente tramite endpoint API."} 
+[2025-12-24 18:31:15] local.ERROR: Sync merge failed {"error":"Undefined variable $mediaFiles","trace":"#0 /media/luca/DISCO/APPLICAZIONI/PHP/nuovoAlberoGenealogoco/vendor/laravel/framework/src/Illuminate/Foundation/Bootstrap/HandleExceptions.php(258): Illuminate\\Foundation\\Bootstrap\\HandleExceptions->handleError()
+#1 /media/luca/DISCO/APPLICAZIONI/PHP/nuovoAlberoGenealogoco/app/Services/SyncService.php(218): Illuminate\\Foundation\\Bootstrap\\HandleExceptions->Illuminate\\Foundation\\Bootstrap\\{closure}()
+#2 /media/luca/DISCO/APPLICAZIONI/PHP/nuovoAlberoGenealogoco/vendor/laravel/framework/src/Illuminate/Database/Concerns/ManagesTransactions.php(35): App\\Services\\SyncService->App\\Services\\{closure}()
+#3 /media/luca/DISCO/APPLICAZIONI/PHP/nuovoAlberoGenealogoco/vendor/laravel/framework/src/Illuminate/Database/DatabaseManager.php(491): Illuminate\\Database\\Connection->transaction()
+#4 /media/luca/DISCO/APPLICAZIONI/PHP/nuovoAlberoGenealogoco/vendor/laravel/framework/src/Illuminate/Support/Facades/Facade.php(363): Illuminate\\Database\\DatabaseManager->__call()
+#5 /media/luca/DISCO/APPLICAZIONI/PHP/nuovoAlberoGenealogoco/app/Services/SyncService.php(191): Illuminate\\Support\\Facades\\Facade::__callStatic()
+#6 /media/luca/DISCO/APPLICAZIONI/PHP/nuovoAlberoGenealogoco/app/Http/Controllers/API/SyncController.php(161): App\\Services\\SyncService->merge()
+#7 /media/luca/DISCO/APPLICAZIONI/PHP/nuovoAlberoGenealogoco/vendor/laravel/framework/src/Illuminate/Routing/Controller.php(54): App\\Http\\Controllers\\API\\SyncController->merge()
+#8 /media/luca/DISCO/APPLICAZIONI/PHP/nuovoAlberoGenealogoco/vendor/laravel/framework/src/Illuminate/Routing/ControllerDispatcher.php(43): Illuminate\\Routing\\Controller->callAction()
+#9 /media/luca/DISCO/APPLICAZIONI/PHP/nuovoAlberoGenealogoco/vendor/laravel/framework/src/Illuminate/Routing/Route.php(265): Illuminate\\Routing\\ControllerDispatcher->dispatch()
+#10 /media/luca/DISCO/APPLICAZIONI/PHP/nuovoAlberoGenealogoco/vendor/laravel/framework/src/Illuminate/Routing/Route.php(211): Illuminate\\Routing\\Route->runController()
+#11 /media/luca/DISCO/APPLICAZIONI/PHP/nuovoAlberoGenealogoco/vendor/laravel/framework/src/Illuminate/Routing/Router.php(822): Illuminate\\Routing\\Route->run()
+#12 /media/luca/DISCO/APPLICAZIONI/PHP/nuovoAlberoGenealogoco/vendor/laravel/framework/src/Illuminate/Pipeline/Pipeline.php(180): Illuminate\\Routing\\Router->Illuminate\\Routing\\{closure}()
+#13 /media/luca/DISCO/APPLICAZIONI/PHP/nuovoAlberoGenealogoco/vendor/laravel/framework/src/Illuminate/Routing/Middleware/SubstituteBindings.php(50): Illuminate\\Pipeline\\Pipeline->Illuminate\\Pipeline\\{closure}()
+#14 /media/luca/DISCO/APPLICAZIONI/PHP/nuovoAlberoGenealogoco/vendor/laravel/framework/src/Illuminate/Pipeline/Pipeline.php(219): Illuminate\\Routing\\Middleware\\SubstituteBindings->handle()
+#15 /media/luca/DISCO/APPLICAZIONI/PHP/nuovoAlberoGenealogoco/vendor/laravel/sanctum/src/Http/Middleware/EnsureFrontendRequestsAreStateful.php(26): Illuminate\\Pipeline\\Pipeline->Illuminate\\Pipeline\\{closure}()
+#16 /media/luca/DISCO/APPLICAZIONI/PHP/nuovoAlberoGenealogoco/vendor/laravel/framework/src/Illuminate/Pipeline/Pipeline.php(180): Laravel\\Sanctum\\Http\\Middleware\\EnsureFrontendRequestsAreStateful->Laravel\\Sanctum\\Http\\Middleware\\{closure}()
+#17 /media/luca/DISCO/APPLICAZIONI/PHP/nuovoAlberoGenealogoco/vendor/laravel/framework/src/Illuminate/Pipeline/Pipeline.php(137): Illuminate\\Pipeline\\Pipeline->Illuminate\\Pipeline\\{closure}()
+#18 /media/luca/DISCO/APPLICAZIONI/PHP/nuovoAlberoGenealogoco/vendor/laravel/sanctum/src/Http/Middleware/EnsureFrontendRequestsAreStateful.php(25): Illuminate\\Pipeline\\Pipeline->then()
+#19 /media/luca/DISCO/APPLICAZIONI/PHP/nuovoAlberoGenealogoco/vendor/laravel/framework/src/Illuminate/Pipeline/Pipeline.php(219): Laravel\\Sanctum\\Http\\Middleware\\EnsureFrontendRequestsAreStateful->handle()
+#20 /media/luca/DISCO/APPLICAZIONI/PHP/nuovoAlberoGenealogoco/vendor/laravel/framework/src/Illuminate/Pipeline/Pipeline.php(137): Illuminate\\Pipeline\\Pipeline->Illuminate\\Pipeline\\{closure}()
+#21 /media/luca/DISCO/APPLICAZIONI/PHP/nuovoAlberoGenealogoco/vendor/laravel/framework/src/Illuminate/Routing/Router.php(821): Illuminate\\Pipeline\\Pipeline->then()
+#22 /media/luca/DISCO/APPLICAZIONI/PHP/nuovoAlberoGenealogoco/vendor/laravel/framework/src/Illuminate/Routing/Router.php(800): Illuminate\\Routing\\Router->runRouteWithinStack()
+#23 /media/luca/DISCO/APPLICAZIONI/PHP/nuovoAlberoGenealogoco/vendor/laravel/framework/src/Illuminate/Routing/Router.php(764): Illuminate\\Routing\\Router->runRoute()
+#24 /media/luca/DISCO/APPLICAZIONI/PHP/nuovoAlberoGenealogoco/vendor/laravel/framework/src/Illuminate/Routing/Router.php(753): Illuminate\\Routing\\Router->dispatchToRoute()
+#25 /media/luca/DISCO/APPLICAZIONI/PHP/nuovoAlberoGenealogoco/vendor/laravel/framework/src/Illuminate/Foundation/Http/Kernel.php(200): Illuminate\\Routing\\Router->dispatch()
+#26 /media/luca/DISCO/APPLICAZIONI/PHP/nuovoAlberoGenealogoco/vendor/laravel/framework/src/Illuminate/Pipeline/Pipeline.php(180): Illuminate\\Foundation\\Http\\Kernel->Illuminate\\Foundation\\Http\\{closure}()
+#27 /media/luca/DISCO/APPLICAZIONI/PHP/nuovoAlberoGenealogoco/vendor/laravel/framework/src/Illuminate/Foundation/Http/Middleware/TransformsRequest.php(21): Illuminate\\Pipeline\\Pipeline->Illuminate\\Pipeline\\{closure}()
+#28 /media/luca/DISCO/APPLICAZIONI/PHP/nuovoAlberoGenealogoco/vendor/laravel/framework/src/Illuminate/Foundation/Http/Middleware/ConvertEmptyStringsToNull.php(31): Illuminate\\Foundation\\Http\\Middleware\\TransformsRequest->handle()
+#29 /media/luca/DISCO/APPLICAZIONI/PHP/nuovoAlberoGenealogoco/vendor/laravel/framework/src/Illuminate/Pipeline/Pipeline.php(219): Illuminate\\Foundation\\Http\\Middleware\\ConvertEmptyStringsToNull->handle()
+#30 /media/luca/DISCO/APPLICAZIONI/PHP/nuovoAlberoGenealogoco/vendor/laravel/framework/src/Illuminate/Foundation/Http/Middleware/TransformsRequest.php(21): Illuminate\\Pipeline\\Pipeline->Illuminate\\Pipeline\\{closure}()
+#31 /media/luca/DISCO/APPLICAZIONI/PHP/nuovoAlberoGenealogoco/vendor/laravel/framework/src/Illuminate/Foundation/Http/Middleware/TrimStrings.php(51): Illuminate\\Foundation\\Http\\Middleware\\TransformsRequest->handle()
+#32 /media/luca/DISCO/APPLICAZIONI/PHP/nuovoAlberoGenealogoco/vendor/laravel/framework/src/Illuminate/Pipeline/Pipeline.php(219): Illuminate\\Foundation\\Http\\Middleware\\TrimStrings->handle()
+#33 /media/luca/DISCO/APPLICAZIONI/PHP/nuovoAlberoGenealogoco/vendor/laravel/framework/src/Illuminate/Http/Middleware/ValidatePostSize.php(27): Illuminate\\Pipeline\\Pipeline->Illuminate\\Pipeline\\{closure}()
+#34 /media/luca/DISCO/APPLICAZIONI/PHP/nuovoAlberoGenealogoco/vendor/laravel/framework/src/Illuminate/Pipeline/Pipeline.php(219): Illuminate\\Http\\Middleware\\ValidatePostSize->handle()
+#35 /media/luca/DISCO/APPLICAZIONI/PHP/nuovoAlberoGenealogoco/vendor/laravel/framework/src/Illuminate/Foundation/Http/Middleware/PreventRequestsDuringMaintenance.php(109): Illuminate\\Pipeline\\Pipeline->Illuminate\\Pipeline\\{closure}()
+#36 /media/luca/DISCO/APPLICAZIONI/PHP/nuovoAlberoGenealogoco/vendor/laravel/framework/src/Illuminate/Pipeline/Pipeline.php(219): Illuminate\\Foundation\\Http\\Middleware\\PreventRequestsDuringMaintenance->handle()
+#37 /media/luca/DISCO/APPLICAZIONI/PHP/nuovoAlberoGenealogoco/vendor/laravel/framework/src/Illuminate/Http/Middleware/HandleCors.php(61): Illuminate\\Pipeline\\Pipeline->Illuminate\\Pipeline\\{closure}()
+#38 /media/luca/DISCO/APPLICAZIONI/PHP/nuovoAlberoGenealogoco/vendor/laravel/framework/src/Illuminate/Pipeline/Pipeline.php(219): Illuminate\\Http\\Middleware\\HandleCors->handle()
+#39 /media/luca/DISCO/APPLICAZIONI/PHP/nuovoAlberoGenealogoco/vendor/laravel/framework/src/Illuminate/Http/Middleware/TrustProxies.php(58): Illuminate\\Pipeline\\Pipeline->Illuminate\\Pipeline\\{closure}()
+#40 /media/luca/DISCO/APPLICAZIONI/PHP/nuovoAlberoGenealogoco/vendor/laravel/framework/src/Illuminate/Pipeline/Pipeline.php(219): Illuminate\\Http\\Middleware\\TrustProxies->handle()
+#41 /media/luca/DISCO/APPLICAZIONI/PHP/nuovoAlberoGenealogoco/vendor/laravel/framework/src/Illuminate/Foundation/Http/Middleware/InvokeDeferredCallbacks.php(22): Illuminate\\Pipeline\\Pipeline->Illuminate\\Pipeline\\{closure}()
+#42 /media/luca/DISCO/APPLICAZIONI/PHP/nuovoAlberoGenealogoco/vendor/laravel/framework/src/Illuminate/Pipeline/Pipeline.php(219): Illuminate\\Foundation\\Http\\Middleware\\InvokeDeferredCallbacks->handle()
+#43 /media/luca/DISCO/APPLICAZIONI/PHP/nuovoAlberoGenealogoco/vendor/laravel/framework/src/Illuminate/Http/Middleware/ValidatePathEncoding.php(26): Illuminate\\Pipeline\\Pipeline->Illuminate\\Pipeline\\{closure}()
+#44 /media/luca/DISCO/APPLICAZIONI/PHP/nuovoAlberoGenealogoco/vendor/laravel/framework/src/Illuminate/Pipeline/Pipeline.php(219): Illuminate\\Http\\Middleware\\ValidatePathEncoding->handle()
+#45 /media/luca/DISCO/APPLICAZIONI/PHP/nuovoAlberoGenealogoco/vendor/laravel/framework/src/Illuminate/Pipeline/Pipeline.php(137): Illuminate\\Pipeline\\Pipeline->Illuminate\\Pipeline\\{closure}()
+#46 /media/luca/DISCO/APPLICAZIONI/PHP/nuovoAlberoGenealogoco/vendor/laravel/framework/src/Illuminate/Foundation/Http/Kernel.php(175): Illuminate\\Pipeline\\Pipeline->then()
+#47 /media/luca/DISCO/APPLICAZIONI/PHP/nuovoAlberoGenealogoco/vendor/laravel/framework/src/Illuminate/Foundation/Http/Kernel.php(144): Illuminate\\Foundation\\Http\\Kernel->sendRequestThroughRouter()
+#48 /media/luca/DISCO/APPLICAZIONI/PHP/nuovoAlberoGenealogoco/public/index.php(17): Illuminate\\Foundation\\Http\\Kernel->handle()
+#49 /media/luca/DISCO/APPLICAZIONI/PHP/nuovoAlberoGenealogoco/vendor/laravel/framework/src/Illuminate/Foundation/resources/server.php(23): require_once('...')
+#50 {main}","file":"/media/luca/DISCO/APPLICAZIONI/PHP/nuovoAlberoGenealogoco/app/Services/SyncService.php","line":218} 
+[2025-12-24 18:33:54] local.WARNING: Media file missing during sync {"media_id":27,"percorso":"media/persona_22/img_1766595533571.jpg","persona_id":22,"message":"Il file immagine non esiste nel filesystem e non è stato fornito durante la sincronizzazione."} 
+[2025-12-24 18:38:41] local.WARNING: Media file missing during sync {"media_id":28,"percorso":"media/persona_22/img_1766595533571.jpg","persona_id":22,"message":"Il file immagine non esiste nel filesystem e non è stato fornito durante la sincronizzazione."} 
+[2025-12-24 18:40:15] local.WARNING: Media file missing during sync {"media_id":29,"percorso":"media/persona_22/img_1766595533571.jpg","persona_id":22,"message":"Il file immagine non esiste nel filesystem e non è stato fornito durante la sincronizzazione."} 
+[2025-12-24 18:41:47] local.ERROR: Command "tinker" is not defined. {"exception":"[object] (Symfony\\Component\\Console\\Exception\\CommandNotFoundException(code: 0): Command \"tinker\" is not defined. at /media/luca/DISCO/APPLICAZIONI/PHP/nuovoAlberoGenealogoco/vendor/symfony/console/Application.php:759)
+[stacktrace]
+#0 /media/luca/DISCO/APPLICAZIONI/PHP/nuovoAlberoGenealogoco/vendor/symfony/console/Application.php(298): Symfony\\Component\\Console\\Application->find()
+#1 /media/luca/DISCO/APPLICAZIONI/PHP/nuovoAlberoGenealogoco/vendor/symfony/console/Application.php(195): Symfony\\Component\\Console\\Application->doRun()
+#2 /media/luca/DISCO/APPLICAZIONI/PHP/nuovoAlberoGenealogoco/vendor/laravel/framework/src/Illuminate/Foundation/Console/Kernel.php(197): Symfony\\Component\\Console\\Application->run()
+#3 /media/luca/DISCO/APPLICAZIONI/PHP/nuovoAlberoGenealogoco/artisan(12): Illuminate\\Foundation\\Console\\Kernel->handle()
+#4 {main}
+"} 
+[2025-12-24 18:42:56] local.WARNING: Media file missing during sync {"media_id":30,"percorso":"media/persona_22/img_1766595533571.jpg","persona_id":22,"message":"Il file immagine non esiste nel filesystem e non è stato fornito durante la sincronizzazione."} 
+[2025-12-24 18:44:23] local.WARNING: Media file missing during sync {"media_id":31,"percorso":"media/persona_22/img_1766595533571.jpg","persona_id":22,"message":"Il file immagine non esiste nel filesystem e non è stato fornito durante la sincronizzazione."} 
+[2025-12-24 18:46:49] local.WARNING: Media file missing during sync {"media_id":32,"percorso":"media/persona_22/img_1766595533571.jpg","persona_id":22,"message":"Il file immagine non esiste nel filesystem e non è stato fornito durante la sincronizzazione."} 
+[2025-12-24 18:46:55] local.WARNING: Media file missing during sync {"media_id":33,"percorso":"media/persona_22/img_1766595533571.jpg","persona_id":22,"message":"Il file immagine non esiste nel filesystem e non è stato fornito durante la sincronizzazione."} 
+[2025-12-24 18:47:24] local.WARNING: Media file missing during sync {"media_id":34,"percorso":"media/persona_22/img_1766595533571.jpg","persona_id":22,"message":"Il file immagine non esiste nel filesystem e non è stato fornito durante la sincronizzazione."} 

@@ -15,7 +15,10 @@ class Tag extends Model
         'nome',
         'colore',
         'descrizione',
+        'last_synced_at',
     ];
+
+    // last_synced_at non ha cast per evitare problemi con SQLite
 
     public function persone(): BelongsToMany
     {

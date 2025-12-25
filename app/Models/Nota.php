@@ -15,7 +15,10 @@ class Nota extends Model
         'persona_id',
         'user_id',
         'contenuto',
+        'last_synced_at',
     ];
+
+    // last_synced_at non ha cast per evitare problemi con SQLite
 
     public function persona(): BelongsTo
     {

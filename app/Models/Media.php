@@ -20,11 +20,13 @@ class Media extends Model
         'mime_type',
         'descrizione',
         'data_caricamento',
+        'last_synced_at',
     ];
 
     protected $casts = [
         'data_caricamento' => 'datetime',
         'dimensione' => 'integer',
+        // last_synced_at non ha cast per evitare problemi con SQLite
     ];
 
     public function persona(): BelongsTo

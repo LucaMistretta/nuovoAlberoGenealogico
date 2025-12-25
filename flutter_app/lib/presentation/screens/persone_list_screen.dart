@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/foundation.dart';
 import 'package:provider/provider.dart';
+import 'dart:async';
 import '../providers/persone_provider.dart';
 import '../widgets/persona_card.dart';
 import 'login_screen.dart';
@@ -8,6 +9,8 @@ import 'persona_detail_screen.dart';
 import '../providers/auth_provider.dart';
 import '../../core/utils/image_initializer.dart';
 import '../../core/utils/setup_images.dart';
+import 'sync_screen.dart';
+import '../../services/connection_service.dart';
 
 /// Schermata principale con la lista delle persone
 class PersoneListScreen extends StatefulWidget {
@@ -19,6 +22,10 @@ class PersoneListScreen extends StatefulWidget {
 
 class _PersoneListScreenState extends State<PersoneListScreen> {
   final _searchController = TextEditingController();
+  final _connectionService = ConnectionService();
+  bool _isConnected = false;
+  bool _isCheckingConnection = false;
+  Timer? _connectionTimer;
 
   @override
   void initState() {
@@ -26,7 +33,45 @@ class _PersoneListScreenState extends State<PersoneListScreen> {
     // Carica le persone quando la schermata viene inizializzata
     WidgetsBinding.instance.addPostFrameCallback((_) {
       _initializeApp();
+      _checkConnection();
+      // Controlla la connessione ogni 30 secondi
+      _connectionTimer = Timer.periodic(const Duration(seconds: 30), (_) {
+        _checkConnection();
+      });
     });
+  }
+
+  @override
+  void dispose() {
+    _connectionTimer?.cancel();
+    _searchController.dispose();
+    super.dispose();
+  }
+
+  /// Verifica la connessione al server
+  Future<void> _checkConnection() async {
+    if (_isCheckingConnection) return;
+    
+    setState(() {
+      _isCheckingConnection = true;
+    });
+
+    try {
+      final isConnected = await _connectionService.pingServer();
+      if (mounted) {
+        setState(() {
+          _isConnected = isConnected;
+          _isCheckingConnection = false;
+        });
+      }
+    } catch (e) {
+      if (mounted) {
+        setState(() {
+          _isConnected = false;
+          _isCheckingConnection = false;
+        });
+      }
+    }
   }
 
   /// Inizializza l'app e sincronizza le immagini
@@ -49,12 +94,6 @@ class _PersoneListScreenState extends State<PersoneListScreen> {
         debugPrint('Immagini inizializzate dagli assets: $count file copiati');
       }
     });
-  }
-
-  @override
-  void dispose() {
-    _searchController.dispose();
-    super.dispose();
   }
 
   /// Gestisce il logout
@@ -99,6 +138,36 @@ class _PersoneListScreenState extends State<PersoneListScreen> {
       appBar: AppBar(
         title: const Text('Persone'),
         actions: [
+          // Icona stato connessione server
+          IconButton(
+            icon: _isCheckingConnection
+                ? const SizedBox(
+                    width: 20,
+                    height: 20,
+                    child: CircularProgressIndicator(
+                      strokeWidth: 2,
+                      valueColor: AlwaysStoppedAnimation<Color>(Colors.white),
+                    ),
+                  )
+                : Icon(
+                    _isConnected ? Icons.cloud_done : Icons.cloud_off,
+                    color: _isConnected ? Colors.green : Colors.red,
+                  ),
+            onPressed: _checkConnection,
+            tooltip: _isConnected
+                ? 'Collegato al server'
+                : 'Non collegato al server',
+          ),
+          IconButton(
+            icon: const Icon(Icons.sync),
+            onPressed: () {
+              Navigator.push(
+                context,
+                MaterialPageRoute(builder: (_) => const SyncScreen()),
+              );
+            },
+            tooltip: 'Sincronizza',
+          ),
           IconButton(
             icon: const Icon(Icons.logout),
             onPressed: _showLogoutDialog,

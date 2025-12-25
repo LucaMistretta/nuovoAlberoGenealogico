@@ -20,11 +20,13 @@ class PersonaLegame extends Model
         'tipo_evento_legame_id',
         'data_separazione',
         'luogo_separazione',
+        'last_synced_at',
     ];
 
     protected $casts = [
         'data_legame' => 'date',
         'data_separazione' => 'date',
+        // last_synced_at non ha cast per evitare problemi con SQLite
     ];
 
     public function persona(): BelongsTo

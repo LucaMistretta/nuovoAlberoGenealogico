@@ -107,6 +107,7 @@ const t = (key) => localeStore.t(key);
 const mapContainer = ref(null);
 let map = null;
 let markers = [];
+let markerMap = new Map(); // Mappa per associare nome luogo -> marker
 let resizeHandler = null;
 const loading = ref(false);
 const processedCount = ref(0);
@@ -197,6 +198,7 @@ const updateMarkers = async () => {
     // Rimuovi marker esistenti
     markers.forEach(marker => map.removeLayer(marker));
     markers = [];
+    markerMap.clear(); // Pulisci anche la mappa dei marker
 
     if (!props.luoghi || props.luoghi.length === 0) {
         loading.value = false;
@@ -285,6 +287,9 @@ const updateMarkers = async () => {
                         .addTo(map)
                         .bindPopup(popupContent);
                     markers.push(marker);
+                    // Salva il marker nella mappa usando il nome del luogo come chiave
+                    const luogoKey = (luogo.nome || luogo.luogo).toLowerCase().trim();
+                    markerMap.set(luogoKey, marker);
                     bounds.push([lat, lng]);
                     
                     return { success: true, lat, lng };
@@ -491,5 +496,27 @@ watch(() => props.luoghi, () => {
         updateMarkers();
     }
 }, { deep: true, immediate: false });
+
+// Metodo per aprire il popup di un luogo specifico
+const openPopupForLuogo = (nomeLuogo) => {
+    if (!map || !nomeLuogo) return;
+    
+    const luogoKey = nomeLuogo.toLowerCase().trim();
+    const marker = markerMap.get(luogoKey);
+    
+    if (marker) {
+        // Apri il popup
+        marker.openPopup();
+        // Centra la mappa sul marker con un po' di zoom
+        map.setView(marker.getLatLng(), Math.max(map.getZoom(), 12));
+    } else {
+        console.warn(`Marker non trovato per il luogo: ${nomeLuogo}`);
+    }
+};
+
+// Esponi il metodo per uso esterno
+defineExpose({
+    openPopupForLuogo
+});
 </script>
 

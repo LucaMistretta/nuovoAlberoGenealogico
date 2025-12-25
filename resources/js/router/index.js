@@ -88,6 +88,11 @@ const routes = [
                 name: 'tipi-legame.edit',
                 component: () => import('../views/tipi-legame/Edit.vue'),
             },
+            {
+                path: '/sync',
+                name: 'sync.index',
+                component: () => import('../views/sync/Sync.vue'),
+            },
         ],
     },
 ];

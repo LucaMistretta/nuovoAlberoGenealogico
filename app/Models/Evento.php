@@ -19,10 +19,12 @@ class Evento extends Model
         'data_evento',
         'luogo',
         'note',
+        'last_synced_at',
     ];
 
     protected $casts = [
         'data_evento' => 'date',
+        // last_synced_at non ha cast per evitare problemi con SQLite
     ];
 
     public function persona(): BelongsTo

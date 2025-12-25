@@ -107,5 +107,18 @@ Route::middleware('auth:sanctum')->group(function () {
 
     // Route tipi_evento_legame
     Route::get('/tipi-evento-legame', [TipoEventoLegameController::class, 'index']);
+
+});
+
+// Route sincronizzazione (pubbliche per permettere sincronizzazione senza autenticazione)
+Route::prefix('sync')->group(function () {
+    Route::post('/diff', [\App\Http\Controllers\API\SyncController::class, 'diff']);
+    Route::post('/push-from-app', [\App\Http\Controllers\API\SyncController::class, 'pushFromApp']);
+    Route::post('/pull-to-app', [\App\Http\Controllers\API\SyncController::class, 'pullToApp']);
+    Route::post('/merge', [\App\Http\Controllers\API\SyncController::class, 'merge']);
+    Route::get('/status', [\App\Http\Controllers\API\SyncController::class, 'status']);
+    Route::post('/resolve-conflict', [\App\Http\Controllers\API\SyncController::class, 'resolveConflict']);
+    Route::post('/upload-media', [\App\Http\Controllers\API\SyncController::class, 'uploadMedia']);
+    Route::get('/download-media/{mediaId}', [\App\Http\Controllers\API\SyncController::class, 'downloadMedia']);
 });
 

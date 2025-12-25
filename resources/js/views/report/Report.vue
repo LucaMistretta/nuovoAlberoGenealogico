@@ -98,31 +98,35 @@
                         </div>
                     </div>
 
-                    <!-- Luoghi di Nascita - Lista -->
-                    <div class="bg-white dark:bg-gray-800 rounded-lg shadow-sm border border-gray-200 dark:border-gray-700 p-6">
-                        <h3 class="text-lg font-semibold text-gray-900 dark:text-white mb-4">{{ t('report.birth_places') }}</h3>
-                        <div class="space-y-2 max-h-64 overflow-y-auto">
-                            <div
-                                v-for="luogo in luoghiNascita"
-                                :key="luogo.nato_a"
-                                class="flex items-center justify-between p-2 bg-gray-50 dark:bg-gray-700/50 rounded"
-                            >
-                                <span class="text-sm text-gray-900 dark:text-white">{{ luogo.nato_a }}</span>
-                                <span class="text-sm font-semibold text-blue-600 dark:text-blue-400">{{ luogo.totale }}</span>
-                            </div>
-                            <p v-if="luoghiNascita.length === 0" class="text-sm text-gray-500 dark:text-gray-400 text-center py-4">
-                                {{ t('report.no_birth_places') }}
-                            </p>
-                        </div>
-                    </div>
                 </div>
 
-                <!-- Mappa Luoghi di Nascita -->
+                <!-- Mappa e Lista Luoghi di Nascita -->
                 <div v-if="luoghiNascita.length > 0" class="bg-white dark:bg-gray-800 rounded-lg shadow-sm border border-gray-200 dark:border-gray-700 p-6">
                     <h3 class="text-lg font-semibold text-gray-900 dark:text-white mb-4">{{ t('report.birth_places_map') }}</h3>
-                    <div class="w-full aspect-square max-w-4xl mx-auto">
-                        <div class="h-full w-full">
-                            <MapView :luoghi="mapLuoghiNascita" :no-wrapper="true" />
+                    <div class="flex flex-col lg:flex-row gap-6">
+                        <!-- Mappa a sinistra -->
+                        <div class="flex-1 lg:w-4/5">
+                            <div class="w-full" style="height: 650px;">
+                                <MapView ref="mapViewRef" :luoghi="mapLuoghiNascita" :no-wrapper="true" />
+                            </div>
+                        </div>
+                        <!-- Lista città a destra -->
+                        <div class="lg:w-1/5">
+                            <h4 class="text-md font-semibold text-gray-900 dark:text-white mb-3">{{ t('report.birth_places') }}</h4>
+                            <div class="space-y-2 max-h-[650px] overflow-y-auto">
+                                <div
+                                    v-for="luogo in luoghiNascita"
+                                    :key="luogo.nato_a"
+                                    @click="openMarkerPopup(luogo.nato_a)"
+                                    class="flex items-center justify-between p-2 bg-gray-50 dark:bg-gray-700/50 rounded cursor-pointer hover:bg-gray-100 dark:hover:bg-gray-700 transition-colors"
+                                >
+                                    <span class="text-sm text-gray-900 dark:text-white">{{ luogo.nato_a }}</span>
+                                    <span class="text-sm font-semibold text-blue-600 dark:text-blue-400">{{ luogo.totale }}</span>
+                                </div>
+                                <p v-if="luoghiNascita.length === 0" class="text-sm text-gray-500 dark:text-gray-400 text-center py-4">
+                                    {{ t('report.no_birth_places') }}
+                                </p>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -145,6 +149,14 @@ const loading = ref(false);
 const statistiche = ref({});
 const distribuzioneEta = ref(null);
 const luoghiNascita = ref([]);
+const mapViewRef = ref(null);
+
+// Funzione per aprire il popup del marker quando si clicca su una città nella lista
+const openMarkerPopup = (nomeLuogo) => {
+    if (mapViewRef.value && mapViewRef.value.openPopupForLuogo) {
+        mapViewRef.value.openPopupForLuogo(nomeLuogo);
+    }
+};
 
 // Trasforma i luoghi di nascita nel formato atteso da MapView
 const mapLuoghiNascita = computed(() => {

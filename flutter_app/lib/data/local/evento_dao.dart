@@ -43,5 +43,11 @@ class EventoDao {
     );
     return results.isNotEmpty ? results.first : null;
   }
+
+  /// Ottiene tutti gli eventi
+  Future<List<Map<String, dynamic>>> getAllEventi() async {
+    final db = await _dbHelper.database;
+    return await db.query(_tableName, orderBy: 'data_evento DESC');
+  }
 }
 

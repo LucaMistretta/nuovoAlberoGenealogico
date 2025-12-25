@@ -29,11 +29,14 @@ class Persona extends Model
         'nato_il',
         'deceduto_a',
         'deceduto_il',
+        'last_synced_at',
     ];
 
     protected $casts = [
         'nato_il' => 'date',
         'deceduto_il' => 'date',
+        // last_synced_at non ha cast per evitare problemi con SQLite
+        // Viene gestito come stringa nel formato 'Y-m-d H:i:s'
     ];
 
     /**

@@ -520,7 +520,8 @@ const hasMapData = computed(() => {
     const hasNascita = store.persona?.nato_a && store.persona.nato_a !== '0' && store.persona.nato_a !== '';
     const hasMorte = store.persona?.deceduto_a && store.persona.deceduto_a !== '0' && store.persona.deceduto_a !== '';
     const hasEventiLuoghi = eventi.value.some(e => e.luogo && e.luogo !== '0' && e.luogo !== '');
-    return hasNascita || hasMorte || hasEventiLuoghi;
+    const hasMatrimonio = store.persona?.consorti?.some(c => c.luogo_legame && c.luogo_legame !== '0' && c.luogo_legame !== '');
+    return hasNascita || hasMorte || hasMatrimonio || hasEventiLuoghi;
 });
 
 const mapLuoghi = computed(() => {
@@ -544,6 +545,22 @@ const mapLuoghi = computed(() => {
             luogo: store.persona.deceduto_a,
             tipo: 'morte',
             data: store.persona.deceduto_il
+        });
+    }
+    
+    // Aggiungi luoghi dei matrimoni (consorti)
+    if (store.persona?.consorti && store.persona.consorti.length > 0) {
+        store.persona.consorti.forEach(consorte => {
+            if (consorte.luogo_legame && consorte.luogo_legame !== '0' && consorte.luogo_legame !== '') {
+                const consorteNome = consorte.nome_completo || `${consorte.nome} ${consorte.cognome}`;
+                luoghi.push({
+                    nome: nomePersona + ' - ' + t('eventi.marriage') + ' con ' + consorteNome,
+                    luogo: consorte.luogo_legame,
+                    tipo: 'matrimonio',
+                    data: consorte.data_legame,
+                    descrizione: consorte.tipo_evento_legame?.descrizione || consorte.tipo_evento_legame?.nome || ''
+                });
+            }
         });
     }
     
