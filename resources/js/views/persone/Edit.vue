@@ -647,7 +647,7 @@
                 <!-- Card Media Gallery -->
                 <MediaGallery :persona-id="parseInt($route.params.id)" />
 
-                <!-- Timeline e Mappa sulla stessa riga -->
+                <!-- Timeline e Mappa sulla stessa riga - Spostata dopo le foto -->
                 <div class="grid grid-cols-1 lg:grid-cols-6 gap-4 items-stretch" style="min-height: 680px;">
                     <!-- Timeline: 2/6 dello spazio -->
                     <div class="lg:col-span-2 flex w-full">
@@ -655,7 +655,7 @@
                     </div>
                     <!-- Mappa: 4/6 dello spazio -->
                     <div class="lg:col-span-4 flex w-full">
-                        <MapView v-if="hasMapData" :luoghi="mapLuoghi" class="w-full" />
+                        <MapView v-if="hasMapData" :luoghi="mapLuoghi" class="w-full" style="z-index: 1;" />
                     </div>
                 </div>
 

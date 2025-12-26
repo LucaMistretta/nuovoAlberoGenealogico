@@ -1,1 +1,0 @@
-import{E as t}from"./app-Db2intbC.js";const p={getAll(){return t.get("/tipi-legame")},getById(e){return t.get(`/tipi-legame/${e}`)},create(e){return t.post("/tipi-legame",e)},update(e,r){return t.put(`/tipi-legame/${e}`,r)},delete(e){return t.delete(`/tipi-legame/${e}`)}};export{p as t};

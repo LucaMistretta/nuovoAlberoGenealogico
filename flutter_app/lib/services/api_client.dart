@@ -5,10 +5,9 @@ import 'package:shared_preferences/shared_preferences.dart';
 
 /// Client API per comunicare con il server Laravel
 class ApiClient {
-  // Usa l'IP locale del computer invece del nome host locale
-  // Per trovare il tuo IP: hostname -I (Linux) o ipconfig (Windows)
-  // Assicurati che il telefono sia sulla stessa rete WiFi
-  static const String _baseUrl = 'http://192.168.1.6:8000/api';
+  // Server remoto tramite DDNS (No-IP)
+  // Il dominio casapionepc.hopto.org punta al server tramite NAT forwarding
+  static const String _baseUrl = 'http://casapionepc.hopto.org/api';
   static const String _tokenKey = 'api_token';
 
   /// Ottiene il token di autenticazione salvato
@@ -51,7 +50,7 @@ class ApiClient {
         throw Exception('Errore GET $endpoint: ${response.statusCode} - ${response.body}');
       }
     } on SocketException catch (e) {
-      throw Exception('Errore di connessione: impossibile raggiungere il server $_baseUrl. Verifica che il server sia avviato e che il telefono sia sulla stessa rete WiFi.');
+      throw Exception('Errore di connessione: impossibile raggiungere il server $_baseUrl. Verifica che il server sia avviato e che il NAT forwarding sia configurato correttamente.');
     } on HttpException catch (e) {
       throw Exception('Errore HTTP: $e');
     } catch (e) {
@@ -91,7 +90,7 @@ class ApiClient {
         throw Exception('Errore POST $endpoint: ${response.statusCode} - ${response.body}');
       }
     } on SocketException catch (e) {
-      throw Exception('Errore di connessione: impossibile raggiungere il server $_baseUrl. Verifica che il server sia avviato e che il telefono sia sulla stessa rete WiFi.');
+      throw Exception('Errore di connessione: impossibile raggiungere il server $_baseUrl. Verifica che il server sia avviato e che il NAT forwarding sia configurato correttamente.');
     } on HttpException catch (e) {
       throw Exception('Errore HTTP: $e');
     } catch (e) {
@@ -154,7 +153,7 @@ class ApiClient {
         throw Exception('Errore POST $endpoint: ${response.statusCode} - ${response.body}');
       }
     } on SocketException catch (e) {
-      throw Exception('Errore di connessione: impossibile raggiungere il server $_baseUrl. Verifica che il server sia avviato e che il telefono sia sulla stessa rete WiFi.');
+      throw Exception('Errore di connessione: impossibile raggiungere il server $_baseUrl. Verifica che il server sia avviato e che il NAT forwarding sia configurato correttamente.');
     } on HttpException catch (e) {
       throw Exception('Errore HTTP: $e');
     } catch (e) {

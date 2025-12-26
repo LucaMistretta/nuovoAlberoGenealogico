@@ -3,8 +3,8 @@
     "file": "assets/MapView-CG6DamIu.css",
     "src": "_MapView-!~{00n}~.js"
   },
-  "_MapView-C2-4WZJm.js": {
-    "file": "assets/MapView-C2-4WZJm.js",
+  "_MapView-QUXW0WgO.js": {
+    "file": "assets/MapView-QUXW0WgO.js",
     "name": "MapView",
     "imports": [
       "resources/js/app.js"
@@ -18,15 +18,15 @@
       "assets/marker-icon-hN30_KVU.png"
     ]
   },
-  "_SearchableSelect-_A4h7WCA.js": {
-    "file": "assets/SearchableSelect-_A4h7WCA.js",
+  "_SearchableSelect-VnpfMrqY.js": {
+    "file": "assets/SearchableSelect-VnpfMrqY.js",
     "name": "SearchableSelect",
     "imports": [
       "resources/js/app.js"
     ]
   },
-  "_TagSection-BkGLsz6w.js": {
-    "file": "assets/TagSection-BkGLsz6w.js",
+  "_TagSection-D5SfpQ_K.js": {
+    "file": "assets/TagSection-D5SfpQ_K.js",
     "name": "TagSection",
     "imports": [
       "resources/js/app.js"
@@ -36,31 +36,31 @@
     "file": "assets/_plugin-vue_export-helper-DlAUqK2U.js",
     "name": "_plugin-vue_export-helper"
   },
-  "_personaService-p9cadlBs.js": {
-    "file": "assets/personaService-p9cadlBs.js",
+  "_personaService-Bq_mCYvl.js": {
+    "file": "assets/personaService-Bq_mCYvl.js",
     "name": "personaService",
     "imports": [
       "resources/js/app.js"
     ]
   },
-  "_persone-37GW1075.js": {
-    "file": "assets/persone-37GW1075.js",
+  "_persone-DvchzblH.js": {
+    "file": "assets/persone-DvchzblH.js",
     "name": "persone",
     "imports": [
       "resources/js/app.js",
-      "_personaService-p9cadlBs.js"
+      "_personaService-Bq_mCYvl.js"
     ]
   },
-  "_tipiLegame-4bzLm4Rq.js": {
-    "file": "assets/tipiLegame-4bzLm4Rq.js",
+  "_tipiLegame-lCwJ_e5e.js": {
+    "file": "assets/tipiLegame-lCwJ_e5e.js",
     "name": "tipiLegame",
     "imports": [
       "resources/js/app.js",
-      "_tipoLegameService-CAo23vmP.js"
+      "_tipoLegameService-CzqFoPrl.js"
     ]
   },
-  "_tipoLegameService-CAo23vmP.js": {
-    "file": "assets/tipoLegameService-CAo23vmP.js",
+  "_tipoLegameService-CzqFoPrl.js": {
+    "file": "assets/tipoLegameService-CzqFoPrl.js",
     "name": "tipoLegameService",
     "imports": [
       "resources/js/app.js"
@@ -79,7 +79,7 @@
     "src": "node_modules/leaflet/dist/images/marker-icon.png"
   },
   "resources/js/app.js": {
-    "file": "assets/app-Db2intbC.js",
+    "file": "assets/app-C8pxP4al.js",
     "name": "app",
     "src": "resources/js/app.js",
     "isEntry": true,
@@ -107,7 +107,7 @@
     ]
   },
   "resources/js/components/layouts/AppLayout.vue": {
-    "file": "assets/AppLayout-8SE_nMcU.js",
+    "file": "assets/AppLayout-DWDD5kDp.js",
     "name": "AppLayout",
     "src": "resources/js/components/layouts/AppLayout.vue",
     "isDynamicEntry": true,
@@ -116,7 +116,7 @@
     ]
   },
   "resources/js/views/audit/AuditLogs.vue": {
-    "file": "assets/AuditLogs-BUfqKyk1.js",
+    "file": "assets/AuditLogs-D3ji1iHC.js",
     "name": "AuditLogs",
     "src": "resources/js/views/audit/AuditLogs.vue",
     "isDynamicEntry": true,
@@ -125,7 +125,7 @@
     ]
   },
   "resources/js/views/auth/Login.vue": {
-    "file": "assets/Login-C_OZql0q.js",
+    "file": "assets/Login-B-c0o23A.js",
     "name": "Login",
     "src": "resources/js/views/auth/Login.vue",
     "isDynamicEntry": true,
@@ -134,41 +134,41 @@
     ]
   },
   "resources/js/views/persone/Create.vue": {
-    "file": "assets/Create-BPxy_BlP.js",
+    "file": "assets/Create-CWSbhJLw.js",
     "name": "Create",
     "src": "resources/js/views/persone/Create.vue",
     "isDynamicEntry": true,
     "imports": [
       "resources/js/app.js",
-      "_persone-37GW1075.js",
-      "_personaService-p9cadlBs.js",
-      "_tipoLegameService-CAo23vmP.js",
-      "_SearchableSelect-_A4h7WCA.js"
+      "_persone-DvchzblH.js",
+      "_personaService-Bq_mCYvl.js",
+      "_tipoLegameService-CzqFoPrl.js",
+      "_SearchableSelect-VnpfMrqY.js"
     ]
   },
   "resources/js/views/persone/Edit.vue": {
-    "file": "assets/Edit-DgdOfuzI.js",
+    "file": "assets/Edit-AlnGBQ7I.js",
     "name": "Edit",
     "src": "resources/js/views/persone/Edit.vue",
     "isDynamicEntry": true,
     "imports": [
       "resources/js/app.js",
-      "_persone-37GW1075.js",
-      "_personaService-p9cadlBs.js",
-      "_tipoLegameService-CAo23vmP.js",
-      "_SearchableSelect-_A4h7WCA.js",
-      "_TagSection-BkGLsz6w.js",
-      "_MapView-C2-4WZJm.js"
+      "_persone-DvchzblH.js",
+      "_personaService-Bq_mCYvl.js",
+      "_tipoLegameService-CzqFoPrl.js",
+      "_SearchableSelect-VnpfMrqY.js",
+      "_TagSection-D5SfpQ_K.js",
+      "_MapView-QUXW0WgO.js"
     ]
   },
   "resources/js/views/persone/FamilyChart.vue": {
-    "file": "assets/FamilyChart-D25NGqJ8.js",
+    "file": "assets/FamilyChart-m990cufJ.js",
     "name": "FamilyChart",
     "src": "resources/js/views/persone/FamilyChart.vue",
     "isDynamicEntry": true,
     "imports": [
       "resources/js/app.js",
-      "_personaService-p9cadlBs.js",
+      "_personaService-Bq_mCYvl.js",
       "__plugin-vue_export-helper-DlAUqK2U.js"
     ],
     "css": [
@@ -176,45 +176,45 @@
     ]
   },
   "resources/js/views/persone/Index.vue": {
-    "file": "assets/Index-BSg38my9.js",
+    "file": "assets/Index-U8i58SMk.js",
     "name": "Index",
     "src": "resources/js/views/persone/Index.vue",
     "isDynamicEntry": true,
     "imports": [
       "resources/js/app.js",
-      "_persone-37GW1075.js",
-      "_personaService-p9cadlBs.js"
+      "_persone-DvchzblH.js",
+      "_personaService-Bq_mCYvl.js"
     ]
   },
   "resources/js/views/persone/Show.vue": {
-    "file": "assets/Show-BKQcJSbT.js",
+    "file": "assets/Show-DP-dttzF.js",
     "name": "Show",
     "src": "resources/js/views/persone/Show.vue",
     "isDynamicEntry": true,
     "imports": [
       "resources/js/app.js",
-      "_persone-37GW1075.js",
-      "_personaService-p9cadlBs.js",
-      "_TagSection-BkGLsz6w.js",
-      "_MapView-C2-4WZJm.js",
+      "_persone-DvchzblH.js",
+      "_personaService-Bq_mCYvl.js",
+      "_TagSection-D5SfpQ_K.js",
+      "_MapView-QUXW0WgO.js",
       "__plugin-vue_export-helper-DlAUqK2U.js"
     ],
     "css": [
-      "assets/Show-Ch1mCtHD.css"
+      "assets/Show-DR4UjyPo.css"
     ]
   },
   "resources/js/views/persone/Tree.vue": {
-    "file": "assets/Tree-Bn3hgE6O.js",
+    "file": "assets/Tree-D8N1rjqq.js",
     "name": "Tree",
     "src": "resources/js/views/persone/Tree.vue",
     "isDynamicEntry": true,
     "imports": [
       "resources/js/app.js",
-      "_personaService-p9cadlBs.js"
+      "_personaService-Bq_mCYvl.js"
     ]
   },
   "resources/js/views/quality/DataQuality.vue": {
-    "file": "assets/DataQuality-D0wmlB5K.js",
+    "file": "assets/DataQuality-LdjyXJGR.js",
     "name": "DataQuality",
     "src": "resources/js/views/quality/DataQuality.vue",
     "isDynamicEntry": true,
@@ -223,17 +223,17 @@
     ]
   },
   "resources/js/views/report/Report.vue": {
-    "file": "assets/Report-CRgwduSM.js",
+    "file": "assets/Report-BMkF3f0k.js",
     "name": "Report",
     "src": "resources/js/views/report/Report.vue",
     "isDynamicEntry": true,
     "imports": [
       "resources/js/app.js",
-      "_MapView-C2-4WZJm.js"
+      "_MapView-QUXW0WgO.js"
     ]
   },
   "resources/js/views/sync/Sync.vue": {
-    "file": "assets/Sync-BJmCVFFr.js",
+    "file": "assets/Sync-Djxc8SUT.js",
     "name": "Sync",
     "src": "resources/js/views/sync/Sync.vue",
     "isDynamicEntry": true,
@@ -242,40 +242,40 @@
     ]
   },
   "resources/js/views/tipi-legame/Create.vue": {
-    "file": "assets/Create-GrbXH-Q5.js",
+    "file": "assets/Create-dYKtU1C8.js",
     "name": "Create",
     "src": "resources/js/views/tipi-legame/Create.vue",
     "isDynamicEntry": true,
     "imports": [
       "resources/js/app.js",
-      "_tipiLegame-4bzLm4Rq.js",
-      "_tipoLegameService-CAo23vmP.js"
+      "_tipiLegame-lCwJ_e5e.js",
+      "_tipoLegameService-CzqFoPrl.js"
     ]
   },
   "resources/js/views/tipi-legame/Edit.vue": {
-    "file": "assets/Edit-8-wL-akj.js",
+    "file": "assets/Edit-BmFv-vCg.js",
     "name": "Edit",
     "src": "resources/js/views/tipi-legame/Edit.vue",
     "isDynamicEntry": true,
     "imports": [
       "resources/js/app.js",
-      "_tipiLegame-4bzLm4Rq.js",
-      "_tipoLegameService-CAo23vmP.js"
+      "_tipiLegame-lCwJ_e5e.js",
+      "_tipoLegameService-CzqFoPrl.js"
     ]
   },
   "resources/js/views/tipi-legame/Index.vue": {
-    "file": "assets/Index-BcGjQeOX.js",
+    "file": "assets/Index-CJnGAgfY.js",
     "name": "Index",
     "src": "resources/js/views/tipi-legame/Index.vue",
     "isDynamicEntry": true,
     "imports": [
-      "_tipiLegame-4bzLm4Rq.js",
+      "_tipiLegame-lCwJ_e5e.js",
       "resources/js/app.js",
-      "_tipoLegameService-CAo23vmP.js"
+      "_tipoLegameService-CzqFoPrl.js"
     ]
   },
   "resources/js/views/users/Index.vue": {
-    "file": "assets/Index-DteIMLwc.js",
+    "file": "assets/Index-BfbSB4Ez.js",
     "name": "Index",
     "src": "resources/js/views/users/Index.vue",
     "isDynamicEntry": true,

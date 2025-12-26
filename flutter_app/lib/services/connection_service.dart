@@ -5,7 +5,7 @@ import 'dart:io';
 /// Servizio per verificare la connessione al server
 class ConnectionService {
   static const Duration _timeout = Duration(seconds: 3);
-  static const String _baseUrl = 'http://192.168.1.6:8000';
+  static const String _baseUrl = 'http://casapionepc.hopto.org';
   static const String _statusEndpoint = '/api/sync/status';
 
   /// Verifica la connessione con un ping diretto al server
